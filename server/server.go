@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var events = []string{"empty", "full", "new", "removed"}
+
 func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
 	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
 	jsonData, err := json.Marshal(payload)
@@ -20,7 +22,6 @@ func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
 }
 
 func getRandomEvent() string {
-	events := []string{"empty", "full", "new", "removed"}
 	index := rand.Intn(3)
 	return events[index]
 }
@@ -28,18 +29,19 @@ func getRandomEvent() string {
 // An event will surface anytime between 1 to 10 seconds and is then sent to the client.
 // If time for event to surface > 5 seconds, timeout and return a response with no content.
 
-func RootHandler(w http.ResponseWriter, r *http.Request) {
-	wait := rand.Intn(9) + 1
-	waitChan := time.Tick(time.Duration(wait) * time.Second) // Wait this long to pick an event
-	timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), time.Duration(5) * time.Second)
+func rootHandler(w http.ResponseWriter, r *http.Request) {
+	timeoutDuration := time.Duration(5) * time.Second
+	waitDuration := time.Duration(rand.Intn(9) + 1) * time.Second
+	waitChan := time.Tick(waitDuration) // Wait this long to pick an event
+	timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), timeoutDuration)
 
-	log.Printf("Received request and waiting %d seconds to event to emit", wait)
+	log.Printf("Received request and waiting %.1fs for event to emit", waitDuration.Seconds())
 	select {
 	case <- r.Context().Done():
-		log.Println("request canceled")
+		log.Printf("request canceled")
 		w.WriteHeader(http.StatusNotModified)
 	case <- timeoutCtx.Done():
-		log.Println("time out")
+		log.Printf("time out after %.1f", timeoutDuration.Seconds())
 		w.WriteHeader(http.StatusNotModified)
 	case <- waitChan:
 		event := getRandomEvent()
@@ -51,6 +53,6 @@ func RootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	err := http.ListenAndServe(":8000", http.HandlerFunc(RootHandler))
+	err := http.ListenAndServe(":8000", http.HandlerFunc(rootHandler))
 	log.Fatal(err)
 }

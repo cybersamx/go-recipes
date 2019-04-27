@@ -13,8 +13,9 @@ An event will surface anytime between 1 to 10 seconds and is then sent to the cl
    $ go run server.go
    ```
    
-2. On another shell, call the server
+2. On another shell, run the client
 
    ```sh
-   $ curl localhost:8000
+   $ cd client
+   $ go run client.go
    ```
