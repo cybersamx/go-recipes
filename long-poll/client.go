@@ -14,35 +14,35 @@ var (
 	ErrClientError   = errors.New("client error")
 )
 
-func callServer() (error, string) {
+func callServer() (string, error) {
 	client := http.Client{}
 	req, err := http.NewRequest("GET", "http://localhost:8000", nil)
 	if err != nil {
 		log.Fatal(err)
-		return ErrClientError, ""
+		return "", ErrClientError
 	}
 	req.Header.Add("Accept", "application/json; charset=UTF-8")
 
 	resp, err := client.Do(req)
 	if err != nil {
 		log.Fatal(err)
-		return ErrClientError, ""
+		return "", ErrClientError
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 	defer resp.Body.Close()
 	if err != nil {
 		log.Fatal(err)
-		return ErrClientError, ""
+		return "", ErrClientError
 	}
 
 	switch resp.StatusCode {
 	case http.StatusOK:
-		return nil, string(body)
+		return string(body), nil
 	case http.StatusNotModified:
-		return ErrServerTimeout, ""
+		return "", ErrServerTimeout
 	default:
-		return ErrServerError, ""
+		return "", ErrServerError
 	}
 }
 
@@ -50,7 +50,7 @@ func main() {
 	for {
 		callTime := time.Now()
 		log.Print("REQUEST:  Calling server")
-		err, result := callServer()
+		result, err := callServer()
 
 		diff := time.Now().Sub(callTime)
 		if err == nil {

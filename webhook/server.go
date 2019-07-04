@@ -4,11 +4,21 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/cybersamx/go-recipes/webhook/utils"
+	"github.com/cybersamx/go-recipes/webhook/models"
 	"io/ioutil"
 	"log"
 	"net/http"
 )
+
+func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
+	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
+	jsonData, err := json.Marshal(payload)
+	if err == nil {
+		w.Write(jsonData)
+	}
+
+	return err
+}
 
 func webhookHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != http.MethodPost {
@@ -24,7 +34,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Restore the body back to the original state
 	r.Body = ioutil.NopCloser(bytes.NewBuffer(body))
-	event := utils.Event{}
+	event := models.Event{}
 	err = json.Unmarshal(body, &event)
 	if err != nil {
 		http.Error(w, "problem parsing the request json", http.StatusBadRequest)
@@ -33,8 +43,8 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 
 	log.Printf("Received event: %v", event.Event)
 
-	resPayload := utils.Messasge{Message: fmt.Sprintf("Received %s", event.Event)}
-	if err := utils.WriteJSONResponse(w, resPayload); err != nil {
+	resPayload := models.Message{Message: fmt.Sprintf("Received %s", event.Event)}
+	if err := writeJSONResponse(w, resPayload); err != nil {
 		http.Error(w, "error generating the response json", http.StatusInternalServerError)
 	}
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/json"
+	"fmt"
 	"log"
 	"math/rand"
 	"net/http"
@@ -35,14 +36,14 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	waitChan := time.Tick(waitDuration) // Wait this long to pick an event
 	timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), timeoutDuration)
 
-	log.Printf("Received request and waiting %.1fs for event to emit", waitDuration.Seconds())
+	log.Printf("Received request and waiting %.1fs to emit event to the sender", waitDuration.Seconds())
 	select {
 	case <- r.Context().Done():
 		log.Printf("request canceled")
-		w.WriteHeader(http.StatusNotModified)
+		http.Error(w, "request canceled", http.StatusNotModified)
 	case <- timeoutCtx.Done():
 		log.Printf("time out after %.1f", timeoutDuration.Seconds())
-		w.WriteHeader(http.StatusNotModified)
+		http.Error(w, fmt.Sprintf("time out after %.1f", timeoutDuration.Seconds()), http.StatusNotModified)
 	case <- waitChan:
 		event := getRandomEvent()
 		w.WriteHeader(http.StatusOK)
@@ -53,6 +54,8 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
-	err := http.ListenAndServe(":8000", http.HandlerFunc(rootHandler))
+	port := 8000
+	log.Printf("Starting web server on port %d", port)
+	err := http.ListenAndServe(fmt.Sprintf(":%d", port), http.HandlerFunc(rootHandler))
 	log.Fatal(err)
 }

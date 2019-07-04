@@ -8,14 +8,12 @@ An event will surface anytime between 1 to 10 seconds and is then sent to the cl
 
 1. Run the server
 
-   ```sh
-   $ cd server
+   ```bash
    $ go run server.go
    ```
    
 2. On another shell, run the client
 
-   ```sh
-   $ cd client
+   ```bash
    $ go run client.go
    ```

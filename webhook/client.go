@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"github.com/cybersamx/go-recipes/webhook/utils"
+	"github.com/cybersamx/go-recipes/webhook/models"
 	"io/ioutil"
 	"log"
 	"math/rand"
@@ -41,7 +41,7 @@ func callServer(ticker *time.Ticker) {
 		}
 
 		req.Header.Add("Accept", "application/json; charset=UTF-8")
-		reqPayload := utils.Event{Event: getRandomEvent()}
+		reqPayload := models.Event{Event: getRandomEvent()}
 		jsonData, err := json.Marshal(reqPayload)
 		if err != nil {
 			log.Fatal(err)
