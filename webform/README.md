@@ -1,0 +1,21 @@
+# Webform
+
+This is an example of how a web form is implemented in Golang. This is a login application where the user enters the username and password for authentication. Once a user has been authenticated, the application will persists the session using JWT.
+ 
+ This application has the following functions:
+
+1. Reads a file from the filesystem and streams the static file content to the web as a web form for the user to log in.
+1. Handles the submitted form.
+1. Persists a JWT in a cookie when the user is authenticated successfully.
+1. Redirects the user to another static web page called welcome page, which is only accessible to authorized users. The application examines if a valid JWT is in the request.
+1. Disables browser caching on the welcome page.
+
+## Setup
+
+1. Run the server
+
+   ```bash
+   $ go run server.go
+   ```
+   
+2. Launch a web browser and navigate to <http://localhost:8000>.
