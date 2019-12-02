@@ -40,7 +40,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
         return
     }
 
-    log.Printf("Received event: %v", event.Event)
+    log.Printf("received event: %v", event.Event)
 
     resPayload := Message{Message: fmt.Sprintf("Received %s", event.Event)}
     if err := writeJSONResponse(w, resPayload); err != nil {
@@ -51,7 +51,7 @@ func webhookHandler(w http.ResponseWriter, r *http.Request) {
 func main() {
     http.HandleFunc("/webhook", webhookHandler)
     port := 8000
-    log.Printf("Starting web server on port %d", port)
+    log.Printf("starting web server on port %d", port)
     err := http.ListenAndServe(fmt.Sprintf(":%d", port), nil)
     log.Fatal(err)
 }

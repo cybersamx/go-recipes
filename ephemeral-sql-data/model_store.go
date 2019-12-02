@@ -8,15 +8,18 @@ import (
 )
 
 type (
+    // Config encapsulates the configurations for this application.
     Config struct {
         GCInterval time.Duration
     }
 
+    // Entity is a simple entity for the SQL database.
     Entity struct {
         ID        string
         ExpiresAt time.Time
     }
 
+    // Store encapsulates the connection and configurations to the SQL database.
     Store struct {
         Config Config
         DB     *sql.DB
@@ -24,6 +27,7 @@ type (
     }
 )
 
+// NewStore creates a new instance of Store.
 func NewStore(db *sql.DB, config Config) (*Store, error) {
     ts := Store{
         Config: config,
@@ -32,7 +36,7 @@ func NewStore(db *sql.DB, config Config) (*Store, error) {
     }
 
     _, err := ts.DB.Exec(`
-		CREATE TABLE IF NOT EXISTS Entities (
+CREATE TABLE IF NOT EXISTS Entities (
 		    id TEXT PRIMARY KEY,
 		    expire_at DATETIME
 		)`)
@@ -60,10 +64,13 @@ func (ts *Store) garbageCollect() {
     }
 }
 
+// Close close the connection to the SQL database and clean up all allocated resources
+// associated with the SQL database connection.
 func (ts *Store) Close() {
     ts.Ticker.Stop()
 }
 
+// Create creates a new entity in the database.
 func (ts *Store) Create(expiresAt time.Time) (string, error) {
     id, err := uuid.NewUUID()
     if err != nil {
@@ -81,6 +88,7 @@ func (ts *Store) Create(expiresAt time.Time) (string, error) {
     return idString, nil
 }
 
+// Get retrieves the entity from the SQL database.
 func (ts *Store) Get(id string) (*Entity, error) {
     rows, err := ts.DB.Query(`
 		SELECT expire_at FROM Entities

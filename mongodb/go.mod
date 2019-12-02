@@ -4,6 +4,7 @@ go 1.11
 
 require (
 	github.com/go-stack/stack v1.8.0 // indirect
+	github.com/gojp/goreportcard v0.0.0-20191001233754-41818f5fd295 // indirect
 	github.com/golang/snappy v0.0.1 // indirect
 	github.com/google/go-cmp v0.3.1 // indirect
 	github.com/stretchr/testify v1.4.0 // indirect

@@ -9,13 +9,13 @@ The client will push a random event message to the webhook on the sever every 5 
 1. Run the server
 
    ```bash
-   $ go run server.go
+   $ go run model.go server.go
    ```
    
 2. On another shell, run the client:
 
    ```bash
-   $ go run client.go
+   $ go run model.go client.go
    ```
 
    alternatively, you can also run:

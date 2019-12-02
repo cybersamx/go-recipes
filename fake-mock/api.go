@@ -6,18 +6,23 @@ import (
 	"time"
 )
 
+// AccountService represents a service that provides functions for managing user accounts
+// in an application.
 type AccountService struct {
 	accountModel AccountModel
 }
 
+// NewAccountService creates an instance of AccountService.
 func NewAccountService(accountModel AccountModel) AccountService {
 	return AccountService{
 		accountModel: accountModel,
 	}
 }
 
+// ForgotPassword resets the password of the user associated with the passed email by
+// replacing the existing password with a randomly generated password.
 func (as *AccountService) ForgotPassword(email string) (string, error) {
-	pwd := NewRandomPassword()
+	pwd := newRandomPassword()
 
 	err := as.accountModel.UpdateAccount(email, pwd)
 	if err != nil {
@@ -27,7 +32,7 @@ func (as *AccountService) ForgotPassword(email string) (string, error) {
 	return pwd, nil
 }
 
-func NewRandomPassword() string {
+func newRandomPassword() string {
 	pool := []rune("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz_-.")
 	rand.Seed(time.Now().Unix())
 	var buffer strings.Builder

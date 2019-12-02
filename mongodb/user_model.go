@@ -2,6 +2,7 @@ package main
 
 import "time"
 
+// User represents a user account for an application.
 type User struct {
     ID         string
 	Username   string

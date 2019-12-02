@@ -130,7 +130,7 @@ func main() {
     cfg := newDefaultConfig()
     client, err := newClient(cfg)
     if err != nil {
-        log.Fatalf("Problem setting up a client to Mongo: %v", err)
+        log.Fatalf("problem setting up a client to Mongo: %v", err)
         os.Exit(1)
     }
 
@@ -138,7 +138,7 @@ func main() {
     defer cancel()
     db, err := connectDatabase(ctx, client, cfg.database)
     if err != nil {
-        log.Fatalf("Problem connecting to Mongo database %s: %v", cfg.database, err)
+        log.Fatalf("problem connecting to Mongo database %s: %v", cfg.database, err)
         os.Exit(1)
     }
 
@@ -154,48 +154,48 @@ func main() {
 
     id, err := createUser(ctx, db, user)
     if err != nil {
-        log.Fatalf("Problem creating a user: %v", err)
+        log.Fatalf("problem creating a user: %v", err)
         os.Exit(1)
     }
 
     user.ID = id
-    fmt.Printf("Successfully created user %s, userID %s\n", user.Username, user.ID)
+    fmt.Printf("successfully created user %s, userID %s\n", user.Username, user.ID)
 
     // Get user
     foundUser, err := getUser(ctx, db, user.ID)
     if err != nil {
-        log.Fatalf("Problem finding user %s", user.ID)
+        log.Fatalf("problem finding user %s", user.ID)
         os.Exit(1)
     }
 
-    fmt.Printf("Successfully found user %s, userID %s\n", foundUser.Username, user.ID)
+    fmt.Printf("successfully found user %s, userID %s\n", foundUser.Username, user.ID)
     printUser(foundUser)
 
     // Update user
     user.City = "London"
     upsertCount, err := updateUser(ctx, db, user)
     if err != nil {
-        log.Fatalf("Problem updating user %s", user.ID)
+        log.Fatalf("problem updating user %s", user.ID)
         os.Exit(1)
     }
 
-    fmt.Printf("Successfully updated %d user %s, userID %s\n", upsertCount, user.Username, user.ID)
+    fmt.Printf("successfully updated %d user %s, userID %s\n", upsertCount, user.Username, user.ID)
 
     // Get user
     foundUser, err = getUser(ctx, db, user.ID)
     if err != nil {
-        log.Fatalf("Problem finding user %s", user.ID)
+        log.Fatalf("problem finding user %s", user.ID)
         os.Exit(1)
     }
 
-    fmt.Printf("Successfully found user %s, userID %s\n", foundUser.Username, user.ID)
+    fmt.Printf("successfully found user %s, userID %s\n", foundUser.Username, user.ID)
     printUser(foundUser)
 
     // Delete user
     deleteCount, err := deleteUser(ctx, db, user.ID)
     if err != nil {
-        log.Fatalf("Problem deleting a user: %v", err)
+        log.Fatalf("problem deleting a user: %v", err)
         os.Exit(1)
     }
-    fmt.Printf("Successfully deleted %d, userID %s\n", deleteCount, user.ID)
+    fmt.Printf("successfully deleted %d, userID %s\n", deleteCount, user.ID)
 }

@@ -9,26 +9,34 @@ import (
     "github.com/stretchr/testify/mock"
 )
 
+// MockAccountModel implements the AccountModel by mocking the data access layer.
 type MockAccountModel struct {
     mock.Mock
 }
 
+// NewMockAccountModel creates an instance of MockAccountModel.
 func NewMockAccountModel() *MockAccountModel {
     return &MockAccountModel{}
 }
 
+// AddAccount sets up the function to be stubbed with actual outputs to mimic
+// adding a new account to the database.
 func (mam *MockAccountModel) AddAccount(email, password string) error {
     args := mam.Called(email, password)
 
     return args.Error(0)
 }
 
+// UpdateAccount sets up the function to be stubbed with actual outputs to mimic
+// updating an account in the database with passed email and password.
 func (mam *MockAccountModel) UpdateAccount(email, password string) error {
     args := mam.Called(email, password)
 
     return args.Error(0)
 }
 
+// GetAccount sets up the function to be stubbed with actual outputs to mimic
+// retrieving an account associated with the passed email.
 func (mam *MockAccountModel) GetAccount(email string) (*Account, error) {
     args := mam.Called(email)
 

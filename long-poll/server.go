@@ -36,7 +36,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
     waitChan := time.Tick(waitDuration) // Wait this long to pick an event
     timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), timeoutDuration)
 
-    log.Printf("Received request and waiting %.1fs to emit event to the sender", waitDuration.Seconds())
+    log.Printf("received request and waiting %.1fs to emit event to the sender", waitDuration.Seconds())
     select {
     case <- r.Context().Done():
         log.Printf("request canceled")
@@ -55,7 +55,7 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 
 func main() {
     port := 8000
-    log.Printf("Starting web server on port %d", port)
+    log.Printf("starting web server on port %d", port)
     err := http.ListenAndServe(fmt.Sprintf(":%d", port), http.HandlerFunc(rootHandler))
     log.Fatal(err)
 }

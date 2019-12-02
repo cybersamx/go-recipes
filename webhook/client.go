@@ -61,7 +61,7 @@ func callServer(ticker *time.Ticker) {
             continue
         }
 
-        log.Printf("Response: %s", string(body))
+        log.Printf("response: %s", string(body))
     }
 }
 
