@@ -1,5 +1,7 @@
 # Collection of Golang Recipes
 
+[![Go Report Card](https://goreportcard.com/badge/github.com/cybersamx/go-recipes)](https://goreportcard.com/report/github.com/cybersamx/go-recipes)
+
 A collection of simple Golang recipes.
 
 * [Ephemeral SQL data model](ephemeral-sql-data) - Sample code of a garbage collector that removes an expired data object in a SQL database.
