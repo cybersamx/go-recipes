@@ -34,3 +34,4 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
 ## Further Reading
 
 * [MongoDB Connection String URI](https://docs.mongodb.com/manual/reference/connection-string/)
+* [MongoDB Go Driver API Guide](https://godoc.org/go.mongodb.org/mongo-driver/mongo)
