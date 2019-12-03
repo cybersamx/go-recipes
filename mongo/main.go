@@ -21,13 +21,12 @@ type config struct {
 
 func newDefaultConfig() config {
 	// NOTE: Do not do the following in your code. This is done for just for the sample code.
-	// 1. Do not connect to Mongo as the global root user.
-	// 2. Do not hard code passwords or other sensitive data.
+	// Do not hard code passwords or other sensitive data.
 	return config{
 		host:     "localhost",
-		database: "admin",
-		username: "root",
-		password: "password",
+		database: "go-recipes",
+		username: "nobody",
+		password: "secrets",
 	}
 }
 
