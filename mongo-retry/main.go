@@ -10,31 +10,30 @@ import (
 	"time"
 )
 
-const Timeout = 5 * time.Second
+const timeout = 2 * time.Second
+const retries = 5
 
 func main() {
-	//ctx, cancel := context.WithCancel(context.Background())
-	//defer cancel()
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	// Some arbitrary URI string
 	uri := "mongodb://user:password@localhost:27017/database"
 	client, _ := mongo.NewClient(options.Client().ApplyURI(uri))
 	defer client.Disconnect(ctx)
 
-	limit := 10
-	for i := 0; i < limit; i++ {
+	for i := 0; i < retries; i++ {
 		log.Printf("attempt %d: connecting to mongo %s", i + 1, uri)
-		cctx, _ := context.WithTimeout(ctx, Timeout)
+		cctx, _ := context.WithTimeout(ctx, timeout)
 		err := client.Connect(cctx)
 		if err != nil && err != topology.ErrTopologyConnected {
 			log.Printf("error: %v", err)
 		}
 
-		rctx, _ := context.WithTimeout(ctx, Timeout)
+		rctx, _ := context.WithTimeout(ctx, timeout)
 		if err := client.Ping(rctx, readpref.Primary()); err != nil {
-			// Can't ping mongo, retry unless we exhausted our retries
-			if i == limit - 1 {
+			// Ping mongo failed, retry unless we exhausted our retries
+			if i == retries - 1 {
 				panic("exhausted our retries")
 			}
 
