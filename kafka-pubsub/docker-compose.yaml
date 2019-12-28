@@ -1,0 +1,36 @@
+version: '3'
+
+# For details, see https://hub.docker.com/r/bitnami/kafka/
+
+# --- Network ---
+networks:
+  go-network:
+    driver: bridge
+
+# --- Services ---
+services:
+  zookeeper:
+    image: bitnami/zookeeper:latest
+    container_name: zookeeper-server
+    ports:
+      - "2181:2181"
+    networks:
+      - go-network
+    environment:
+      # Do not use this in production.
+      ALLOW_ANONYMOUS_LOGIN: "yes"
+  kafka:
+    image: bitnami/kafka:latest
+    container_name: kafka-server
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    networks:
+      - go-network
+    environment:
+      # Do not use this in production.
+      ALLOW_PLAINTEXT_LISTENER: "yes"
+      KAFKA_CFG_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_CFG_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CFG_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092
