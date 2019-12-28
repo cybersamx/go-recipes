@@ -8,5 +8,6 @@ A collection of simple Golang recipes.
 * [Fake vs mock in unit testing](fake-mock) - Unit test sample using fake and mock.
 * [Long polling](long-poll) - Sample code demonstrating long-polling service.
 * [MongoDB](mongo) - Simple sample code for using MongoDB drive (no ODM or ORM).
+* [MongoDB](mongo-retry) - Simple sample code that retries connection to MongoDB until it succeeds or exhausts the limit of retries.
 * [Web form](web-form) - Sample code on serving and handling a web form.
 * [Webhook](webhook) - Sample code that implements a webhook endpoint on a server.
