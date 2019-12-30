@@ -1,6 +1,6 @@
 # Dependency Injection in Go Using Dig
 
-Basic DI using the Dig framework.
+Go DI using the Dig framework.
 
 ## Overview
 

@@ -11,7 +11,6 @@ func main() {
 	err = container.Invoke(func(hs *pkg.HTTPServer) {
 		hs.Start()
 	})
-
 	if err != nil {
 		panic(err)
 	}
