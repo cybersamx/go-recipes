@@ -5,7 +5,7 @@ import (
 )
 
 func main() {
-	settings := pkg.NewSettings(8000, ":memory:")
+	settings := pkg.NewSettings()
 
 	db, err := pkg.OpenConnection(settings)
 	if err != nil {
