@@ -33,11 +33,11 @@ func main() {
 		rctx, _ := context.WithTimeout(ctx, timeout)
 		if err := client.Ping(rctx, readpref.Primary()); err != nil {
 			// Ping mongo failed, retry unless we exhausted our retries
-			if i == retries - 1 {
+			if i == retries-1 {
 				panic("exhausted our retries")
 			}
 
-			continue    // Retry
+			continue // Retry
 		} else {
 			log.Printf("connected to %s successfully\n", uri)
 			break

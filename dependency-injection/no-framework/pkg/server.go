@@ -7,7 +7,7 @@ import (
 )
 
 type HTTPServer struct {
-	settings *Settings
+	settings  *Settings
 	dataStore *DataStore
 }
 
@@ -24,7 +24,7 @@ func (hs *HTTPServer) Start() error {
 }
 
 func (hs *HTTPServer) citiesHandlerFunc() http.HandlerFunc {
-	return func (w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, fmt.Sprintf("doesn't support method %s", r.Method), http.StatusMethodNotAllowed)
 			return

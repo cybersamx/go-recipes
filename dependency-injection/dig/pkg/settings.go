@@ -7,8 +7,8 @@ import (
 )
 
 type Settings struct {
-	Port int     `yaml:port`
-	DSN      string  `yaml:dsn`
+	Port int    `yaml:"port"`
+	DSN  string `yaml:"dsn"`
 }
 
 func NewSettings() *Settings {

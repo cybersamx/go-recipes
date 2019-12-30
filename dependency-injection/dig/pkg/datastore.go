@@ -21,7 +21,7 @@ func (ds *DataStore) GetCities() ([]*City, error) {
 
 	for rows.Next() {
 		var (
-			id int
+			id   int
 			name string
 		)
 
