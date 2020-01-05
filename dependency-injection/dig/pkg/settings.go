@@ -15,7 +15,7 @@ func NewSettings() *Settings {
 	const filename = "env.yaml"
 	var defaultSettings = Settings{
 		Port: 3000,
-		DSN:  ":memory",
+		DSN:  ":memory:",
 	}
 
 	info, err := os.Stat(filename)
