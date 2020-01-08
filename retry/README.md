@@ -2,4 +2,5 @@
 
 Recipes demonstrating retry in Go. The idea is to implement retry two different ways:
 
-* [No DI framework](no-framework) - Basic retry implemented using Go, no third-party DI framework.
+* [No retry package](no-package) - Basic retry implemented using Go, no third-party package.
+* [Using the retry package](retry) - Retry using the flowchartsman/retry package.
