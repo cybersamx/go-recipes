@@ -2,9 +2,7 @@
 
 An example of how you would keep retrying to connect to MongoDB.
 
-## Requirements 
-
-For this example, we deliberately don't want to connect to the database as we want to build a robust retry strategy. 
+For this example, we deliberately don't want to connect to the database to test retry.
 
 ## Setup
 
@@ -17,3 +15,4 @@ For this example, we deliberately don't want to connect to the database as we wa
 ## Reference and Credits
 
 * [Github: MongoDB Driver](https://github.com/mongodb/mongo-go-driver)
+* [Gotchas of Defer in Go](https://blog.learngoprogramming.com/gotchas-of-defer-in-go-1-8d070894cb01)
