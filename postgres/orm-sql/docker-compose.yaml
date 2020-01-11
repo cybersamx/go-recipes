@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12-alpine
+    container_name: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    volumes:
+      # Putting a sql script where it will be picked up by entrypoint
+      # after postgres done starting up.
+      - ./db-init.sql:/docker-entrypoint-initdb.d/db-init.sql
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: pguser
+      POSTGRES_DB: db
