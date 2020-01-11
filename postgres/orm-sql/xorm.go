@@ -1,6 +1,8 @@
 package main
 
 import (
+	"github.com/cybersamx/go-recipes/random/rand"
+	"syreclabs.com/go/faker"
 	"xorm.io/core"
 	"xorm.io/xorm"
 )
@@ -45,6 +47,57 @@ func insertDataXORM(n int) {
 			if err != nil {
 				fatal("can't insert restaurants", err)
 			}
+		}
+	}
+}
+
+func updateDataXORM(n int) {
+	// Connect to the database.
+	engine, err := getXORMEngine()
+	if err != nil {
+		fatal("can't initialize xorm engine", err)
+	}
+
+	session := engine.NewSession()
+	defer session.Close()
+
+	// Get the first index.
+	first := getFirstUserID(engine.DB().DB)
+
+	// Randomly generate and write fake data to the database.
+	for i := first; i < n; i++ {
+		user := User{
+			Name: faker.Name().Name(),
+			Age:  rand.RandomIntRange(14, 80),
+		}
+
+		_, err = engine.ID(i).Cols("name", "age").Update(&user)
+		if err != nil {
+			fatal("can't update users", err)
+		}
+	}
+}
+
+func selectDataXORM(n int) {
+	// Connect to the database.
+	engine, err := getXORMEngine()
+	if err != nil {
+		fatal("can't initialize xorm engine", err)
+	}
+
+	session := engine.NewSession()
+	defer session.Close()
+
+	// Get the first index.
+	first := getFirstUserID(engine.DB().DB)
+
+	// Randomly generate and write fake data to the database.
+	for i := first; i < n; i++ {
+		var user User
+
+		_, err = engine.ID(i).Get(&user)
+		if err != nil {
+			fatal("can't update users", err)
 		}
 	}
 }

@@ -68,6 +68,14 @@ func clearTables() {
 	}
 }
 
+func getFirstUserID(db *sql.DB) int {
+	var count int
+	if err := db.QueryRow("SELECT MIN(id) FROM users").Scan(&count); err != nil {
+		return 0
+	}
+	return count
+}
+
 func getLastUserID(db *sql.DB) int {
 	var count int
 	if err := db.QueryRow("SELECT MAX(id) FROM users").Scan(&count); err != nil {
