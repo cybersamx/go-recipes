@@ -2,17 +2,10 @@ package main
 
 import (
 	"database/sql"
-	"github.com/cybersamx/go-recipes/random/rand"
 	_ "github.com/lib/pq"
-	"time"
 )
 
 func insertDataSQL(n int) {
-	// Setup for random generation.
-	rand.Seed()
-	now := time.Now()
-	past := now.Add(-3 * 365 * 24 * time.Hour)
-
 	// Connect to the database.
 	db, err := sql.Open(dialect, getDSN())
 	if err != nil {

@@ -7,21 +7,21 @@ import (
 )
 
 func benchmarkInsertSQL(b *testing.B, n int) {
-	b.ResetTimer()
+	clearTables()
 	b.ReportAllocs()
+	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		clearTables()
 		insertDataSQL(n)
 	}
 }
 
 func benchmarkInsertXORM(b *testing.B, n int) {
-	b.ResetTimer()
+	clearTables()
 	b.ReportAllocs()
+	b.ResetTimer()
 
 	for i := 0; i < b.N; i++ {
-		clearTables()
 		insertDataXORM(n)
 	}
 }

@@ -1,8 +1,6 @@
 package main
 
 import (
-	"github.com/cybersamx/go-recipes/random/rand"
-	"time"
 	"xorm.io/core"
 	"xorm.io/xorm"
 )
@@ -19,11 +17,6 @@ func getXORMEngine() (*xorm.Engine, error) {
 }
 
 func insertDataXORM(n int) {
-	// Setup for random generation.
-	rand.Seed()
-	now := time.Now()
-	past := now.Add(-3 * 365 * 24 * time.Hour)
-
 	// Connect to the database.
 	engine, err := getXORMEngine()
 	if err != nil {
