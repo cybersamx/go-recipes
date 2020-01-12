@@ -6,6 +6,12 @@ import (
 	"testing"
 )
 
+const (
+	numSeeds = 1000
+)
+
+// --- SQL ---
+
 func benchmarkInsertSQL(b *testing.B, n int) {
 	clearTables()
 	b.ReportAllocs()
@@ -15,6 +21,30 @@ func benchmarkInsertSQL(b *testing.B, n int) {
 		insertDataSQL(n)
 	}
 }
+
+func benchmarkUpdateSQL(b *testing.B, n int) {
+	clearTables()
+	insertDataSQL(numSeeds)
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		updateDataSQL(n)
+	}
+}
+
+func benchmarkSelectSQL(b *testing.B, n int) {
+	clearTables()
+	insertDataSQL(numSeeds)
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		selectDataSQL(n)
+	}
+}
+
+// --- XORM ---
 
 func benchmarkInsertXORM(b *testing.B, n int) {
 	clearTables()
@@ -26,18 +56,9 @@ func benchmarkInsertXORM(b *testing.B, n int) {
 	}
 }
 
-func benchmarkUpdateSQL(b *testing.B, n int) {
-	insertDataSQL(n)
-	b.ReportAllocs()
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		updateDataSQL(n)
-	}
-}
-
 func benchmarkUpdateXORM(b *testing.B, n int) {
-	insertDataXORM(n)
+	clearTables()
+	insertDataSQL(numSeeds)
 	b.ReportAllocs()
 	b.ResetTimer()
 
@@ -46,18 +67,9 @@ func benchmarkUpdateXORM(b *testing.B, n int) {
 	}
 }
 
-func benchmarkSelectSQL(b *testing.B, n int) {
-	insertDataSQL(n)
-	b.ReportAllocs()
-	b.ResetTimer()
-
-	for i := 0; i < b.N; i++ {
-		selectDataSQL(n)
-	}
-}
-
 func benchmarkSelectXORM(b *testing.B, n int) {
-	insertDataXORM(n)
+	clearTables()
+	insertDataSQL(numSeeds)
 	b.ReportAllocs()
 	b.ResetTimer()
 
@@ -66,6 +78,42 @@ func benchmarkSelectXORM(b *testing.B, n int) {
 	}
 }
 
+// --- GORM ---
+
+func benchmarkInsertGORM(b *testing.B, n int) {
+	clearTables()
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		insertDataGORM(n)
+	}
+}
+
+func benchmarkUpdateGORM(b *testing.B, n int) {
+	clearTables()
+	insertDataSQL(numSeeds)
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		updateDataGORM(n)
+	}
+}
+
+func benchmarkSelectGORM(b *testing.B, n int) {
+	clearTables()
+	insertDataSQL(numSeeds)
+	b.ReportAllocs()
+	b.ResetTimer()
+
+	for i := 0; i < b.N; i++ {
+		selectDataGORM(n)
+	}
+}
+
+
+// --- Main Test Func ---
 
 func TestMain(m *testing.M) {
 	os.Exit(m.Run())
@@ -91,10 +139,6 @@ func BenchmarkInsertSQL_1000(b *testing.B) {
 	benchmarkInsertSQL(b, 1000)
 }
 
-func BenchmarkInsertSQL_10000(b *testing.B) {
-	benchmarkInsertSQL(b, 10000)
-}
-
 // Update
 
 func BenchmarkUpdateSQL_1(b *testing.B) {
@@ -111,10 +155,6 @@ func BenchmarkUpdateSQL_100(b *testing.B) {
 
 func BenchmarkUpdateSQL_1000(b *testing.B) {
 	benchmarkUpdateSQL(b, 1000)
-}
-
-func BenchmarkUpdateSQL_10000(b *testing.B) {
-	benchmarkUpdateSQL(b, 10000)
 }
 
 // Select
@@ -135,9 +175,6 @@ func BenchmarkSelectSQL_1000(b *testing.B) {
 	benchmarkSelectSQL(b, 1000)
 }
 
-func BenchmarkSelectSQL_10000(b *testing.B) {
-	benchmarkSelectSQL(b, 10000)
-}
 
 // --- XORM ---
 
@@ -159,10 +196,6 @@ func BenchmarkInsertXORM_1000(b *testing.B) {
 	benchmarkInsertXORM(b, 1000)
 }
 
-func BenchmarkInsertXORM_10000(b *testing.B) {
-	benchmarkInsertXORM(b, 10000)
-}
-
 // Update
 
 func BenchmarkUpdateXORM_1(b *testing.B) {
@@ -179,10 +212,6 @@ func BenchmarkUpdateXORM_100(b *testing.B) {
 
 func BenchmarkUpdateXORM_1000(b *testing.B) {
 	benchmarkUpdateXORM(b, 1000)
-}
-
-func BenchmarkUpdateXORM_10000(b *testing.B) {
-	benchmarkUpdateXORM(b, 10000)
 }
 
 // Select
@@ -203,6 +232,58 @@ func BenchmarkSelectXORM_1000(b *testing.B) {
 	benchmarkSelectXORM(b, 1000)
 }
 
-func BenchmarkSelectXORM_10000(b *testing.B) {
-	benchmarkSelectXORM(b, 10000)
+// --- GORM ---
+
+// Insert
+
+func BenchmarkInsertGORM_1(b *testing.B) {
+	benchmarkInsertGORM(b, 1)
+}
+
+func BenchmarkInsertGORM_10(b *testing.B) {
+	benchmarkInsertGORM(b, 10)
+}
+
+func BenchmarkInsertGORM_100(b *testing.B) {
+	benchmarkInsertGORM(b, 100)
+}
+
+func BenchmarkInsertGORM_1000(b *testing.B) {
+	benchmarkInsertGORM(b, 1000)
+}
+
+// Update
+
+func BenchmarkUpdateGORM_1(b *testing.B) {
+	benchmarkUpdateGORM(b, 1)
+}
+
+func BenchmarkUpdateGORM_10(b *testing.B) {
+	benchmarkUpdateGORM(b, 10)
+}
+
+func BenchmarkUpdateGORM_100(b *testing.B) {
+	benchmarkUpdateGORM(b, 100)
+}
+
+func BenchmarkUpdateGORM_1000(b *testing.B) {
+	benchmarkUpdateGORM(b, 1000)
+}
+
+// Select
+
+func BenchmarkSelectGORM_1(b *testing.B) {
+	benchmarkSelectGORM(b, 1)
+}
+
+func BenchmarkSelectGORM_10(b *testing.B) {
+	benchmarkSelectGORM(b, 10)
+}
+
+func BenchmarkSelectGORM_100(b *testing.B) {
+	benchmarkSelectGORM(b, 100)
+}
+
+func BenchmarkSelectGORM_1000(b *testing.B) {
+	benchmarkSelectGORM(b, 1000)
 }

@@ -7,20 +7,20 @@ import (
 // Make sure the model here and the schema defined in db-init.sql are consistent.
 
 type User struct {
-	ID          int           `json:"id"   xorm:"INT PK 'id' AUTOINCR"`
-	Name        string        `json:"name" xorm:"VARCHAR(64)"`
-	Age         int           `json:"age"  xorm:"INT"`
-	Restaurants []*Restaurant `json:"restaurants" xorm:"-"`
+	ID          int           `xorm:"INT PK 'id' AUTOINCR" gorm:"type:INT;PRIMARY_KEY;AUTO_INCREMENT"`
+	Name        string        `xorm:"VARCHAR(64)"          gorm:"type:VARCHAR(64)"`
+	Age         int           `xorm:"INT"                  gorm:"type:INT"`
+	Restaurants []*Restaurant `xorm:"-"                    gorm:"-"`
 }
 
 type Restaurant struct {
-	ID        int       `json:"id"         xorm:"INT PK 'id' AUTOINCR"`
-	UserID    int       `json:"user_id"    xorm:"INT"`
-	VisitedAt time.Time `json:"visited_at" xorm:"TIMESTAMP"`
-	Name      string    `json:"name"       xorm:"VARCHAR(64)"`
-	NumSeats  int       `json:"num_seats"  xorm:"INT"`
-	Latitude  float32   `json:"latitude"   xorm:"FLOAT"`
-	Longitude float32   `json:"longitude"  xorm:"FLOAT"`
+	ID        int       `xorm:"INT PK 'id' AUTOINCR" gorm:"type:INT;PRIMARY_KEY;AUTO_INCREMENT"`
+	UserID    int       `xorm:"INT"                  gorm:"type:INT"`
+	VisitedAt time.Time `xorm:"TIMESTAMP"            gorm:"type:TIMESTAMP"`
+	Name      string    `xorm:"VARCHAR(64)"          gorm:"type:VARCHAR(64)"`
+	NumSeats  int       `xorm:"INT"                  gorm:"type:INT"`
+	Latitude  float32   `xorm:"FLOAT"                gorm:"type:FLOAT"`
+	Longitude float32   `xorm:"FLOAT"                gorm:"type:FLOAT"`
 }
 
 // --- XORM ---

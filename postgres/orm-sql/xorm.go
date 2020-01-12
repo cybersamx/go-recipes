@@ -97,7 +97,7 @@ func selectDataXORM(n int) {
 
 		_, err = engine.ID(i).Get(&user)
 		if err != nil {
-			fatal("can't update users", err)
+			fatal("can't select users", err)
 		}
 	}
 }
