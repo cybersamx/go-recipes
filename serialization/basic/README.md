@@ -1,4 +1,4 @@
-# Simple JSON Serialization
+# Basic JSON Serialization
 
 A simple recipe for JSON serialization in Go.
 
