@@ -16,6 +16,7 @@ func contains(s []string, e string) bool {
 }
 
 // CREDIT: Go standard library encoding/json.
+// https://github.com/golang/go/blob/64c9ee98b7684cf2156f620cbab4dbb6081b9771/src/encoding/json/encode.go#L339
 func isEmptyValue(v reflect.Value) bool {
 	switch v.Kind() {
 	case reflect.Array, reflect.Map, reflect.Slice, reflect.String:
