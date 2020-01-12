@@ -35,6 +35,31 @@ This recipe uses Postgres. We will be using Docker to spin up an instance of Pos
    $ docker-compose down
    ```
 
+## Benchmark Results
+
+![Benchmark: Time taken to complete a call to the database](images/benchmark-speed.svg)
+
+![Benchmark: Memory used to complete a call to the database](images/benchmark-memory.svg)
+
+![Benchmark: Number of allocations made to complete a call to the database](images/benchmark-allocations.svg)
+
+### Take-Aways
+
+* Insert is an expensive operation in terms of speed and memory.
+* The ORM packages are less resource efficient than the standard package `sql`.
+* XORM performs surprisingly well in speed, almost as fast as the standard package `sql`.
+* Speed performance for GORM isn't as good as the other 2 packages for insert and update operations. For select the 3 packages perform equally well.
+
+## Caveats and Notes
+
+Running benchmark takes patience and tweaking so that we can get the right dataset to make a good conclusion of the results. The above charts are just the initial benchmark results, I will make incremental improvements to the code.
+
+* Benchmark is contextual and its result relative. The insert operation is pretty complex with the insertion of 1 parent row and 5 child rows. While the update and select operations are associated with just 1 row. This explains why the insert result is multiple times those of update and select. Future work will include some form of normalization.
+* Ideally we should isolate and run the benchmarks separately. Overhead from another benchmark may affect another benchmark. In the initial runs, there were definitely some spillover from previous runs. Using the `ResetTimer()` function seems to help and so far the benchmark runs have been quite consistent. May run a benchmark individually in the future.
+* No transaction is used.
+
 ## Reference and Credits
 
 * [Golang: Package testing](https://golang.org/pkg/testing/)
+* [XORM](https://xorm.io/)
+* [GORM](https://gorm.io/)
