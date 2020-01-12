@@ -26,7 +26,7 @@ This recipe uses Postgres. We will be using Docker to spin up an instance of Pos
 1. Run the program
 
    ```bash
-   $ go test -bench=.
+   $ go test -bench=. -timeout=30m
    ```
 
 1. When all is done, teardown Postgres.
@@ -36,6 +36,8 @@ This recipe uses Postgres. We will be using Docker to spin up an instance of Pos
    ```
 
 ## Benchmark Results
+
+**Environment:** MacOS Mojave, Go 1.13.4, Mac Pro 3.5GHz Intel Xeon.
 
 ![Benchmark: Time taken to complete a call to the database](images/benchmark-speed.svg)
 
