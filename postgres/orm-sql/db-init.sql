@@ -1,23 +1,13 @@
-CREATE TABLE IF NOT EXISTS users
-(
-    id   SERIAL PRIMARY KEY,
-    name VARCHAR(64),
-    age  INTEGER
-);
-
-ALTER TABLE users
-    OWNER TO pguser;
-
-CREATE TABLE IF NOT EXISTS restaurants
+CREATE TABLE IF NOT EXISTS bus_stops
 (
     id         SERIAL PRIMARY KEY ,
-    user_id    INTEGER REFERENCES users,
-    visited_at TIMESTAMP,
-    name       VARCHAR(64),
-    num_seats  INTEGER,
+    updated_at TIMESTAMP,
+    number     VARCHAR(16),
     latitude   REAL,
-    longitude  REAL
+    longitude  REAL,
+    siteats    VARCHAR(64),
+    city_site  VARCHAR(48)
 );
 
-ALTER TABLE restaurants
+ALTER TABLE bus_stops
     OWNER TO pguser;

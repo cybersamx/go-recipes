@@ -175,7 +175,6 @@ func BenchmarkSelectSQL_1000(b *testing.B) {
 	benchmarkSelectSQL(b, 1000)
 }
 
-
 // --- XORM ---
 
 // Insert

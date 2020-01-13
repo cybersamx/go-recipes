@@ -6,7 +6,6 @@ import (
 	"github.com/cybersamx/go-recipes/random/rand"
 	_ "github.com/lib/pq"
 	"log"
-	"syreclabs.com/go/faker"
 	"time"
 )
 
@@ -17,11 +16,6 @@ const (
 	port     = 5432
 	database = "db"
 	dialect  = "postgres"
-)
-
-var (
-	now = time.Now()
-	past = now.Add(-3 * 365 * 24 * time.Hour)
 )
 
 func init() {
@@ -56,51 +50,50 @@ func clearTables() {
 		fatal("can't close the connection to the database", db.Close())
 	}()
 
-	_, err = db.Exec("DELETE FROM restaurants")
+	_, err = db.Exec("DELETE FROM bus_stops")
 	if err != nil {
-		fatal("can't delete restaurants", err)
-	}
-
-	_, err = db.Exec("DELETE FROM users")
-	if err != nil {
-		//fatal("can't rollback a transaction", tx.Rollback())
-		fatal("can't delete users", err)
+		fatal("can't delete bus stops", err)
 	}
 }
 
-func getFirstUserID(db *sql.DB) int {
+func getFirstBusStopID(db *sql.DB) int {
 	var count int
-	if err := db.QueryRow("SELECT MIN(id) FROM users").Scan(&count); err != nil {
+	if err := db.QueryRow("SELECT MIN(id) FROM bus_stops").Scan(&count); err != nil {
 		return 0
 	}
 	return count
 }
 
-func getLastUserID(db *sql.DB) int {
+func getLastBusStopID(db *sql.DB) int {
 	var count int
-	if err := db.QueryRow("SELECT MAX(id) FROM users").Scan(&count); err != nil {
+	if err := db.QueryRow("SELECT MAX(id) FROM bus_stops").Scan(&count); err != nil {
 		return 0
 	}
 	return count
 }
 
-func getUser(id int) User {
-	return User{
-		ID: id,
-		Name: faker.Name().Name(),
-		Age: rand.RandomIntRange(14, 80),
+func getBusStop(id int) BusStop {
+	date := time.Date(2000, 1, 1, 12, 0, 0, 0, time.UTC)
+	return BusStop{
+		ID:        id,
+		UpdatedAt: date,
+		Number:    "LA-0664",
+		Latitude:  34.19462,
+		Longitude: -118.58843,
+		SiteATS:   "NB  De Soto  FS  Vanowen -NE",
+		CitySite:  "L.A. Valley West",
 	}
 }
 
-func getRestaurant(userID int, past, now time.Time) Restaurant {
-	return Restaurant{
-		UserID:    userID,
-		VisitedAt: faker.Time().Between(past, now),
-		Name:      faker.Company().Name(),
-		NumSeats:  rand.RandomIntRange(8, 100),
-		Latitude:  faker.Address().Latitude(),
-		Longitude: faker.Address().Latitude(),
+func getBusStopForUpdate(id int) BusStop {
+	date := time.Date(2001, 6, 6, 6, 0, 0, 0, time.UTC)
+	return BusStop{
+		ID:        id,
+		UpdatedAt: date,
+		Number:    "LA-0750",
+		Latitude:  34.15238,
+		Longitude: -118.60487,
+		SiteATS:   "EB  Mulholland D  NS  Topanga -SW",
+		CitySite:  "L.A. Valley West",
 	}
 }
-
-

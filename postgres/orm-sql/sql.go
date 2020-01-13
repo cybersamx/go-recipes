@@ -2,9 +2,7 @@ package main
 
 import (
 	"database/sql"
-	"github.com/cybersamx/go-recipes/random/rand"
 	_ "github.com/lib/pq"
-	"syreclabs.com/go/faker"
 )
 
 func insertDataSQL(n int) {
@@ -19,31 +17,15 @@ func insertDataSQL(n int) {
 	}()
 
 	// Get the last index.
-	last := getLastUserID(db)
+	last := getLastBusStopID(db)
 
 	// Randomly generate and write fake data to the database.
 	for i := last + 1; i <= n + last; i++ {
-		user := getUser(i)
-
-		_, err := db.Exec("INSERT INTO users(id, name, age) VALUES($1, $2, $3)",
-			user.ID, user.Name, user.Age)
+		busStop := getBusStop(i)
+		_, err := db.Exec("INSERT INTO bus_stops(id, updated_at, number, latitude, longitude, siteats, city_site) VALUES($1, $2, $3, $4, $5, $6, $7)",
+			busStop.ID, busStop.UpdatedAt, busStop.Number, busStop.Latitude, busStop.Longitude, busStop.SiteATS, busStop.CitySite)
 		if err != nil {
-			fatal("can't insert users", err)
-		}
-
-		for j := 0; j < 5; j++ {
-			restaurant := getRestaurant(i, past, now)
-
-			_, err = db.Exec("INSERT INTO restaurants(user_id, visited_at, name, num_seats, latitude, longitude) VALUES($1, $2, $3, $4, $5, $6)",
-				restaurant.UserID,
-				restaurant.VisitedAt,
-				restaurant.Name,
-				restaurant.NumSeats,
-				restaurant.Latitude,
-				restaurant.Longitude)
-			if err != nil {
-				fatal("can't insert restaurants", err)
-			}
+			fatal("can't insert bus stops", err)
 		}
 	}
 }
@@ -60,16 +42,21 @@ func updateDataSQL(n int) {
 	}()
 
 	// Get the first index.
-	first := getFirstUserID(db)
+	first := getFirstBusStopID(db)
 
 	// Randomly generate and write fake data to the database.
 	for i := first; i < n; i++ {
-		_, err := db.Exec("UPDATE users SET name = $1, age = $2 WHERE id = $3",
-			faker.Name().Name(),
-			rand.RandomIntRange(14, 80),
+		busStop := getBusStopForUpdate(i)
+		_, err := db.Exec("UPDATE bus_stops SET updated_at = $1, number = $2, latitude = $3, longitude = $4, siteats = $5, city_site = $6 WHERE id = $7",
+			busStop.UpdatedAt,
+			busStop.Number,
+			busStop.Latitude,
+			busStop.Longitude,
+			busStop.SiteATS,
+			busStop.CitySite,
 			i)
 		if err != nil {
-			fatal("can't update users", err)
+			fatal("can't update bus stops", err)
 		}
 	}
 }
@@ -86,18 +73,18 @@ func selectDataSQL(n int) {
 	}()
 
 	// Get the first index.
-	first := getFirstUserID(db)
+	first := getFirstBusStopID(db)
 
 	// Randomly generate and write fake data to the database.
 	for i := first; i < n; i++ {
-		rows, err := db.Query("SELECT id, name, age FROM users WHERE id = $1", i)
+		rows, err := db.Query("SELECT id, updated_at, number, latitude, longitude, siteats, city_site FROM bus_stops WHERE id = $1", i)
 		if err != nil {
-			fatal("can't query from users", err)
+			fatal("can't query from bus stops", err)
 		}
 
-		var user User
+		var busStop BusStop
 		for rows.Next() {
-			fatal("can't scan from a row", rows.Scan(&user.ID, &user.Name, &user.Age))
+			fatal("can't scan from a row", rows.Scan(&busStop.ID, &busStop.UpdatedAt, &busStop.Number, &busStop.Latitude, &busStop.Longitude, &busStop.SiteATS, &busStop.CitySite))
 		}
 
 		fatal("can't close row", rows.Close())

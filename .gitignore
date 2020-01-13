@@ -103,5 +103,6 @@ Temporary Items
 
 # Custom
 **/tmp
+**/data.csv
 
 # End of https://www.gitignore.io/api/go,macos,jetbrains
