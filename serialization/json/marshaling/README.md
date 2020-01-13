@@ -1,6 +1,6 @@
-# Basic JSON Serialization
+# Basic JSON Marshaling/Unmarshaling
 
-A simple recipe for JSON serialization in Go.
+A simple recipe for JSON marshaling/unmarshaling in Go.
 
 ## Setup
 

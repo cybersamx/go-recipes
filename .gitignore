@@ -101,4 +101,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+# Custom
+**/tmp
+
 # End of https://www.gitignore.io/api/go,macos,jetbrains

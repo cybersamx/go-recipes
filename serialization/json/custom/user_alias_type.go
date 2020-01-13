@@ -1,4 +1,4 @@
-package marshaler
+package custom
 
 import "encoding/json"
 
@@ -11,7 +11,7 @@ type UserAliasType struct {
 }
 
 func (u UserAliasType) MarshalJSON() ([]byte, error) {
-	type UserAlias UserReflect // Must create an alias otherwise
+	type UserAlias User // Must create an alias otherwise
 
 	alias := UserAlias{
 		ID: u.ID,

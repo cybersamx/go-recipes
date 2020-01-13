@@ -1,4 +1,4 @@
-package marshaler
+package custom
 
 import (
 	"encoding/json"
