@@ -23,10 +23,13 @@ func main() {
 
 	// Some arbitrary URI string
 	uri := "mongodb://user:password@localhost:27017/database"
-	client, _ := mongo.NewClient(options.Client().ApplyURI(uri))
+	client, err := mongo.NewClient(options.Client().ApplyURI(uri))
+	if err != nil {
+		log.Fatal("can't create an instance of mongo client")
+	}
 
 	retrier := retry.NewRetrier(retries, initialDelay, maxDelay)
-	err := retrier.RunContext(ctx, func(ctx context.Context) (retErr error) {
+	err = retrier.RunContext(ctx, func(ctx context.Context) (retErr error) {
 		log.Printf("trying to connect to mongo %s\n", uri)
 		cctx, ccancel := context.WithTimeout(ctx, connectTimeout)
 		defer ccancel()
@@ -35,7 +38,7 @@ func main() {
 		// an error with defer, you need to wrap the call in an anonymous function
 		// and we use a named return param retErr to return the error.
 		defer func() {
-			err := client.Disconnect(ctx)
+			err := client.Disconnect(cctx)
 			if err != nil {
 				log.Printf("can't close connection to mongo: %v\n", err)
 				retErr = err
@@ -45,14 +48,14 @@ func main() {
 		if err != nil && err != topology.ErrTopologyConnected {
 			log.Printf("can't connect to mongo: %v\n", err)
 			retErr = err
-			return  // Return err to retrier to retry
+			return  // Return the err to retrier telling it to retry.
 		}
 
 		pctx, pcancel := context.WithTimeout(ctx, pingTimeout)
 		defer pcancel()
 		if err := client.Ping(pctx, readpref.Primary()); err != nil {
 			retErr = err
-			return  // Return err to retrier to retry
+			return  // Return the err to retrier telling it to retry.
 		}
 
 		return nil  // Success
