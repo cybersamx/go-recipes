@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"context"
@@ -10,13 +10,20 @@ import (
 	"time"
 )
 
+const sPrefix = "\033[34;1;4mserver\033[0m"
+
 var events = []string{"empty", "full", "new", "removed"}
 
 func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
 	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
 	jsonData, err := json.Marshal(payload)
-	if err == nil {
-		w.Write(jsonData)
+	if err != nil {
+		return err
+	}
+
+	_, err = w.Write(jsonData)
+	if err != nil {
+		return err
 	}
 
 	return err
@@ -36,26 +43,29 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 	waitChan := time.Tick(waitDuration) // Wait this long to pick an event
 	timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), timeoutDuration)
 
-	log.Printf("received request and waiting %.1fs to emit event to the sender", waitDuration.Seconds())
+	log.Printf("%s received request and waiting %.1fs to emit an event back to the sender", sPrefix, waitDuration.Seconds())
 	select {
 	case <-r.Context().Done():
-		log.Printf("request canceled")
+		log.Printf("%s request canceled", sPrefix)
 		http.Error(w, "request canceled", http.StatusNotModified)
 	case <-timeoutCtx.Done():
-		log.Printf("time out after %.1f", timeoutDuration.Seconds())
+		log.Printf("%s time out after %.1f", sPrefix, timeoutDuration.Seconds())
 		http.Error(w, fmt.Sprintf("time out after %.1f", timeoutDuration.Seconds()), http.StatusNotModified)
 	case <-waitChan:
 		event := getRandomEvent()
 		w.WriteHeader(http.StatusOK)
 		payload := map[string]string{"event": event}
-		writeJSONResponse(w, payload)
+		if err := writeJSONResponse(w, payload); err != nil {
+			log.Printf("%s server error: %v", sPrefix, err)
+		}
 		timeoutCancel()
 	}
 }
 
-func main() {
+func ListenForMessages() {
 	port := 8000
-	log.Printf("starting web server on port %d", port)
+	log.Printf("%s starting web server on port %d", sPrefix, port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), http.HandlerFunc(rootHandler))
 	log.Fatal(err)
 }
+

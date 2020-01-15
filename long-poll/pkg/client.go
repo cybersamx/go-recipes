@@ -1,4 +1,4 @@
-package main
+package pkg
 
 import (
 	"errors"
@@ -8,13 +8,15 @@ import (
 	"time"
 )
 
+const cPrefix = "\033[31;1;4mclient\033[0m"
+
 var (
 	errServerTimeout = errors.New("server timeout")
 	errServerError   = errors.New("server error")
 	errClientError   = errors.New("client error")
 )
 
-func callServer() (string, error) {
+func callServer() (retEvent string, retErr error) {
 	client := http.Client{}
 	req, err := http.NewRequest("GET", "http://localhost:8000", nil)
 	if err != nil {
@@ -30,11 +32,18 @@ func callServer() (string, error) {
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
-	defer resp.Body.Close()
 	if err != nil {
 		log.Fatal(err)
 		return "", errClientError
 	}
+	defer func() {
+		err := resp.Body.Close()
+		if err != nil {
+			retEvent = ""
+			retErr = err
+		}
+	}()
+
 
 	switch resp.StatusCode {
 	case http.StatusOK:
@@ -46,20 +55,19 @@ func callServer() (string, error) {
 	}
 }
 
-func main() {
+func SendMessages() {
 	for {
 		callTime := time.Now()
-		log.Print("request: calling server")
+		log.Printf("%s calling server to receive an event", cPrefix)
 		result, err := callServer()
 
 		diff := time.Now().Sub(callTime)
 		if err == nil {
-			log.Printf("respoonse: received event after %.1fs: %s", diff.Seconds(), result)
+			log.Printf("%s received event after %.1fs: %s", cPrefix, diff.Seconds(), result)
 		} else if err == errServerTimeout {
-			log.Printf("response: server timeout after %.1fs", diff.Seconds())
+			log.Printf("%s received server timeout after %.1fs", cPrefix, diff.Seconds())
 		} else {
-			log.Fatalf("error: server error")
-			break
+			log.Fatalf("%s received server error", cPrefix)
 		}
 	}
 }
