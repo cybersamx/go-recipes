@@ -7,7 +7,7 @@ services:
     container_name: long-poll
     build:
       context: .
-      dockerfile: Dockerfile.multi.scratch
+      dockerfile: Dockerfile.multi.distroless
     image: cybersamx/long-poll
     environment:
       - ENABLE_CLIENT=false

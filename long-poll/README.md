@@ -13,29 +13,34 @@ Both the server and client will run concurrently in a main function.
 
 ## Docker Recipe
 
-As a best practice, it is desirable to perform a multi-stage to reduce the size and security of the Docker images. There are different Dockerfiles in this project that demonstrates the final image sizes produced from the build. Change the `docker-compose.yaml` to switch to the Dockerfile you want to build.
+As a best practice, it is desirable to perform a multi-stage to reduce the size and security of the Docker images. There are different Dockerfiles in this project that demonstrates the final image sizes produced from the build. Change the `docker-compose.yaml` to switch to a different Dockerfile.
 
 Here is the final image sizes:
 
-| Dockerfile               | Image Size (MB) |
-|--------------------------|----------------:|
-| Dockerfile.single.ubuntu | 880.0           |
-| Dockerfile.single.alpine | 382.0           |
-| Dockerfile.multi.ubuntu  | 107.0           |
-| Dockerfile.multi.alpine  | 15.4            |
-| Dockerfile.multi.scratch | 7.1             |
+| Dockerfile                  | Image Size (MB) |
+|-----------------------------|----------------:|
+| Dockerfile.single.ubuntu    | 880.0           |
+| Dockerfile.single.alpine    | 382.0           |
+| Dockerfile.multi.ubuntu     | 107.0           |
+| Dockerfile.multi.alpine     | 15.4            |
+| Dockerfile.multi.distroless | 7.6             |
+| Dockerfile.multi.scratch    | 7.1             |
 
 ### Scratch Base Image
 
-For extreme image reduction (and more secure), build your Docker image using the base image `scratch`, which essentially means no guest operating system present in the Docker container - hence scratch. This is possible because Docker is a VM, which is a completely isolated virtual machine with its own kernel and operating. A Docker container relies on the host kernel. This means that the application in the Docker container must be calling the kernel directly and there should be no dependency with any runtime library. Go is a perfect language for constructing a scratch-based Docker container as you can compile everything you need into a single binary. To do this you need to build the Go application this way:
+For extreme image reduction (and more secure), build your Docker image using the base image `scratch`, which essentially means no base operating system present in the Docker container - hence scratch. A Docker container without a base OS should still function. See diagram below.
+
+![Container](container.png)
+
+In contrast, a virtual machine VM has a completely isolated virtual execution space. See below: 
+
+![VM](vm.png)
+
+In a scratch-based container, this means that the application in the Docker container must run on its own and must not have any dependency on any runtime library. Go is the perfect language for constructing such application as we can compile everything we need into a single binary with all dependent libraries statically linked. To do this you need to build the Go application this way:
 
 ```bash
 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/long-poll
 ```
-
-Finally, there are a few caveats with this setup
-
-* 
 
 ## Setup
 
