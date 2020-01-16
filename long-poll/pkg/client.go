@@ -2,13 +2,12 @@ package pkg
 
 import (
 	"errors"
+	"fmt"
+	log "github.com/sirupsen/logrus"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"time"
 )
-
-const cPrefix = "\033[31;1;4mclient\033[0m"
 
 var (
 	errServerTimeout = errors.New("server timeout")
@@ -18,7 +17,8 @@ var (
 
 func callServer() (retEvent string, retErr error) {
 	client := http.Client{}
-	req, err := http.NewRequest("GET", "http://localhost:8000", nil)
+	url := fmt.Sprintf("http://localhost:%d", port)
+	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		log.Fatal(err)
 		return "", errClientError
@@ -58,16 +58,16 @@ func callServer() (retEvent string, retErr error) {
 func SendMessages() {
 	for {
 		callTime := time.Now()
-		log.Printf("%s calling server to receive an event", cPrefix)
+		log.Print("client calling server to receive an event")
 		result, err := callServer()
 
 		diff := time.Now().Sub(callTime)
 		if err == nil {
-			log.Printf("%s received event after %.1fs: %s", cPrefix, diff.Seconds(), result)
+			log.Printf("server received event after %.1fs: %s", diff.Seconds(), result)
 		} else if err == errServerTimeout {
-			log.Printf("%s received server timeout after %.1fs", cPrefix, diff.Seconds())
+			log.Printf("server received server timeout after %.1fs", diff.Seconds())
 		} else {
-			log.Fatalf("%s received server error", cPrefix)
+			log.Fatal("server received server error")
 		}
 	}
 }

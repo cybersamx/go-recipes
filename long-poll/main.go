@@ -5,6 +5,7 @@ import (
 	"log"
 	"os"
 	"os/signal"
+	"strconv"
 	"syscall"
 )
 
@@ -18,8 +19,11 @@ func main() {
 		syscall.SIGQUIT)
 
 	// Execute the server and client concurrently concurrently.
+	enableClient, _ := strconv.ParseBool(os.Getenv("ENABLE_CLIENT"))
 	go pkg.ListenForMessages()
-	go pkg.SendMessages()
+	if enableClient {
+		go pkg.SendMessages()
+	}
 
 	sig := <-sigChan
 	log.Printf("received signal %d, terminating...\n", sig)

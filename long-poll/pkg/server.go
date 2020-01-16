@@ -4,24 +4,34 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
+	log "github.com/sirupsen/logrus"
 	"math/rand"
 	"net/http"
+	"os"
 	"time"
 )
 
-const sPrefix = "\033[34;1;4mserver\033[0m"
+// Deliberately import a third-party package so that we can build our Docker image
+// with dependencies.
 
+const (
+	port = 8000
+)
 var events = []string{"empty", "full", "new", "removed"}
 
-func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
-	w.Header().Add("Content-Type", "application/json; charset=UTF-8")
-	jsonData, err := json.Marshal(payload)
-	if err != nil {
-		return err
-	}
+func init() {
+	log.SetFormatter(&log.TextFormatter{
+		DisableColors:             false,
+		FullTimestamp:             true,
+	})
+	log.SetOutput(os.Stdout)
+	log.SetLevel(log.InfoLevel)
+}
 
-	_, err = w.Write(jsonData)
+func writeJSONResponse(w http.ResponseWriter, payload interface{}) error {
+	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	encoder := json.NewEncoder(w)
+	err := encoder.Encode(payload)
 	if err != nil {
 		return err
 	}
@@ -34,37 +44,46 @@ func getRandomEvent() string {
 	return events[index]
 }
 
+func respondWithEvent(w http.ResponseWriter) {
+	event := getRandomEvent()
+	w.WriteHeader(http.StatusOK)
+	payload := map[string]string{"event": event}
+	if err := writeJSONResponse(w, payload); err != nil {
+		log.Printf("server error: %v", err)
+	}
+}
+
 // An event will surface anytime between 1 to 10 seconds and is then sent to the client.
 // If time for event to surface > 5 seconds, timeout and return a response with no content.
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
-	timeoutDuration := time.Duration(5) * time.Second
-	waitDuration := time.Duration(rand.Intn(9)+1) * time.Second
-	waitChan := time.Tick(waitDuration) // Wait this long to pick an event
-	timeoutCtx, timeoutCancel := context.WithTimeout(context.Background(), timeoutDuration)
+	rand.Seed(time.Now().UnixNano())
+	timeout := time.Duration(5) * time.Second
+	wait := time.Duration(rand.Intn(20) - 10) * time.Second
+	if wait < 0 {
+		log.Print("server received request and return an event back to the sender immediately")
+		respondWithEvent(w)
+		return
+	}
+	waitChan := time.Tick(wait) // Wait this long to pick an event
+	tctx, tcancel := context.WithTimeout(context.Background(), timeout)
+	defer tcancel()
 
-	log.Printf("%s received request and waiting %.1fs to emit an event back to the sender", sPrefix, waitDuration.Seconds())
+	log.Printf("server received request and waits %.1fs to emit an event back to the sender", wait.Seconds())
 	select {
 	case <-r.Context().Done():
-		log.Printf("%s request canceled", sPrefix)
+		log.Print("server request canceled")
 		http.Error(w, "request canceled", http.StatusNotModified)
-	case <-timeoutCtx.Done():
-		log.Printf("%s time out after %.1f", sPrefix, timeoutDuration.Seconds())
-		http.Error(w, fmt.Sprintf("time out after %.1f", timeoutDuration.Seconds()), http.StatusNotModified)
+	case <-tctx.Done():
+		log.Printf("server timed out after %.1f", timeout.Seconds())
+		http.Error(w, fmt.Sprintf("server timed out after %.1f", timeout.Seconds()), http.StatusNotModified)
 	case <-waitChan:
-		event := getRandomEvent()
-		w.WriteHeader(http.StatusOK)
-		payload := map[string]string{"event": event}
-		if err := writeJSONResponse(w, payload); err != nil {
-			log.Printf("%s server error: %v", sPrefix, err)
-		}
-		timeoutCancel()
+		respondWithEvent(w)
 	}
 }
 
 func ListenForMessages() {
-	port := 8000
-	log.Printf("%s starting web server on port %d", sPrefix, port)
+	log.Printf("server starting web server on port %d", port)
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), http.HandlerFunc(rootHandler))
 	log.Fatal(err)
 }
