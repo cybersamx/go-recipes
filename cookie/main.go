@@ -1,67 +1,113 @@
 package main
 
 import (
+	"bytes"
+	"encoding/base64"
+	"encoding/gob"
+	"github.com/gorilla/securecookie"
 	"io"
 	"log"
 	"net/http"
-	"time"
 )
 
 const (
-	addr = ":8000"
-	key  = "abcdefghijklmnopqrstuvwxyz123456"
-	expire = 60 * time.Minute
+	addr   = ":8000"
+	expire = 24 * 60 * 60
 )
 
-func getSimpleCookie(name, value string) *http.Cookie {
+var (
+	hashKey  = []byte("abcdefghijklmnopqrstuvwxyz123456")
+	blockKey = []byte("kcaur4fi3r7DSFasjfwer3274we9r737")
+)
+
+func getCookie(name, value string) *http.Cookie {
 	return &http.Cookie{
-		Name:       name,
-		Value:      value,
-		Expires:    time.Now().Add(expire),
+		Name:   name,
+		Value:  value,
+		MaxAge: expire,
 	}
 }
 
 func getHTTPOnlyCookie(name, value string) *http.Cookie {
 	return &http.Cookie{
-		Name:       name,
-		Value:      value,
-		Expires:    time.Now().Add(expire),
-		HttpOnly:   true,
+		Name:     name,
+		Value:    value,
+		MaxAge:   expire,
+		HttpOnly: true,
 	}
 }
 
 func getDomainCookie(name, value string) *http.Cookie {
 	return &http.Cookie{
-		Name:       name,
-		Value:      value,
-		Expires:    time.Now().Add(expire),
-		Domain:     "example.com",
+		Name:   name,
+		Value:  value,
+		MaxAge: expire,
+		Domain: "example.com",
 	}
 }
 
 func getPathCookie(name, value string) *http.Cookie {
 	return &http.Cookie{
-		Name:       name,
-		Value:      value,
-		Path:       "/nonexistent",
-		Expires:    time.Now().Add(expire),
+		Name:   name,
+		Value:  value,
+		Path:   "/nonexistent",
+		MaxAge: expire,
 	}
 }
 
-type entry struct{
-	name  string
-	value string
+type entry struct {
+	name   string
+	value  string
 	getter func(name, value string) *http.Cookie
+}
+
+type Preferences struct {
+	Font string
+	TextSize int
+	BGColor string
+	Margin  int
+}
+
+func serializePreferences(preferences *Preferences) (string, error) {
+	gob.Register(&Preferences{})
+	buf := bytes.Buffer{}
+	encoder := gob.NewEncoder(&buf)
+	if err := encoder.Encode(&preferences); err != nil {
+		return "", err
+	}
+	return base64.StdEncoding.EncodeToString(buf.Bytes()), nil
 }
 
 func vendCookieHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// Encode a complex type to string.
+		serialized, err := serializePreferences(&Preferences{
+			Font:     "Courier",
+			TextSize: 16,
+			BGColor:  "Silver",
+			Margin:   4,
+		})
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
+		// Hash a cookie.
+		sc := securecookie.New(hashKey, blockKey)
+		hashed, err := sc.Encode("hash", "hash-value")
+		if err != nil {
+			w.WriteHeader(http.StatusInternalServerError)
+			return
+		}
+
 		// --- Create some cookies ---
 		entries := []entry{
-			{name: "simple", value: "simple value", getter: getSimpleCookie},       // 1. Get simple cookie.
-			{name: "http-only", value: "simple value", getter: getHTTPOnlyCookie},  // 2. Get http-only cookie.
-			{name: "domain", value: "domain value", getter: getDomainCookie},       // 3. Get domain-specific cookie.
-			{name: "path", value: "path value", getter: getPathCookie},             // 4. Get path-specific cookie.
+			{name: "standard", value: "standard-value", getter: getCookie},      // Simple cookie.
+			{name: "http-only", value: "http-value", getter: getHTTPOnlyCookie}, // HTTP-only cookie.
+			{name: "domain", value: "domain-value", getter: getDomainCookie},    // Domain-specific cookie.
+			{name: "path", value: "path-value", getter: getPathCookie},          // Path-specific cookie.
+			{name: "encoded", value: serialized, getter: getCookie},             // Standard cookie with serialization.
+			{name: "hash", value: hashed, getter: getCookie},                    // Standard cookie with hashing.
 		}
 
 		for _, entry := range entries {
@@ -76,8 +122,6 @@ func vendCookieHandler() http.Handler {
 
 func readCookieHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-
 		for _, cookie := range r.Cookies() {
 			if _, err := io.WriteString(w, cookie.Value + "\n"); err != nil {
 				w.WriteHeader(http.StatusInternalServerError)

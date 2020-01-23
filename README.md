@@ -16,3 +16,7 @@ A collection of simple Golang recipes.
 * [Web cookie](cookie) - Sample code on implementing cookies the proper way.
 * [Web form](web-form) - Sample code on serving and handling a web form.
 * [Webhook](webhook) - Sample code that implements a webhook endpoint on a server.
+
+Other relevant recipes:
+
+* [Go Docker images](long-poll) - Build Go application Docker images using ubuntu, alpine, scratch, and distroless base images.
