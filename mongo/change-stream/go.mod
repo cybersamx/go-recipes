@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/mongo
+module github.com/cybersamx/go-recipes/mongo/changestream
 
 go 1.11
 
@@ -14,4 +14,5 @@ require (
 	golang.org/x/crypto v0.0.0-20191128160524-b544559bb6d1 // indirect
 	golang.org/x/sync v0.0.0-20190911185100-cd5d95a43a6e // indirect
 	golang.org/x/text v0.3.2 // indirect
+	syreclabs.com/go/faker v1.2.2
 )
