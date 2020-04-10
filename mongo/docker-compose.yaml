@@ -1,18 +1,16 @@
 version: '3.7'
 
 services:
-  mongo-server:
-    build:
-      context: .
-    image: cybersamx/go-recipes-mongo
-    container_name: mongo-server
+  mongo:
+    image: mongo:4.2.5
+    hostname: mongo
+    container_name: mongo
     restart: always
+    ports:
+      - 27017:27017
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
       MONGO_INITDB_DATABASE: go-recipes
-      MONGO_INITDB_USERNAME: nobody
-      MONGO_INITDB_PASSWORD: secrets
-    ports:
-      - 27017:27017
-    hostname: mongo
+    volumes:
+      - ./create-user.js:/docker-entrypoint-initdb.d/create-user.js

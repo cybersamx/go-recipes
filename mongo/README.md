@@ -23,10 +23,7 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
 1. You can connect to Mongo via the console:
 
    ```bash
-   $ # If you have mongo cli installed on your machine
-   $ mongo --host localhost -u nobody -p secrets go-recipes
-   $ # Alternatively, you can connect to Mongo by executing the cli on the container
-   $ docker exec -it mongo-server mongo -u nobody -p secrets go-recipes
+   $ docker exec -it mongo mongo -u nobody -p secrets go-recipes
    ```
 
 1. You can press CTRL-C and CTRL-D on the `mongo-server` and `mongo-cli` respectively to stop the containers. Don't forget to remove the containers as well.
@@ -34,6 +31,12 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
    ```bash
    $ # This should remove both mongo-server and mongo-cli
    $ docker-compose down
+   ```
+   
+1. Run Go programL
+
+   ```bash
+   $ go run ./main.go
    ```
 
 ## Notes

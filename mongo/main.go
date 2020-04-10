@@ -19,6 +19,18 @@ type config struct {
 	password string
 }
 
+// User represents a user account for an application.
+type User struct {
+	ID         string
+	Username   string
+	Email      string
+	City       string
+	Age        int
+	CreatedAt  time.Time
+	ModifiedAt time.Time
+}
+
+
 func newDefaultConfig() config {
 	// NOTE: Do not do the following in your code. This is done for just for the sample code.
 	// Do not hard code passwords or other sensitive data.
