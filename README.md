@@ -9,6 +9,7 @@ A collection of simple Golang recipes.
 * [Fake vs mock in unit testing](fake-mock) - Unit test sample using fake and mock.
 * [Kafka pubsub](kafka-pubsub) - Kafka publisher and subscriber code using the Watermill library.
 * [Long polling](long-poll) - Sample code demonstrating long-polling service.
+* [Microservice](microservice) - Collection of sample code on microservice implemented using the go-kit framework.
 * [MongoDB](mongo) - Simple sample code for using the MongoDB driver (no ODM or ORM).
 * [Postgres](postgres) - Sample code that demonstrates how to connect to PostgreSQL using 3 popular packages `sql`, `xorm`, and `gorm`. Includes a benchmark recipe for comparative performance analysis of the 3 packages. 
 * [Retry](retry) - Sample code that retries connection to a service in the network.
