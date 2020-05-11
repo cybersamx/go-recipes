@@ -1,0 +1,70 @@
+version: '3.7'
+
+# --- Network ---
+networks:
+  network:
+    driver: bridge
+
+# --- Services ---
+services:
+
+  # --- MongoDB Replica Set ---
+  # Replica set is needed for Change Stream support.
+  mongo1:
+    image: mongo:4.2
+    hostname: mongo1
+    container_name: mongo1
+    restart: always
+    ports:
+      - '27017:27017'
+    command: mongod --replSet rs0 --bind_ip_all
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: test
+    volumes:
+      - ./create-user.js:/docker-entrypoint-initdb.d/create-user.js
+    networks:
+      - network
+
+  mongo2:
+    image: mongo:4.2
+    hostname: mongo2
+    container_name: mongo2
+    restart: always
+    ports:
+      - '27018:27017'
+    command: mongod --replSet rs0 --bind_ip_all
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: test
+    volumes:
+      - ./create-user.js:/docker-entrypoint-initdb.d/create-user.js
+    networks:
+      - network
+
+  mongo3:
+    image: mongo:4.2
+    hostname: mongo3
+    container_name: mongo3
+    restart: always
+    ports:
+      - '27019:27017'
+    command: mongod --replSet rs0 --bind_ip_all
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: test
+    volumes:
+      - ./create-user.js:/docker-entrypoint-initdb.d/create-user.js
+    networks:
+      - network
+
+  mongo-setup:
+    image: mongo:4.2
+    volumes:
+      - ./rs-setup.sh:/scripts/rs-setup.sh
+    entrypoint: bash /scripts/rs-setup.sh
+    networks:
+      - network
