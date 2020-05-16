@@ -12,6 +12,7 @@ Here's a collection of the recipes:
 * [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock in a Go unit test.
 * [File reader](file-reader) - recipes that show the different ways of reading file: incremental and full.
 * [gRPC](grpc) - a simple gRPC server-client setup.
+* [HTTP cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the watermill framework.
 * [Long polling](long-poll) - a simple long-polling implementation.
 * [Microservice](microservice) - recipes that implement microservice using the go-kit framework.
@@ -19,7 +20,6 @@ Here's a collection of the recipes:
 * [Postgres](postgres) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
 * [Serialization](serialization) - recipes on serialization.
-* [Web cookie](cookie) - a recipe for working with web cookies.
 * [Web form](web-form) - a recipe explores working with the rendering of a simple web form using html/template and handling of form submissions.
 * [Webhook](webhook) - a simple webhook implemenation.
 
