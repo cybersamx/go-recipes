@@ -36,6 +36,6 @@ func main() {
 	case res := <-ch:
 		fmt.Printf("task done: %s\n", res.value)
 	case <-ctx.Done():
-		fmt.Printf("task canceled/ctxTimeout")
+		fmt.Println("task canceled/ctxTimeout")
 	}
 }
