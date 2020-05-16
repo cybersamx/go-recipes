@@ -2,4 +2,4 @@
 
 Recipes demonstrating the use of the Context in Go.
 
-* [Simple](simple) - Simple example of using context.Context.
+* [Timeout](timeout) - a recipe that explores how context timeout can be used to building a robust app.

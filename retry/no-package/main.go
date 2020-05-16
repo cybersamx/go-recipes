@@ -31,7 +31,7 @@ func main() {
 		// 1. Wrap the defer cancel() statement in an anonymous function.
 		// 2. Don't use defer and move the cancel() all the way to the end of the loop block.
 		//
-		// Use option 1 to keep it simple. Using option 2 here to illustrate the use of
+		// Use option 1 to keep it timeout. Using option 2 here to illustrate the use of
 		// anonymous function.
 		ok := func() bool {
 			log.Printf("attempt %d: connecting to mongo %s\n", i + 1, uri)

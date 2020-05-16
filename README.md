@@ -6,6 +6,7 @@ I started this project as I was learning Go. Over time, it evolved into a handy 
 
 Here's a collection of the recipes:
 
+* [Context](context) - recipes on the `context` package.
 * [Dependency injection](dependency-injection) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
 * [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock in a Go unit test.

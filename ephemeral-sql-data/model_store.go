@@ -13,7 +13,7 @@ type (
 		GCInterval time.Duration
 	}
 
-	// Entity is a simple entity for the SQL database.
+	// Entity is a timeout entity for the SQL database.
 	Entity struct {
 		ID        string
 		ExpiresAt time.Time
@@ -79,7 +79,7 @@ func (ts *Store) Create(expiresAt time.Time) (string, error) {
 
 	idString := id.String()
 	_, err = ts.DB.Exec(`
-		INSERT INTO Entities (id, expire_at) 
+		INSERT INTO Entities (id, expire_at)
     	VALUES (?, ?)`, idString, expiresAt)
 	if err != nil {
 		return "", err

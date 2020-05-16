@@ -10,10 +10,13 @@ type result struct {
 	value string
 }
 
-const timeout = 2 * time.Second
+const (
+	ctxTimeout = 2 * time.Second
+	workTimeout = 5 * time.Second
+)
 
 func main() {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	ctx, cancel := context.WithTimeout(context.Background(), ctxTimeout)
 	// Call cancel when done or we'll have a context leak.
 	defer cancel()
 
@@ -22,10 +25,10 @@ func main() {
 	// Perform the task asynchronously.
 	go func() {
 		// Simulate work.
-		// NOTE: Change the time to exceed the timeout and see the result.
-		time.Sleep(1 * time.Second)
+		// NOTE: Change the time to exceed the ctxTimeout and see the result.
+		time.Sleep(workTimeout * time.Second)
 
-		ch <- result{value: time.Now().String()}
+		ch <-result{value: time.Now().String()}
 	}()
 
 	// Wait for the task to finish.
@@ -33,6 +36,6 @@ func main() {
 	case res := <-ch:
 		fmt.Printf("task done: %s\n", res.value)
 	case <-ctx.Done():
-		fmt.Printf("task canceled/timeout")
+		fmt.Printf("task canceled/ctxTimeout")
 	}
 }

@@ -23,7 +23,7 @@ func init() {
 	rand.Seed()
 }
 
-// fatal is a simple way to dump all errors to log.Fatalf and exit from the program if an error occurs.
+// fatal is a timeout way to dump all errors to log.Fatalf and exit from the program if an error occurs.
 // Don't do this in production. This is strictly for the demo.
 func fatal(msg string, err error) {
 	if err != nil {
