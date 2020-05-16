@@ -1,0 +1,34 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+
+# Top-most editor config file
+root = true
+
+# --- All files ---
+
+# Includes json, yaml, yml, sh.
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+charset = utf-8
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 2
+
+# --- Go files ---
+[*.go]
+indent_style = tab
+indent_size = 4
+
+# --- JavaScript and TypeScript files ---
+[*.{js,jsx,ts,tsx}]
+indent_size = 4
+
+# --- HTML ---
+[*.{html,htm}]
+indent_size = 4
+
+# --- Others ---
+[Makefile]
+indent_style = tab
