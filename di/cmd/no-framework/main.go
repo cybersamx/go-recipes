@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/cybersamx/go-recipes/dependency-injection/no-framework/pkg"
+	"github.com/cybersamx/go-recipes/di/pkg"
 )
 
 func main() {

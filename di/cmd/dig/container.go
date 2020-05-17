@@ -1,6 +1,7 @@
-package pkg
+package main
 
 import (
+	"github.com/cybersamx/go-recipes/di/pkg"
 	"go.uber.org/dig"
 )
 
@@ -25,22 +26,22 @@ func NewContainer() (*dig.Container, error) {
 	//	return &settings
 	//})
 
-	err := c.Provide(NewSettings)
+	err := c.Provide(pkg.NewSettings)
 	if err != nil {
 		return nil, err
 	}
 
-	err = c.Provide(OpenConnection)
+	err = c.Provide(pkg.OpenConnection)
 	if err != nil {
 		return nil, err
 	}
 
-	err = c.Provide(NewDataStore)
+	err = c.Provide(pkg.NewDataStore)
 	if err != nil {
 		return nil, err
 	}
 
-	err = c.Provide(NewHTTPServer)
+	err = c.Provide(pkg.NewHTTPServer)
 	if err != nil {
 		return nil, err
 	}

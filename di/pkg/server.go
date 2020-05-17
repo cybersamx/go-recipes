@@ -3,6 +3,7 @@ package pkg
 import (
 	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
 )
 
@@ -15,10 +16,13 @@ func (hs *HTTPServer) Start() error {
 	mux := http.NewServeMux()
 	mux.HandleFunc("/", hs.citiesHandlerFunc())
 
+	addr := fmt.Sprintf(":%d", hs.settings.Port)
 	httpServer := http.Server{
-		Addr:    fmt.Sprintf(":%d", hs.settings.Port),
+		Addr:    addr,
 		Handler: mux,
 	}
+
+	log.Printf("Starting http server at %s", addr)
 
 	return (&httpServer).ListenAndServe()
 }
