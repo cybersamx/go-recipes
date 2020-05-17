@@ -68,7 +68,9 @@ The [securecookie package](https://github.com/gorilla/securecookie), as part of 
    $ go run main.go
    ```
    
-1. Open a web browser, open the developer tool/console, and see what cookies are set. Navigate to <http://localhost:8000/vend> and <http://localhost:8000/read>.
+1. Open a web browser and navigate to <http://localhost:8000/vend> for the application to vend out cookies.
+
+1. Open the developer tool/console and see what cookies are set. You can also go to <http://localhost:8000/read> to have the server print out all the cookies.
 
    ![Chrome](images/chrome-developer-tool.png)
    

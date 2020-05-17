@@ -8,7 +8,6 @@ GOBASE := $(shell pwd)
 GOFILES := $(wildcard *.go)
 GOBIN := $(GOBASE)/bin
 
-PROJECT := $(shell basename pwd)
 NO_FRWK_BIN := no-framework
 DIG_BIN := dig
 WIRE_BIN := wire

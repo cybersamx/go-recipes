@@ -8,7 +8,6 @@ GOBASE := $(shell pwd)
 GOFILES := $(wildcard *.go)
 GOBIN := $(GOBASE)/bin
 
-PROJECT := $(shell basename pwd)
 TIMEOUT_BIN := timeout
 DEADLINE_BIN := deadline
 TIMEOUT_SRC := $(wildcard timeout/*.go)
