@@ -8,11 +8,10 @@ There are 2 programs and they are essentially the same with the exception that t
 
 ## Setup
 
-1. Run the programs. 
+1. Run the programs.
 
    ```bash
-   $ go run deadline/main.go
-   $ go run timeout/main.go
+   $ make
    ```
 
 ## Reference
