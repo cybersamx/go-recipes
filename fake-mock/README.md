@@ -1,27 +1,27 @@
 # Fake vs Mock
 
-An example of how to use test doubles ie. fakes and mocks, and their differences.
+A recipe on how to use test doubles, ie. fakes and mocks, in unit tests.
 
 ## Definition
 
 Fake and mock are collectively called test doubles. The definitions of the terms are:
 
 * **Fake** - Fake doesn't modify the behavior of the system under test. There are 2 forms of fakes:
-  * Fake data - use not-real (fake) data eg. nobody@example.com
-  * Fake system - instead of using an actual system dependency in production eg. Postgres or MySQL, the test system uses a simple SQLite
-* **Mock** - You have components in your system that calls or depends on a dependency. You mock that dependency and assert that your system has interacted with the dependency.
+  * Fake data - use non-real (fake) data eg. nobody@example.com
+  * Fake system - instead of using an actual system dependency in production, eg. Postgres or MySQL, the test suite uses a simpler system, eg. simple SQLite, to mimic the actual system.
+* **Mock** - You have components in your system that calls or depends on a dependency. A mock allows the tester to mock that dependency and assert that your system has interacted with the dependency.
 
-The best explanation for this perennial question is available [here](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
+The best explanation to this perennial question is available [here](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
 
 ## Project Description
 
-This example emulates a forgot password web service, which generates a random password and replaces the existing password in the system that is associated to the user. The main components in this example are:
+This recipe emulates a forgot password web service, which generates a random password and replaces the existing password in the system. The main components are:
 
-* [Account](model.go) - The user's account in the system.
-* [AccountModel](model.go) - The layer that create, get, and delete a user's account.
-* [AccountService](api.go) - Represents the API, from which the user can call to reset his/her password.
+* [Account](model.go) - The representation of the user's account in the system.
+* [AccountModel](model.go) - The data access layer that creates, fetches, and deletes a user's account.
+* [AccountService](api.go) - The layer that implements the API endpoint, from which the user can call to reset his/her password.
 
-The unit test is for testing `AccountService`. As `AccountService` calls a function in `AccountModel`, we need to either fake or mock the `AccountModel` function, on which `AccountService` depends. This example demonstrates both technique - see <api_test.go>.
+The unit tests in this recipe are used to test `AccountService`. When `AccountService` calls a function in `AccountModel`, we need to either fake or mock that function in `AccountModel`. In unit test <api_test.go>, we see that the test is using both a fake and mock:
 
 * Test using a fake - We emulate data access to a SQL database with in-code `map` data type. **Note**: it probably more relevant using SQLite to fake the SQL database access layer than Golang `map`
 * Test using a mock - We mock the `AcccountModel` thru [MockAccountModel](mock_model.go).
@@ -31,7 +31,7 @@ The unit test is for testing `AccountService`. As `AccountService` calls a funct
 1. Run the test
 
    ```bash
-   $ go test .
+   $ make
    ```
 
 ## Reference

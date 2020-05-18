@@ -5,7 +5,6 @@
 
 GO := go
 GOBASE := $(shell pwd)
-GOFILES := $(wildcard *.go)
 GOBIN := $(GOBASE)/bin
 
 PROJECT := $(shell basename "$(PWD)")
