@@ -9,17 +9,21 @@ import (
 	"time"
 )
 
+const (
+	sqliteFile = "test.db"
+	gcSeconds = 5
+)
+
 func main() {
 	fmt.Printf("connect to the database.\n")
-	db, err := sql.Open("sqlite3", "test.db")
+	db, err := sql.Open("sqlite3", sqliteFile)
 	if err != nil {
 		log.Fatalf("failed to open database: %v\n", err)
 	}
 
-	gcInterval := 5
-	fmt.Printf("instantiate a store that garbage collects every %d seconds.\n", gcInterval)
+	fmt.Printf("instantiate a store that garbage collects every %d seconds.\n", gcSeconds)
 	config := Config{
-		GCInterval: time.Duration(gcInterval) * time.Second,
+		GCInterval: time.Duration(gcSeconds) * time.Second,
 	}
 	ts, err := NewStore(db, config)
 	if err != nil {

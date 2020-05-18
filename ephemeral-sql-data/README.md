@@ -1,6 +1,6 @@
 # Ephemeral data models in SQL
 
-An example of an ephemeral data model in SQL. The data store will garbage collect every n seconds to check and remove which data objects have expired.
+A recipe that shows the implementation of an ephemeral data model in Go. We create a SQL data store that will garbage collect every n seconds to check and remove any data objects in the store that have expired.
 
 The recipe uses the time.Ticker to garbage collect every GCInterval.
 
@@ -9,6 +9,5 @@ The recipe uses the time.Ticker to garbage collect every GCInterval.
 1. Run the program
 
    ```bash
-   $ go run *.go
+   $ make
    ```
-   
