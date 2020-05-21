@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/long-poll
+module github.com/cybersamx/go-recipes/ephemeral-sql-data
 
 go 1.12
 

@@ -21,6 +21,7 @@ Here's a collection of the recipes:
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
 * [Postgres](postgres) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
+* [Scheduler](scheduler) - a recipe that highlights ways to schedule code to be run periodically.
 * [Serialization](serialization) - recipes on serialization.
 * [Web form](web-form) - a recipe explores working with the rendering of a simple web form using html/template and handling of form submissions.
 * [Webhook](webhook) - a simple webhook implemenation.
