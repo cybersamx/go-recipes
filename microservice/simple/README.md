@@ -1,13 +1,13 @@
 # Simple Monolithic REST Service
 
 This is a simple REST service implemented with [Go-kit](https://github.com/go-kit/kit).
-  
+
 ## Setup
 
 1. Run the server
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
 
 2. To test the server, run:
@@ -19,4 +19,4 @@ This is a simple REST service implemented with [Go-kit](https://github.com/go-ki
 
 ## Data
 
-The data in `states.yaml` was taken from US Census - see <https://www.census.gov/data/datasets.html>. 
+The data in `states.yaml` was taken from US Census - see <https://www.census.gov/data/datasets.html>.

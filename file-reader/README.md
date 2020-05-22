@@ -1,12 +1,12 @@
 # File Reader
 
-An example of reading a text file. 
+An example of reading a text file.
 
 ## Best Practices
 
 ### Pass by io.Reader and io.Writer
 
-Go provides the `io.Reader` and `io.Writer` interfaces to represent I/O operations. As a best practice, pass the I/O streams using `io.Reader` or `io.Writer` instead of `string`, `[]bytes`, etc. As interfaces, you can pass the concrete object representing the actual stream - it makes the code cleaner and more extensible.  
+Go provides the `io.Reader` and `io.Writer` interfaces to represent I/O operations. As a best practice, pass the I/O streams using `io.Reader` or `io.Writer` instead of `string`, `[]bytes`, etc. As interfaces, you can pass the concrete object representing the actual stream - it makes the code cleaner and more extensible.
 
 ### ReadCloser
 
@@ -41,12 +41,10 @@ The function `ioutil.ReadAll` reads the content from the stream into memory unti
 
 ## Setup
 
-## Setup
-
 1. Run the program
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
 
 ## Reference and Credits

@@ -4,12 +4,12 @@ A recipe on working with http cookies in Go. Cookie is a simple construct but it
 
 ## Cookies Overview
 
-A cookie is nothing more than a key-value pair that is stored on a client web browser. Typically a server sends a request using the HTTP `Set-Cookie` directive in the response header to request that a key-value pair be saved on the client. Subsequent requests from the web browser to the same server will include the same cookie in the `Cookie` HTTP header. 
+A cookie is nothing more than a key-value pair that is stored on a client web browser. Typically a server sends a request using the HTTP `Set-Cookie` directive in the response header to request that a key-value pair be saved on the client. Subsequent requests from the web browser to the same server will include the same cookie in the `Cookie` HTTP header.
 
 This recipe create several different cookies to illustrate some key concepts:
 
 ### HttpOnly Field
- 
+
 Cookie with `HttpOnly` field set to `true` makes the cookie inaccessible to the Javascript `document.cookie` on the client. The cookie will still be sent back to the server in the `Cookie` HTTP header, hence the name `HttpOnly`. This is useful if you want to persist strictly server-side data that don't need to be exposed to the client Javascript eg. server-side sessions.
 
 ### Secure Field
@@ -41,7 +41,7 @@ There is now a new field called `SameStie` that can be used to control the scope
 
 ## MaxAge vs Expires Fields
 
-[This article explains this subject perfectly](https://mrcoles.com/blog/cookies-max-age-vs-expires/). The `Expires` and `MaxAge` attributes denotes the same thing, that is when a cookie will expire. The former uses an absolute timestamp (when the cookie will expires at a specific timestamp) and the latter a relative duration (when the cookie will expires after a specified duration). `Expires` was deprecated back in 2009. So just use `MaxAge`. 
+[This article explains this subject perfectly](https://mrcoles.com/blog/cookies-max-age-vs-expires/). The `Expires` and `MaxAge` attributes denotes the same thing, that is when a cookie will expire. The former uses an absolute timestamp (when the cookie will expires at a specific timestamp) and the latter a relative duration (when the cookie will expires after a specified duration). `Expires` was deprecated back in 2009. So just use `MaxAge`.
 
 > **Notes**
 >
@@ -65,15 +65,15 @@ The [securecookie package](https://github.com/gorilla/securecookie), as part of 
 1. Run the program
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
-   
+
 1. Open a web browser and navigate to <http://localhost:8000/vend> for the application to vend out cookies.
 
 1. Open the developer tool/console and see what cookies are set. You can also go to <http://localhost:8000/read> to have the server print out all the cookies.
 
    ![Chrome](images/chrome-developer-tool.png)
-   
+
 ## Reference
 
 * [Morzilla: Cookie](https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies)

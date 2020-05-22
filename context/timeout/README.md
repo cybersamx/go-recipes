@@ -11,7 +11,7 @@ There are 2 programs, and they are essentially the same with the exception that 
 1. Run the programs.
 
    ```bash
-   $ make
+   $ make run
    ```
 
 ## Reference

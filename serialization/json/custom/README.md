@@ -8,9 +8,9 @@ We use the following struct that represent a user account that is used in a real
 
 ```go
 type User struct {
-	ID        string 
-	Email     string 
-	Password  string 
+	ID        string
+	Email     string
+	Password  string
 }
 ```
 
@@ -28,12 +28,12 @@ In the recipe, we also define additional fields `Note` and `Tags` to validate th
 
 ## Setup
 
-1. Run the program
+1. Test the program
 
    ```bash
-   $ go test . -v
+   $ make test
    ```
-   
+
 ## Reference
 
 * [Godoc: json](https://godoc.org/encoding/json)

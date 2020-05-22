@@ -9,5 +9,5 @@ The recipe uses the time.Ticker to garbage collect every GCInterval.
 1. Run the program
 
    ```bash
-   $ make
+   $ make run
    ```

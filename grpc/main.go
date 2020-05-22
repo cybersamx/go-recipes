@@ -4,7 +4,7 @@ package main
 
 import (
 	"context"
-	"github.com/cybersamx/go-recipes/grpc/hello"
+	"github.com/cybersamx/go-recipes/grpc/proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"

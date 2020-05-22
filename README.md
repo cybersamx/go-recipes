@@ -34,3 +34,7 @@ Other somewhat Go-related recipes:
 Go-related guides and docs:
 
 * [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
+
+## Credits and Reference
+
+* [Azer Makefile](https://github.com/azer/go-makefile-example/blob/master/Makefile)

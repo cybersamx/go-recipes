@@ -5,12 +5,15 @@ GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 
 PROJECT := $(shell basename "$(PWD)")
-SRC := $(wildcard *.go)
+SRC := .
+PROTO_DIR := proto
 
 ##@ run: Run program
 
 run:
 	@echo "Running $(PROJECT)..."
+	mkdir -p $(PROTO_DIR)
+	protoc -I . hello.proto --go_out=plugins=grpc:$(PROTO_DIR)
 	go run $(SRC)
 
 ##@ build: Build binary

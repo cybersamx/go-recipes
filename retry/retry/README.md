@@ -9,7 +9,7 @@ It has a neat interface and implements an [exponential backoff](https://en.wikip
 1. Run the application
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
 
 ## Reference and Credits

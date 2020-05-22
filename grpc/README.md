@@ -12,18 +12,24 @@ An example of gRPC using protobuf. It is a modification of [the official gRPC ex
    $ # Run the following if you haven't done so already.
    $ export PATH="$PATH:$(go env GOPATH)/bin"
    ```
-   
-2. Generate code from the protobuf definition file. 
+
+2. Generate code from the protobuf definition file.
 
    ```bash
    $ mkdir hello
    $ protoc -I . hello.proto --go_out=plugins=grpc:hello
    ```
-   
+
 3. Run both server and client concurrently.
 
    ```bash
    $ go run main.go
+   ```
+
+   You can also run the following command that combines steps 2 and 3.
+
+   ```bash
+   $ make run
    ```
 
 ## Reference and Credits

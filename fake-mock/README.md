@@ -31,7 +31,7 @@ The unit tests in this recipe are used to test `AccountService`. When `AccountSe
 1. Run the test
 
    ```bash
-   $ make
+   $ make test
    ```
 
 ## Reference

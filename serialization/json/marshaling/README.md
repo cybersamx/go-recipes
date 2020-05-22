@@ -7,9 +7,9 @@ A simple recipe for JSON marshaling/unmarshaling in Go.
 1. Run the program
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
-   
+
 ## Reference
 
 * [Godoc: json](https://godoc.org/encoding/json)

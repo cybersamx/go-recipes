@@ -5,13 +5,15 @@ GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 
 PROJECT := $(shell basename "$(PWD)")
-SRC := $(wildcard *.go)
+SRC := .
 
-##@ run: Run program
+run: test
 
-run:
-	@echo "Running $(PROJECT)..."
-	go run $(SRC)
+##@ test: Test program
+
+test:
+	@echo "Testing $(PROJECT)..."
+	go test -v $(SRC)
 
 ##@ build: Build binary
 

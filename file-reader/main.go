@@ -18,7 +18,7 @@ func naivePrint(reader io.Reader) (io.ReadCloser, error) {
 		return nil, err
 	}
 
-	fmt.Println(data)
+	fmt.Println(string(data))
 
 	return ioutil.NopCloser(bytes.NewReader(data)), nil
 }
@@ -37,7 +37,7 @@ func efficientPrint(reader io.Reader) (io.ReadCloser, error) {
 		}
 
 		if n > 0 {
-			fmt.Print(data[:n])
+			fmt.Print(string(data[:n]))
 		}
 	}
 

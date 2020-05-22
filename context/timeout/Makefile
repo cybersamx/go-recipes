@@ -1,9 +1,6 @@
-## CREDIT: https://github.com/azer/go-makefile-example/blob/master/Makefile
-##
 ## Instructions
-## All comments that start ##@ [target] [description] will be shown in help
+## Comments that start with ##@ [target] [description] will be shown in help
 
-GO := go
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 
@@ -20,13 +17,13 @@ run: run-timeout run-deadline
 
 run-timeout:
 	@echo "Running timeout..."
-	$(GO) run $(TIMEOUT_SRC)
+	go run $(TIMEOUT_SRC)
 
 ##@ run-deadline: Run deadline
 
 run-deadline:
 	@echo "Running deadline..."
-	$(GO) run $(DEADLINE_SRC)
+	go run $(DEADLINE_SRC)
 
 ##@ build: Build all binaries
 
@@ -36,13 +33,13 @@ build: build-timeout build-deadline
 
 build-timeout:
 	@echo "Building timeout..."
-	$(GO) build -o $(GOBIN)/$(TIMEOUT_BIN) $(TIMEOUT_SRC)
+	go build -o $(GOBIN)/$(TIMEOUT_BIN) $(TIMEOUT_SRC)
 
 ##@ build-deadline: Build deadline
 
 build-deadline:
 	@echo "Building deadline..."
-	$(GO) build -o $(GOBIN)/$(DEADLINE_BIN) $(DEADLINE_SRC)
+	go build -o $(GOBIN)/$(DEADLINE_BIN) $(DEADLINE_SRC)
 
 ##@ clean: Clean output files and build cache
 
@@ -53,7 +50,7 @@ clean:
 
 go-clean:
 	@echo "Cleaning build cache..."
-	$(GO) clean
+	go clean
 
 ##@ help: Help
 

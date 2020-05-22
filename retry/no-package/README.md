@@ -9,7 +9,7 @@ For this example, we deliberately don't want to connect to the database to test 
 1. Run the application
 
    ```bash
-   $ go run main.go
+   $ make run
    ```
 
 ## Reference and Credits

@@ -1,6 +1,6 @@
-package main
-
 // Based on  https://watermill.io/docs/getting-started/
+
+package main
 
 import (
 	"context"
