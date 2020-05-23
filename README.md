@@ -9,6 +9,7 @@ I started this project as I was learning Go. Over time, it evolved into a handy 
 Here's a collection of the recipes:
 
 * [Context](context) - recipes on the `context` package.
+* [Collection](collection) - a recipe highlighting common operations on slice and map.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
