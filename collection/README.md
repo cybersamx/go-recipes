@@ -1,11 +1,5 @@
-# Collections in Go
+# Go Collections
 
-This recipe highlights common operations on slice and map as well as some relevant tips and pitfalls.
+Recipes on collections in Go.
 
-## Setup
-
-1. Run the program
-
-   ```bash
-   $ make run
-   ```
+* [Basic](basic) - recipe on the basic operations and an extensive guide on tips and common pitfalls of using slice and map.
