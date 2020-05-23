@@ -2,4 +2,5 @@
 
 Recipes on collections in Go.
 
-* [Basic](basic) - recipe on the basic operations and an extensive guide on tips and common pitfalls of using slice and map.
+* [Slice](slice) - recipe on the basic operations and tips on using slice.
+* [Map](map) - recipe on the basic operations and tips on using map.
