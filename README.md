@@ -8,8 +8,11 @@ I started this project as I was learning Go. Over time, it evolved into a handy 
 
 Here's a collection of the recipes:
 
-* [Context](context) - recipes on the `context` package.
-* [Collection](collection) - recipes on slice and map.
+* [Context](context) - recipes on `context` package.
+  * [Timeout](context/timeout) - timeout using `context`.
+* [Collection](collection) - recipes on Go collections.
+  * [Map](collection/map) - basic map operations.
+  * [Slice](collection/slice) - basic slice operations.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
@@ -20,10 +23,17 @@ Here's a collection of the recipes:
 * [Long polling](long-poll) - a simple long-polling implementation.
 * [Microservice](microservice) - recipes that implement microservice using the go-kit framework.
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
+  * [Basic](mongo/basic) - basic operations with Mongo.
+  * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
+  * [ORM](postgres/orm-sql) - recipe for 
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
+  * [No-package](retry/no-package) - recipe using retry without a third-party framework.
+  * [Retry](retry/retry) - recipe using the retry package.
 * [Scheduler](scheduler) - a recipe that highlights ways to schedule code to be run periodically.
 * [Serialization](serialization) - recipes on serialization.
+  * [CSV](serialization/csv) - recipe for csv serialization.
+  * [JSON](serialization/json) - recipe for json serialization.
 * [Web form](web-form) - a recipe explores working with the rendering of a simple web form using html/template and handling of form submissions.
 * [Webhook](webhook) - a simple webhook implemenation.
 
