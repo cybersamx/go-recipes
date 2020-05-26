@@ -10,7 +10,7 @@ Go provides the `io.Reader` and `io.Writer` interfaces to represent I/O operatio
 
 ### ReadCloser
 
-In Go, `io.Reader` is a stream. So once the reader is read, you can't reread it. For example:
+In Go, `io.Reader` is a stream. So once the reader has finishing reading a stream, you can't reread the stream again. For example:
 
 ```go
 file, err := os.Open("testdata.txt")

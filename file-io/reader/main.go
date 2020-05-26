@@ -11,8 +11,8 @@ import (
 	"os"
 )
 
-// naivePrint prints the content of the file directly using ReadAll in 1 pass.
-func naivePrint(reader io.Reader) (io.ReadCloser, error) {
+// naiveRead prints the content of the file directly using ReadAll in 1 pass.
+func naiveRead(reader io.Reader) (io.ReadCloser, error) {
 	data, err := ioutil.ReadAll(reader)
 	if err != nil {
 		return nil, err
@@ -23,9 +23,9 @@ func naivePrint(reader io.Reader) (io.ReadCloser, error) {
 	return ioutil.NopCloser(bytes.NewReader(data)), nil
 }
 
-// efficientPrint breaks the reading of a stream by chunks. This is useful for
+// efficientRead breaks the reading of a stream by chunks. This is useful for
 // reading big files.
-func efficientPrint(reader io.Reader) (io.ReadCloser, error) {
+func efficientRead(reader io.Reader) (io.ReadCloser, error) {
 	data := make([]byte, 256)
 	for {
 		n, err := reader.Read(data)
@@ -58,13 +58,13 @@ func main() {
 	}()
 
 	fmt.Println("--- Naive Print ---")
-	closer, err := naivePrint(file)
+	closer, err := naiveRead(file)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	fmt.Println("--- Efficient Print ---")
-	_, err = efficientPrint(closer)
+	_, err = efficientRead(closer)
 	if err != nil {
 		log.Fatal(err)
 	}
