@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Order</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h2>Your Order</h2>
+            <p>
+                {{/* Call the FullName method with argument true in the Customer field */}}
+                <strong>Customer: </strong>{{.Customer.FullName true}}
+                {{/* This is long winded way of just printing .Customer.Email. We assign the email value
+                     to the variable $email and pipeline it to the function printf */}}
+                <strong>Email: </strong>{{with $email := .Customer.Email}}{{$email | printf "%q"}}{{end}}
+            </p>
+            <p>
+                {{/* Renders the ShiptmentID field */}}
+                <strong>Shipment ID: </strong>{{.ShipmentID}}
+            </p>
+            <p>
+                <div><strong>Shipping Address</strong></div>
+                <div>
+                    {{/* Nested fields are ok */}}
+                    {{ .Address.StreetAddress }}<br />
+                    {{ .Address.City }}<br />
+                    {{ .Address.State }}<br />
+                    {{ .Address.ZipCode }}<br />
+                </div>
+            </p>
+            <p>
+                <strong>Free Shipping?</strong>
+                {{/* Conditional action accepts only 1 bool argument, so to evaluate TotalCost() > 40.0,
+                     we need to use function gt to compare */}}
+                {{if gt .TotalCost 40.0}}Yes{{else}}No{{end}}
+            </p>
+            {{/* Definte the content for the template and params to pass */}}
+            {{define "item"}}
+                <tr>
+                    <td>{{.Product}}</td>
+                    <td>{{.Qty}}</td>
+                    <td>${{.Cost}}</td>
+                </tr>
+            {{end}}
+            <p>
+                <strong>Free Shipping?</strong>
+                <table>
+                <tr>
+                    <th>Product</th>
+                    <th>Qty</th>
+                    <th>Cost</th>
+                </tr>
+                    {{/* Loop */}}
+                    {{range $index, $item := .Items}}
+                        {{/* Pass item to the template for the content to be displayed */}}
+                        {{template "item" $item}}
+                    {{end}}
+                </table>
+            </p>
+            {{/* Definte the content for the template */}}
+            {{define "footer"}}Copyright 2020 Acme{{end}}
+            {{/* Display the template */}}
+            {{template "footer"}}
+        </div>
+    </body>
+</html>
