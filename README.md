@@ -39,6 +39,7 @@ Here's a collection of the recipes:
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
   produces a simple web form using html/template and handling of form submissions.
+  * [HTML template](html-template) - a recipe that shows server-side web content rendering using Go's `html/template` package.
 * [Webhook](webhook) - a simple webhook implemenation.
 
 Other somewhat Go-related recipes:
