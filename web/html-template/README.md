@@ -1,6 +1,6 @@
 # Go HTML Templating
 
-This recipe shows how to incorporate server-side web rendering using Go's `html/template` package.
+This recipe shows server-side web content rendering using Go's `html/template` package.
 
 Some highlights about `html/template` package:
 
