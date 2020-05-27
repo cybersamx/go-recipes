@@ -30,7 +30,7 @@ func main() {
 	filename := "testdata.txt"
 	file, err := os.Create(filename)
 	if err != nil {
-		log.Fatalf("can't open file %s: %v", filename, err)
+		log.Fatalf("can't create file %s: %v", filename, err)
 	}
 	defer func() {
 		if err := file.Close(); err != nil {

@@ -1,6 +1,6 @@
-# Webform
+# Simple Web Form Submission and JWT Auth
 
-This is an example of how a web form is implemented in Golang. This is a login application where the user enters the username and password for authentication. Once a user has been authenticated, the application will persists the session using JWT.
+This recipe implements web form submissionin Go. This is a login application where the user enters the username and password for authentication. Once a user has been authenticated, the application will persist the session using JWT.
 
  This application has the following functions:
 

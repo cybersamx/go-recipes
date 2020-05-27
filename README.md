@@ -27,8 +27,8 @@ Here's a collection of the recipes:
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
   * [Basic](mongo/basic) - basic operations with Mongo.
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
-* [Postgres](postgres) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
-  * [ORM](postgres/orm-sql) - recipe for
+* [Postgres](postgres) - recipes on postgres and general SQL operations.
+  * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
   * [Retry](retry/retry) - recipe using the retry package.
@@ -36,7 +36,9 @@ Here's a collection of the recipes:
 * [Serialization](serialization) - recipes on serialization.
   * [CSV](serialization/csv) - recipe for csv serialization.
   * [JSON](serialization/json) - recipe for json serialization.
-* [Web form](web-form) - a recipe explores working with the rendering of a simple web form using html/template and handling of form submissions.
+* [Web](web) - recipes for using the web.
+  * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
+  produces a simple web form using html/template and handling of form submissions.
 * [Webhook](webhook) - a simple webhook implemenation.
 
 Other somewhat Go-related recipes:
