@@ -2,4 +2,5 @@
 
 Recipes for integrating Redis in Go.
 
-* [Counter](counter) - Global atomic counter that showcases basic operations in Redis.
+* [Counter](counter) - global atomic counter that showcases basic operations in Redis.
+* [Expiring sessions](sessions) - implements ephemeral sessions in Redis by setting up Redis to remove expired content.

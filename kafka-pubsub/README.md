@@ -1,6 +1,6 @@
 # Kafka Pubsub using Watermill Library
 
-An example of implementing an event-driven application using pubsub pattern with Kafka as the message broker and [Watermill library](https://github.com/ThreeDotsLabs/watermill) as the software framework.
+An example of implementing an event-driven application using pubsub pattern with Kafka as the message broker and [Watermill framework](https://github.com/ThreeDotsLabs/watermill).
 
 ## Overview
 
@@ -17,13 +17,13 @@ This sample code is basically based on the [Kafka example](https://github.com/Th
    ```bash
    $ docker-compose up
    ```
-   
+
 2. Run the go program.
 
    ```bash
    $ go run main.go
    ```
-   
+
 3. Terminate the programs.
 
    ```bash

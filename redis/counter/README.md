@@ -1,4 +1,4 @@
-# Connecting to Redis
+# Global, Atomic Counter in Redis
 
 The 2 most mature, performant, and commonly used Redis drivers in Go are:
 
@@ -7,7 +7,7 @@ The 2 most mature, performant, and commonly used Redis drivers in Go are:
 
 A full list of Redis drivers for Go is available [here](http://redis.io/clients#go).
 
-In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wiki/Atomicity_(database_systems)) counter using Redis using [Radix](https://github.com/mediocregopher/radix). Why not just implement a counter locally in the Go program instead. Sure, we can do that if it's just 1 client running a single thread. But in a concurrent context where we have multiple goroutines or in a distributed system, we need to have a system to support an atomic increment operation. Redis provides that support via the `INCR` command.
+In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wiki/Atomicity_(database_systems)) counter using Redis using the [Radix](https://github.com/mediocregopher/radix) driver. Why not just implement a counter locally in the Go program instead. Sure, we can do that if it's just 1 client running a single thread. But in a concurrent context where we have multiple goroutines or in a distributed system, we need to have a system to support an atomic increment operation. Redis provides that support via the `INCR` command.
 
 ## Setup
 
@@ -29,7 +29,7 @@ In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wi
    $ # This should remove both mongo-server and mongo-cli
    $ docker-compose down
    ```
-   
+
 1. Run Go program.
 
    ```bash
@@ -39,3 +39,4 @@ In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wi
 ## Reference and Credits
 
 * [Tutorial: Design and implementation of a simple Twitter clone using PHP and the Redis key-value store](https://redis.io/topics/twitter-clone)
+* [GoDoc: mediocreogopher/radix](ttps://godoc.org/github.com/mediocregopher)

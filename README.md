@@ -21,19 +21,20 @@ Here's a collection of the recipes:
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
   * [Writer](writer) - a recipe for writing a file
 * [gRPC](grpc) - a simple gRPC server-client setup.
-* [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the watermill framework.
+* [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the `ThreeDotsLabs/watermill` package.
 * [Long polling](long-poll) - a simple long-polling implementation.
-* [Microservice](microservice) - recipes that implement microservice using the go-kit framework.
+* [Microservice](microservice) - recipes that implement microservice using the `go-kit/kit` package.
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
   * [Basic](mongo/basic) - basic operations with Mongo.
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
 * [Redis](redis) - recipes for working with Redis using the Radix driver.
-  * [Counter](redis/counter) - global atomic counter that showcases basic operations in Redis.  
+  * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
+  * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
-  * [Retry](retry/retry) - recipe using the retry package.
+  * [Retry](retry/retry) - recipe using the `flowchartsman/retry` package.
 * [Scheduler](scheduler) - a recipe that highlights ways to schedule code to be run periodically.
 * [Serialization](serialization) - recipes on serialization.
   * [CSV](serialization/csv) - recipe for csv serialization.
