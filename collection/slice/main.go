@@ -55,15 +55,16 @@ func main() {
 	// --- Slice a slice ---
 
 	slice := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
-	fmt.Printf("elements from start thru index (4-1): %v\n", slice[:4])
-	fmt.Printf("elements from index 4 thru end: %v\n", slice[4:])
+	fmt.Printf("slice = %v\n", slice)
+	fmt.Printf("slice[:4] = %v\n", slice[:4])
+	fmt.Printf("slice[4:] = %v\n", slice[4:])
 	// Note: slice[4:] is exactly the same as slice[4:len(slice)].
-	fmt.Printf("elements from index 4 thru end: %v\n", slice[4:len(slice)])
-	fmt.Printf("elements from index 2 thru (5-1): %v\n", slice[2:6])
+	fmt.Printf("slice[4:len(slice) = %v\n", slice[4:len(slice)])
+	fmt.Printf("slice[2:6] = %v\n", slice[2:6])
 	// Note: slice[0:0] returns [], an empty slice.
-	fmt.Printf("elements from index 0 thru 0: %v\n", slice[0:0])
+	fmt.Printf("slice[0:0] = %v\n", slice[0:0])
 	// Note: slice[:] returns slice, the full slice.
-	fmt.Printf("[:]: %v\n", slice[:])
+	fmt.Printf("slice[:] = %v\n", slice[:])
 
 	// --- Copy ---
 	smallerSlice := []int{10, 11, 12, 13, 14}
