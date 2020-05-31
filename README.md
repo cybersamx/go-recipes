@@ -29,6 +29,8 @@ Here's a collection of the recipes:
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
+* [Redis](redis) - recipes for working with Redis using the Radix driver.
+  * [Counter](redis/counter) - global atomic counter that showcases basic operations in Redis.  
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
   * [Retry](retry/retry) - recipe using the retry package.

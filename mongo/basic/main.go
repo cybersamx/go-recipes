@@ -19,7 +19,7 @@ type config struct {
 	password string
 }
 
-// User represents a user account for an application.
+// User represents a user account of an application.
 type User struct {
 	ID         string
 	Username   string
