@@ -15,7 +15,7 @@ import (
 )
 
 const (
-	firingDelay        = 3 * time.Second
+	firingDelay = 3 * time.Second
 )
 
 func getLocalDSN() string {

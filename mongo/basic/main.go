@@ -32,8 +32,6 @@ type User struct {
 
 
 func newDefaultConfig() config {
-	// NOTE: Do not do the following in your code. This is done for just for the sample code.
-	// Do not hard code passwords or other sensitive data.
 	return config{
 		host:     "localhost",
 		database: "go-recipes",

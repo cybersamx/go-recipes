@@ -15,11 +15,20 @@ For Change Stream to work, MongoDB must run in replica set mode. So this recipe 
    ```bash
    $ docker-compose up
    ```
-   
-1. Run Go programL
+
+1. Run Go program:
 
    ```bash
    $ go run ./main.go
+   ```
+
+1. Alternatively, you can run everything with the following command:
+
+   ```bash
+   $ make
+   $ CTRL-C
+   $ # After you are done with the program, you should stop/remove the container.
+   $ docker-compose down
    ```
 
 ## Notes

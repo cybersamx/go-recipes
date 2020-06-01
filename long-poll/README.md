@@ -7,7 +7,7 @@ This is a 2 part recipe:
 
 ## Long Poll Recipe
 
-50% of the time, the server will respond to incoming requests immediately with an event. The other 50% of the time, an event can take 1 to 10 seconds to surface. But the server will time out 5 seconds after receiving the request and the client will have to poll again. This is just a simulation, no actually events are being generated in the background. 
+50% of the time, the server will respond to incoming requests immediately with an event. The other 50% of the time, an event can take 1 to 10 seconds to surface. But the server will time out 5 seconds after receiving the request and the client will have to poll again. This is just a simulation, no actually events are being generated in the background.
 
 Both the server and client will run concurrently in a main function.
 
@@ -32,7 +32,7 @@ For extreme image reduction (and more secure), build your Docker image using the
 
 ![Container](container.png)
 
-In contrast, a virtual machine VM has a completely isolated virtual execution space. See below: 
+In contrast, a virtual machine VM has a completely isolated virtual execution space. See below:
 
 ![VM](vm.png)
 
@@ -46,12 +46,12 @@ GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/long-poll
 
 ### Running the App
 
-1. Run the program to launch the client and server. 
+1. Run the program to launch the client and server.
 
    ```bash
    $ go run main.go
    ```
-   
+
 1. Call the server
 
    ```bash
@@ -63,7 +63,13 @@ GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/long-poll
    ```bash
    $ ENABLE_CLIENT=true go run main.go
    ```
-   
+
+   Alternatively, you can also run the above.
+
+   ```bash
+   $ make
+   ```
+
 ### Build and Running Docker
 
 1. Edit `docker-compose.yaml` to change the Dockerfile you wish to build and run.
@@ -73,13 +79,13 @@ GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /app/long-poll
    ```bash
    $ docker-compose build
    ```
-   
+
 1. Run the docker image.
 
    ```bash
    $ docker-compose up
    ```
-   
+
 1. Call the server.
 
 

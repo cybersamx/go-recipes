@@ -26,11 +26,17 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
    $ # This should remove both mongo-server and mongo-cli
    $ docker-compose down
    ```
-   
+
 1. Run Go programL
 
    ```bash
    $ go run ./main.go
+   ```
+
+1. Alternatively, you can run everything with the following command.
+
+   ```bash
+   $ make
    ```
 
 ## Notes
