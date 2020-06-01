@@ -3,11 +3,27 @@
 
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
-
 PROJECT := $(shell basename "$(PWD)")
 SRC := .
 
-##@ run: Run program
+RETRIES := 5
+SLEEP := 2
+
+##@ run-full: Run Redis container and the Go program
+
+run-full:
+	@echo "Running $(PROJECT) in full..."
+	@-docker-compose down > /dev/null 2>&1
+	@docker-compose up > /dev/null 2>&1 &
+	@printf 'Launching redis'
+	@for i in {1..$(RETRIES)}; \
+		do nc -v -w 1 localhost 6379 > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
+		done; \
+		echo && (exit ${s}) || echo 'Redis failed to launch' && echo 'Redis up'; \
+		go run $(SRC)
+	@docker-compose down
+
+##@ run: Run the program
 
 run:
 	@echo "Running $(PROJECT)..."

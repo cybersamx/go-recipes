@@ -11,6 +11,11 @@
 	 "time"
  )
 
+const (
+	expiry = 2  // Seconds
+	sleep  = 3  // Seconds
+)
+
  // Session represents a session of an application.
  type Session struct {
 	 SessionID  string
@@ -59,7 +64,8 @@ func main() {
 	checkErr(err)
 
 	// Set timeout for the sessions (of type hash).
-	err = client.Do(radix.FlatCmd(nil, "EXPIRE", "sessions", 2))
+	log.Printf("Set sessions to expire in %d seconds", expiry)
+	err = client.Do(radix.FlatCmd(nil, "EXPIRE", "sessions", expiry))
 	checkErr(err)
 
 	// Get the object.
@@ -72,7 +78,8 @@ func main() {
 
 	log.Println("session in redis:     ", foundSession)
 
-	time.Sleep(3 * time.Second)
+	log.Printf("Wait %d seconds for session to expires", sleep)
+	time.Sleep(sleep * time.Second)
 
 	// Get the object after timeout.
 	var timeoutSession Session
