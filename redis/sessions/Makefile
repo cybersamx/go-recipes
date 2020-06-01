@@ -6,7 +6,8 @@ GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
 SRC := .
 
-CONTAINER = 'Redis'
+CONTAINER := 'Redis'
+PORT := 6379
 RETRIES := 5
 SLEEP := 2
 
@@ -18,10 +19,10 @@ run-full:
 	@docker-compose up > /dev/null 2>&1 &
 	@printf 'Launching $(CONTAINER)'
 	@for i in {1..$(RETRIES)}; \
-		do nc -v -w 1 localhost 6379 > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
+		do nc -v -w 1 localhost $(PORT) > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
 		done; \
-		echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
-		go run $(SRC)
+	echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
+	go run $(SRC)
 	@docker-compose down
 
 ##@ run: Run the program

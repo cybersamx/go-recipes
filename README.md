@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/cybersamx/go-recipes)](https://goreportcard.com/report/github.com/cybersamx/go-recipes)
 
-I started this project as I was learning Go. Over time, it evolved into a handy reference for me to look up Go recipes and design patterns.
+I started this project as I was learning Go. Over time, it evolved into a handy reference for anyone to look up Go recipes and design patterns.
 
 ## Recipes
 

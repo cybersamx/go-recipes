@@ -6,10 +6,11 @@ GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
 SRC := .
 
-CONTAINER = 'Mongo'
+CONTAINER := 'Mongo'
+PORT := 27017
 RETRIES := 5
 SLEEP := 2
-EXTRA_WAIT := 5
+EXTRA_SLEEP := 5
 
 ##@ run-full: Run Mongo container and the Go program
 
@@ -19,11 +20,11 @@ run-full:
 	@docker-compose up > /dev/null 2>&1 &
 	@printf 'Launching $(CONTAINER)'
 	@for i in {1..$(RETRIES)}; \
-		do nc -v -w 1 localhost 6379 > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
+		do nc -v -w 1 localhost $(PORT) > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
 		done; \
-		echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
-		sleep $(EXTRA_WAIT); \
-		go run $(SRC)
+	echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
+	sleep $(EXTRA_SLEEP); \
+	go run $(SRC)
 	@docker-compose down
 
 ##@ run: Run the program
