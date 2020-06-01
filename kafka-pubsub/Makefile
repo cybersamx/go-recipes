@@ -4,13 +4,13 @@
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
-SRC := .
+SRC := main.go
 
-CONTAINER = 'Redis'
+CONTAINER = 'Kafka'
 RETRIES := 5
-SLEEP := 2
+SLEEP := 3
 
-##@ run-full: Run Redis container and the Go program
+##@ run-full: Run kafka and zookeeper containers, and the Go program
 
 run-full:
 	@echo "Running $(PROJECT) in full..."
@@ -24,7 +24,7 @@ run-full:
 		go run $(SRC)
 	@docker-compose down
 
-##@ run: Run program
+##@ run: Run the program
 
 run:
 	@echo "Running $(PROJECT)..."

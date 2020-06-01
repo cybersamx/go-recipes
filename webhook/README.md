@@ -11,15 +11,15 @@ The client will push a random event message to the webhook on the sever every 5 
    ```bash
    $ go run model.go server.go
    ```
-   
-2. On another shell, run the client:
+
+1. On another shell, run the client:
 
    ```bash
    $ go run model.go client.go
    ```
 
    alternatively, you can also run:
-   
+
    ```bash
    $ curl -X POST \
        http://localhost:8000/webhook \

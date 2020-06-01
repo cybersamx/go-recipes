@@ -42,7 +42,7 @@ See code for details.
    $ make run
    ```
 
-2. Launch a web browser and navigate to <http://localhost:8000>.
+1. Launch a web browser and navigate to <http://localhost:8000>.
 
 ## Reference
 

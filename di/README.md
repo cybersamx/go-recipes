@@ -25,7 +25,7 @@ All 3 recipes use the shared [pkg](pkg) package containing all the pertinent dep
    $ make run-wire
    ```
 
-2. On another shell
+1. On another shell
 
    ```bash
    $ curl localhost:8000

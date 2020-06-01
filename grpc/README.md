@@ -13,14 +13,14 @@ An example of gRPC using protobuf. It is a modification of [the official gRPC ex
    $ export PATH="$PATH:$(go env GOPATH)/bin"
    ```
 
-2. Generate code from the protobuf definition file.
+1. Generate code from the protobuf definition file.
 
    ```bash
    $ mkdir hello
    $ protoc -I . hello.proto --go_out=plugins=grpc:hello
    ```
 
-3. Run both server and client concurrently.
+1. Run both server and client concurrently.
 
    ```bash
    $ go run main.go

@@ -18,18 +18,24 @@ This sample code is basically based on the [Kafka example](https://github.com/Th
    $ docker-compose up
    ```
 
-2. Run the go program.
+1. Run the go program.
 
    ```bash
    $ go run main.go
    ```
 
-3. Terminate the programs.
+1. Terminate the programs.
 
    ```bash
    $ # Press CTRL-C to terminate the go program
    $ # Next shutdown kafka and zookeeper
    $ docker-compose down
+   ```
+
+1. Alternatively, you can run everything with just one command.
+
+   ```bash
+   $ make
    ```
 
 ## Reference and Credits

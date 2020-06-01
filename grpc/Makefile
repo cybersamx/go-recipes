@@ -3,7 +3,6 @@
 
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
-
 PROJECT := $(shell basename "$(PWD)")
 SRC := .
 PROTO_DIR := proto

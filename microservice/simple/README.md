@@ -10,7 +10,7 @@ This is a simple REST service implemented with [Go-kit](https://github.com/go-ki
    $ make run
    ```
 
-2. To test the server, run:
+1. To test the server, run:
 
    ```bash
    $ curl http://localhost:8000/states/
