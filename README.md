@@ -40,6 +40,8 @@ Here's a collection of the recipes:
 * [Serialization](serialization) - recipes on serialization.
   * [CSV](serialization/csv) - recipe for csv serialization.
   * [JSON](serialization/json) - recipe for json serialization.
+* [String](string) - strings and characters in Go.
+  * [Unicode](unicode) - basic unicode representation and usage.
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
   produces a simple web form using html/template and handling of form submissions.
