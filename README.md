@@ -55,6 +55,7 @@ Other somewhat Go-related recipes:
 Go-related guides and docs:
 
 * [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
+* [Unicode](docs/unicode.md) - a primer on Unicode.
 
 ## Credits and Reference
 
