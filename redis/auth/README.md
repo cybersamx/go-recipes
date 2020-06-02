@@ -1,9 +1,6 @@
-# Expiring Sessions
+# Authentication
 
-Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to specify a key to be automatically removed from Redis when it expires. In this recipe, we explore how we can implement expiring web sessions in Redis with the following highlights:
-
-* Use the [Radix](https://github.com/mediocregopher/radix) driver.
-* Use serialization save complex types into Redis.
+This is a simple recipe that performs authentication in Redis using the [Radix](https://github.com/mediocregopher/radix) driver.
 
 ## Setup
 
@@ -17,8 +14,10 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
 
    ```bash
    $ docker-compose exec redis redis-cli
-   127.0.0.1:6379> KEYS sessions
+    127.0.0.1:6379> AUTH secrets
    ```
+
+   Note: `secrets` is the password. See <docker-compose.yaml>.
 
 1. Shut down and remove the container when you are done.
 
@@ -43,3 +42,4 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
 
 * [Tutorial: Design and implementation of a simple Twitter clone using PHP and the Redis key-value store](https://redis.io/topics/twitter-clone)
 * [GoDoc: mediocreogopher/radix](ttps://godoc.org/github.com/mediocregopher)
+* [Redis: AUTH password](https://redis.io/commands/auth)

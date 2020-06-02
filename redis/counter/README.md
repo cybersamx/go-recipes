@@ -26,7 +26,7 @@ In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wi
 1. Shut down and remove the container when you are done.
 
    ```bash
-   $ # This should remove both mongo-server and mongo-cli
+   $ # This should remove both redis-server and redis-cli
    $ docker-compose down
    ```
 
@@ -34,6 +34,12 @@ In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wi
 
    ```bash
    $ go run ./main.go
+   ```
+
+1. Alternatively, just run:
+
+   ```bash
+   $ make
    ```
 
 ## Reference and Credits

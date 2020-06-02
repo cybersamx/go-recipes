@@ -32,6 +32,7 @@ Here's a collection of the recipes:
 * [Redis](redis) - recipes for working with Redis using the Radix driver.
   * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
   * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
+  * [Authentication](auth) - authentication in Redis.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
   * [Retry](retry/retry) - recipe using the `flowchartsman/retry` package.

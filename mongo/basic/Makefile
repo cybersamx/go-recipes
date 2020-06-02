@@ -18,7 +18,7 @@ run-full:
 	@-docker-compose down > /dev/null 2>&1
 	@docker-compose up > /dev/null 2>&1 &
 	@printf 'Launching $(CONTAINER)'
-	@for i in {1..$(RETRIES)}; \
+	@for i in `seq 1 $(RETRIES)`; \
 		do nc -v -w 1 localhost $(PORT) > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
 		done; \
 	echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
