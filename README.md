@@ -54,6 +54,8 @@ Other somewhat Go-related recipes:
 
 ## Guides
 
+* [Guide](docs/guide.md) - handy guide to Go - the common knowledge, tips, gotchas, etc.
+
 Go-related guides and docs:
 
 * [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
