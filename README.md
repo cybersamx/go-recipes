@@ -4,6 +4,16 @@
 
 I started this project as I was learning Go. Over time, it evolved into a handy reference for anyone to look up Go recipes and design patterns.
 
+## Guides
+
+* [Guide](docs/guide.md) - handy guide to Go - the common knowledge, tips, gotchas, etc.
+* [Go Module](docs/module.md) - Go module
+
+Go-related guides and docs:
+
+* [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
+* [Unicode](docs/unicode.md) - a primer on Unicode.
+
 ## Recipes
 
 Here's a collection of the recipes:
@@ -45,21 +55,12 @@ Here's a collection of the recipes:
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
   produces a simple web form using html/template and handling of form submissions.
-  * [HTML template](html-template) - a recipe that shows server-side web content rendering using Go's `html/template` package.
+  * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using Go's `html/template` package.
 * [Webhook](webhook) - a simple webhook implemenation.
 
 Other somewhat Go-related recipes:
 
-* [Go Docker images](long-poll) - the long-poll recipe also contain an extensive example of building Go application Docker images using common base Docker images ubuntu, alpine, scratch, and distroless.
-
-## Guides
-
-* [Guide](docs/guide.md) - handy guide to Go - the common knowledge, tips, gotchas, etc.
-
-Go-related guides and docs:
-
-* [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
-* [Unicode](docs/unicode.md) - a primer on Unicode.
+* [Go Docker images](long-poll) - the long-poll recipe also contain an extensive example of building Go application Docker images using various base Docker images ubuntu, alpine, scratch, and distroless.
 
 ## Credits and Reference
 
