@@ -4,6 +4,35 @@ A handy guide, gist, and notes for quick reference to Go. The common knowledge, 
 
 ## Basics
 
+### Variables
+
+You may want to be aware of some of the gotchas in Go variables.
+
+**Shadow Variable**
+
+```go
+x := 2
+
+{
+    // You redeclare x and now it shadows the previous variable. Hence shadow variable
+	x := 4
+    fmt.PrintIn(x)  // Prints 4
+}
+
+fmt.PrintIn(x)  // Prints 2
+```
+
+**Redeclaring Variables Using Short Form**
+
+```go
+x := 2
+x := 3      // Compile error
+
+// Ok now. We can redeclare as long as the variable is part of a multi-variable
+// declaration where 1 of the new variable is also declared.
+x, y := 3, 4
+```
+
 ### Loops
 
 Here are the different ways to iterate through a slice in Go:
@@ -64,6 +93,38 @@ When comparing operands of the same type, the result is straightforward. In dyna
 Here's an equality table for Go.
 
 ![Equality table for Go == operator](images/equality_table.png)
+
+## Strings
+
+### Immutability
+
+A string in Go is a read-only slice of bytes, thus a string is immutable.
+
+### #Characters vs #Bytes
+
+## Collections
+
+### Better Way to Check Non-Existing Map Keys
+
+In Go, when you access a map for a key that doesn't exist, Go returns a zero value for the type of the corresponding value. But checking for the appropriate zero value isn't always the right approach. For example, what if you have a map of boolean values? The returned zero value is ambiguous because it can mean that the key doesn't exist, or the value matching the key is false.
+
+```go
+// If a key isn't found in a map, Go returns the zero value for that the value type.
+hasCoast := map[string]bool{"CA": true, "IL": false, "UT": false}
+
+// This doesn't matter sense, it doesn't tell if return value isn't found or
+// that it has a value of false.
+if hasCoast["NY"] == false {
+    fmt.Println("Not found or doesn't have coast")
+}
+
+// Here's a better way.
+if val, ok := hasCoast["NY"]; ok {
+    fmt.Println("Found and value is", val)
+} else {
+    fmt.Println("Not found")
+}
+```
 
 ## I/O
 
