@@ -9,9 +9,11 @@ Fake and mock are collectively called test doubles. The definitions of the terms
 * **Fake** - Fake doesn't modify the behavior of the system under test. There are 2 forms of fakes:
   * Fake data - use non-real (fake) data eg. nobody@example.com
   * Fake system - instead of using an actual system dependency in production, eg. Postgres or MySQL, the test suite uses a simpler system, eg. simple SQLite, to mimic the actual system.
-* **Mock** - You have components in your system that calls or depends on a dependency. A mock allows the tester to mock that dependency and assert that your system has interacted with the dependency.
+* **Mock** - You have components in your system that calls or depends on a dependency. A mock allows the tester to mock that dependency and assert that your system has interacted with the dependency. This recipe provides examples for 2 popular mock frameworks:
+  * [Gomock](https://github.com/golang/mock) - this is a framework that generates mock code at build time.
+  * [Testify Mock](https://godoc.org/github.com/stretchr/testify/mock) - this is a framework that relies on reflection to generate mocks at runtime.
 
-The best explanation to this perennial question is available [here](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
+The best explanation to this perennial question of fake vs mock can be read [here](https://stackoverflow.com/questions/346372/whats-the-difference-between-faking-mocking-and-stubbing).
 
 ## Project Description
 
@@ -28,12 +30,25 @@ The unit tests in this recipe are used to test `AccountService`. When `AccountSe
 
 ## Setup
 
+1. Install mockgen
+
+   ```bash
+   $ mockgen -source=./model/account.go -package=mock_recipe AccountModel > api/mock_recipe/model_mockgen.go
+   ```
+
 1. Run the test
 
    ```bash
-   $ make test
+   $ go test -v ./api
+   ```
+
+1. Alternatively, just run everything with the following command:
+
+   ```bash
+   $ make
    ```
 
 ## Reference
 
+* [GoMock](https://github.com/golang/mock)
 * [Stretchr Testify mock package](https://godoc.org/github.com/stretchr/testify/mock)

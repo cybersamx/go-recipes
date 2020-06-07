@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/cybersamx/go-recipes/fake-mock/api/mock_recipe"
 	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
@@ -10,7 +11,7 @@ import (
 func TestAPIUsingFake(t *testing.T) {
 	// Setup
 	email := "sam@example.com"
-	fam := NewFakeAccountModel()
+	fam := mock_recipe.NewFakeAccountModel()
 	service := NewAccountService(fam)
 	fam.AddAccount("sam@example.com", "12345678")
 	fam.AddAccount("linda@example.com", "abcdefgh")
@@ -31,7 +32,7 @@ func TestAPIUsingFake(t *testing.T) {
 func TestAPIUsingMock(t *testing.T) {
 	// Setup
 	email := "sam@example.com"
-	mam := NewTestifyMockAccountModel()
+	mam := mock_recipe.NewTestifyMockAccountModel()
 	service := NewAccountService(mam)
 	mam.On("UpdateAccount", email, mock.Anything).Return(nil)
 
@@ -51,7 +52,7 @@ func TestAPIUsingMockgen(t *testing.T) {
 	email := "sam@example.com"
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
-	mam := NewMockAccountModel(ctrl)
+	mam := mock_recipe.NewMockAccountModel(ctrl)
 	service := NewAccountService(mam)
 
 	mam.EXPECT().

@@ -1,6 +1,7 @@
 package api
 
 import (
+	"github.com/cybersamx/go-recipes/fake-mock/model"
 	"math/rand"
 	"strings"
 	"time"
@@ -9,11 +10,11 @@ import (
 // AccountService represents a service that provides functions for managing user accounts
 // in an application.
 type AccountService struct {
-	accountModel AccountModel
+	accountModel model.AccountModel
 }
 
 // NewAccountService creates an instance of AccountService.
-func NewAccountService(accountModel AccountModel) AccountService {
+func NewAccountService(accountModel model.AccountModel) AccountService {
 	return AccountService{
 		accountModel: accountModel,
 	}

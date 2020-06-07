@@ -3,9 +3,10 @@
 // activities of the how callers interface with the mocked account model and
 // returns what the values that the object is instructed.
 
-package api
+package mock_recipe
 
 import (
+	"github.com/cybersamx/go-recipes/fake-mock/model"
 	"github.com/stretchr/testify/mock"
 )
 
@@ -37,8 +38,8 @@ func (mam *TestifyMockAccountModel) UpdateAccount(email, password string) error 
 
 // GetAccount sets up the function to be stubbed with actual outputs to mimic
 // retrieving an account associated with the passed email.
-func (mam *TestifyMockAccountModel) GetAccount(email string) (*Account, error) {
+func (mam *TestifyMockAccountModel) GetAccount(email string) (*model.Account, error) {
 	args := mam.Called(email)
 
-	return args.Get(0).(*Account), args.Error(1)
+	return args.Get(0).(*model.Account), args.Error(1)
 }

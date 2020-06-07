@@ -19,7 +19,7 @@ Go-related guides and docs:
 Here's a collection of the recipes:
 
 * [Context](context) - recipes on `context` package.
-  * [Timeout](context/timeout) - timeout using `context`.
+  * [Timeout](context/timeout) - timeout using `context` package.
 * [Collection](collection) - recipes on Go collections.
   * [Array Passing](collection/array-passing) - recipe that highlights that array is passed as a value to a function and what we can do to modify the original array.
   * [Map](collection/map) - basic map operations.
@@ -27,7 +27,7 @@ Here's a collection of the recipes:
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
-* [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock in a Go unit test.
+* [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock using the `golang/mock` (aka Gomock) and `testify/mock` packages in a Go unit test.
 * [File I/O](file-io) - recipes on file input/output operations.
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
   * [Writer](writer) - a recipe for writing a file
@@ -39,8 +39,8 @@ Here's a collection of the recipes:
   * [Basic](mongo/basic) - basic operations with Mongo.
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
-  * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks sql, xorm, and gorm.
-* [Redis](redis) - recipes for working with Redis using the Radix driver.
+  * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.
+* [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` driver.
   * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
   * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
@@ -54,10 +54,9 @@ Here's a collection of the recipes:
 * [String](string) - strings and characters in Go.
   * [Unicode](unicode) - basic unicode representation and usage.
 * [Web](web) - recipes for using the web.
-  * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
-  produces a simple web form using html/template and handling of form submissions.
-  * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using Go's `html/template` package.
-* [Webhook](webhook) - a simple webhook implemenation.
+  * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
+  * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using the `html/template` package.
+* [Webhook](webhook) - a simple webhook implementation.
 
 Other somewhat Go-related recipes:
 
