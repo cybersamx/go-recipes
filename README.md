@@ -21,6 +21,7 @@ Here's a collection of the recipes:
 * [Context](context) - recipes on `context` package.
   * [Timeout](context/timeout) - timeout using `context`.
 * [Collection](collection) - recipes on Go collections.
+  * [Array Passing](collection/array-passing) - recipe that highlights that array is passed as a value to a function and what we can do to modify the original array.
   * [Map](collection/map) - basic map operations.
   * [Slice](collection/slice) - basic slice operations.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
