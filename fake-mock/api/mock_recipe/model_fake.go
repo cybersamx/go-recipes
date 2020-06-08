@@ -2,26 +2,29 @@
 // database like Postgres or MySQL. This fake account model mimics data access
 // to the database using the in-code map data type.
 
-package api
+package mock_recipe
 
-import "fmt"
+import (
+	"fmt"
+	"github.com/cybersamx/go-recipes/fake-mock/model"
+)
 
 // FakeAccountModel implements the AccountModel by faking the data access layer
 // with map.
 type FakeAccountModel struct {
-	accounts map[string]*Account
+	accounts map[string]*model.Account
 }
 
 // NewFakeAccountModel creates an instance of FakeAccountModel.
 func NewFakeAccountModel() *FakeAccountModel {
 	return &FakeAccountModel{
-		accounts: make(map[string]*Account),
+		accounts: make(map[string]*model.Account),
 	}
 }
 
 // AddAccount adds a new account to the map.
 func (fam *FakeAccountModel) AddAccount(email, password string) error {
-	account := Account{
+	account := model.Account{
 		Email:    email,
 		Password: password,
 	}
@@ -44,7 +47,7 @@ func (fam *FakeAccountModel) UpdateAccount(email, password string) error {
 }
 
 // GetAccount retrieves the account in the map associated with the passed email.
-func (fam *FakeAccountModel) GetAccount(email string) (*Account, error) {
+func (fam *FakeAccountModel) GetAccount(email string) (*model.Account, error) {
 	foundAcct := fam.accounts[email]
 	if foundAcct == nil {
 		return nil, fmt.Errorf("can't find account with eamil %s", email)

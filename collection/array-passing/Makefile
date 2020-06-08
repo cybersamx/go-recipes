@@ -2,27 +2,21 @@
 ## Comments that start with ##@ [target] [description] will be shown in help
 
 GOBASE := $(shell pwd)
+GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
-SRC := ./api
+SRC := .
 
-MOCK_PACKAGE_NAME := mock_recipe
-MOCK_SOURCE := ./model/account.go
-MOCK_INTERFACE := AccountModel
+##@ run: Run program
 
-run: install test
+run:
+	@echo "Running $(PROJECT)..."
+	go run $(SRC)
 
-##@ run: Test program
+##@ build: Build binary
 
-test:
-	@echo "Testing $(PROJECT)..."
-	mockgen -source=$(MOCK_SOURCE) -package=$(MOCK_PACKAGE_NAME) $(MOCK_INTERFACE) > api/$(MOCK_PACKAGE_NAME)/model_mockgen.go
-	go test -v $(SRC)
-
-##@ install: Install mockgen
-
-install:
-	@echo "Installing mockgen..."
-	GO111MODULE=on go get github.com/golang/mock/mockgen@latest
+build:
+	@echo "Building $(PROJECT)..."
+	go build -o $(GOBIN)/$(PROJECT) $(SRC)
 
 ##@ clean: Clean output files and build cache
 
