@@ -1,4 +1,4 @@
-# Go Slice
+# Passing Array to Functions
 
 In Go arrays are passed to a function as values. So the receiving function gets a copy of the original array. This can be a problem if we need to change the array. To modify the original array, we need to pass the array as a pointer or use a slice.
 

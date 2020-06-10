@@ -44,6 +44,8 @@ Here's a collection of the recipes:
   * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
   * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
+* [Reflection](reflect) - Go runtime reflection.
+  * [Deep Equal](equality) - recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
   * [Retry](retry/retry) - recipe using the `flowchartsman/retry` package.

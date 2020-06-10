@@ -94,6 +94,47 @@ Here's an equality table for Go.
 
 ![Equality table for Go == operator](images/equality_table.png)
 
+## Enum
+
+Go doesn't have an `enum` keyword so the way we define an enum type is by using the `iota` keyword.
+
+```go
+const (
+    Info  = iota    // Always start with 0, unless `iota + 1` is used to start it off with 1
+    Warn
+    Error
+    _               // Skip a value
+    Fatal
+)
+
+fmt.Println(Left, Right, Up, Down)  // Prints: 0 1 2 4
+```
+
+Here's the idiomatic way for implementing a complete custom enum type in Go:
+
+```go
+// 1. Define the custom type.
+type Severity int
+
+// 2. Assign values to each enum, using to iota to increment the value.
+const (
+    Info = iota
+    Warn
+    Error
+    Fatal
+)
+
+// 3. If you need the string representation of the enums, implement the String method.
+func (s Severity) String() string {
+    return [...]string{"Info", "Warn", "Error", "Fatal"}
+}
+
+// If Go sees that that a type implements the String() method, it will use it to print the
+// enum values in string.
+fmt.Println(Left, Right, Up, Down)  // Prints: Info Warn Error Fatal
+```
+
+
 ## Strings
 
 ### Immutability
