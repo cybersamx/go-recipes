@@ -46,6 +46,7 @@ Here's a collection of the recipes:
   * [Authentication](auth) - authentication in Redis.
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep Equal](equality) - recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
+  * [Type check](typecheck) - recipe that explores ways to check the type of value at runtime.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
   * [No-package](retry/no-package) - recipe using retry without a third-party framework.
   * [Retry](retry/retry) - recipe using the `flowchartsman/retry` package.
