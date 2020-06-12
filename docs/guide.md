@@ -4,6 +4,43 @@ A handy guide, gist, and notes for quick reference to Go. The common knowledge, 
 
 ## Basics
 
+### new vs make
+
+* `new` returns a pointer to an allocated value of type T (ie. return) and "zeros" the value.
+* `make` creates slices, maps, and channels, and returns an initialized value of type of T.
+
+Example of `new`.
+
+```go
+// The following 2 are equivalent. Assuming Person is a struct.
+var john = new(Person)
+john = &Person{}
+```
+
+Use `make` to create a slice. The statement is basically saying: allocate an array of 100 int values and create a slice structure with length 10 and capacity of 100, pointing to the first 10 items of the array.
+
+```go
+vals := make([]int, 10, 100)
+```
+
+Use `make` to create a map.
+
+```go
+// Create a "zero-filled" map.
+rates := make(map[string]float)
+```
+
+Use `make` to create channel.
+
+```go
+// The following 2 statements are equivalent.
+unbufferedChan := make(chan string)
+unbufferedChan := make(chan string, 0)
+
+// Buffered channel.
+bufferedChan := make(chan string, 10)
+```
+
 ### Variables
 
 You may want to be aware of some of the gotchas in Go variables.
@@ -144,6 +181,13 @@ A string in Go is a read-only slice of bytes, thus a string is immutable.
 ### #Characters vs #Bytes
 
 ## Collections
+
+### Slice
+
+Slice is really a struct referencing an array segment. A slice is a struct with the following fields:
+  * **ptr** - to data - pointer to the data, which is an array.
+  * **len** - the first len items to return from the array segment.
+  * **cap** - the max length of the array segment.
 
 ### Better Way to Check Non-Existing Map Keys
 

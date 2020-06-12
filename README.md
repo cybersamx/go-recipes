@@ -55,7 +55,8 @@ Here's a collection of the recipes:
   * [CSV](serialization/csv) - recipe for csv serialization.
   * [JSON](serialization/json) - recipe for json serialization.
 * [String](string) - strings and characters in Go.
-  * [Unicode](unicode) - basic unicode representation and usage.
+  * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
+  * [Unicode](string/unicode) - basic unicode representation and usage.
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
   * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using the `html/template` package.
