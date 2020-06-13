@@ -36,7 +36,7 @@ Here's a collection of the recipes:
 * [Long polling](long-poll) - a simple long-polling implementation.
 * [Microservice](microservice) - recipes that implement microservice using the `go-kit/kit` package.
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
-  * [Basic](mongo/basic) - basic operations with Mongo.
+  * [Basic](mongo/simple) - basic operations with Mongo.
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.

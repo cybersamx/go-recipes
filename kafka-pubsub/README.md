@@ -36,6 +36,7 @@ This sample code is basically based on the [Kafka example](https://github.com/Th
 
    ```bash
    $ make
+   $ docker-compose down    # Run this to remove containers
    ```
 
 ## Reference and Credits

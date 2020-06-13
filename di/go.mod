@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/di
 
-go 1.12
+go 1.14
 
 require (
 	github.com/google/wire v0.4.0

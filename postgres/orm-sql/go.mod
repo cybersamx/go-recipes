@@ -1,12 +1,11 @@
 module github.com/cybersamx/go-recipes/postgres/orm-sql
 
-go 1.12
+go 1.14
 
 require (
-	github.com/cybersamx/go-recipes/random v0.0.0-20200109011004-cf7257f84af2
+	github.com/cybersamx/go-recipes/random v0.0.0-20200613195614-895af3181768
 	github.com/jinzhu/gorm v1.9.12
-	github.com/lib/pq v1.1.1
-	syreclabs.com/go/faker v1.2.0
-	xorm.io/core v0.7.2
-	xorm.io/xorm v0.8.1
+	github.com/lib/pq v1.7.0
+	xorm.io/core v0.7.3
+	xorm.io/xorm v1.0.2
 )

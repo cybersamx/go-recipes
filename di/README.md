@@ -17,6 +17,12 @@ All 3 recipes use the shared [pkg](pkg) package containing all the pertinent dep
 
 ## Setup
 
+1. Install Wire
+
+   ```bash
+   $ make install
+   ```
+
 1. Run the program
 
    ```bash

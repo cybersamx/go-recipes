@@ -12,8 +12,6 @@ DIG_SRC := $(wildcard cmd/dig/*.go)
 WIRE_SRC := cmd/wire/wire_gen.go cmd/wire/main.go
 WIRE_SRC_DIR := cmd/wire
 
-all: install
-
 ##@ install: Install wire
 
 install:

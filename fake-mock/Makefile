@@ -15,14 +15,14 @@ run: install test
 
 test:
 	@echo "Testing $(PROJECT)..."
-	mockgen -source=$(MOCK_SOURCE) -package=$(MOCK_PACKAGE_NAME) $(MOCK_INTERFACE) > api/$(MOCK_PACKAGE_NAME)/model_mockgen.go
+	${GOPATH}/bin/mockgen -source=$(MOCK_SOURCE) -package=$(MOCK_PACKAGE_NAME) $(MOCK_INTERFACE) > api/$(MOCK_PACKAGE_NAME)/model_mockgen.go
 	go test -v $(SRC)
 
 ##@ install: Install mockgen
 
 install:
 	@echo "Installing mockgen..."
-	GO111MODULE=on go get github.com/golang/mock/mockgen@latest
+	go get github.com/golang/mock/mockgen@latest
 
 ##@ clean: Clean output files and build cache
 
