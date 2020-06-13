@@ -28,7 +28,7 @@ Here's a collection of the recipes:
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
 * [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock using the `golang/mock` (aka Gomock) and `testify/mock` packages in a Go unit test.
-* [File I/O](file-io) - recipes on file input/output operations.
+* [File I/O](io) - recipes on file input/output operations.
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
   * [Writer](writer) - a recipe for writing a file
 * [gRPC](grpc) - a simple gRPC server-client setup.
