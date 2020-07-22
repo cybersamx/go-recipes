@@ -2,6 +2,8 @@
 
 An example of how you would connect to MongoDB and perform basic CRUD operations.
 
+There's another recipe that performs the same task but it's implemented using a pre-defined schema that helps the mapping of MongoDB documents to Go data structures. The alternate recipe can be found [here](../schema).
+
 ## Requirements
 
 * MongoDB version 4 and above.
@@ -27,7 +29,7 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
    $ docker-compose down
    ```
 
-1. Run Go programL
+1. Run Go program.
 
    ```bash
    $ go run ./main.go
@@ -38,10 +40,6 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
    ```bash
    $ make
    ```
-
-## Notes
-
-* We deliberately hard code the password to connect to MongoDB to keep the sample code simple and easy to understand. Do not do this in your code, especially production code.
 
 ## Reference and Credits
 
