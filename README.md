@@ -31,6 +31,8 @@ Here's a collection of the recipes:
 * [File I/O](io) - recipes on file input/output operations.
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
   * [Writer](writer) - a recipe for writing a file
+* [GraphQL](graphql) - recipes for using GraphQL in Go.
+  * [GraphQL server](graphql/server) - simple GraphQL server using the 99 Designs GraphQL package/codegen.
 * [gRPC](grpc) - a simple gRPC server-client setup.
 * [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the `ThreeDotsLabs/watermill` package.
 * [Long polling](long-poll) - a simple long-polling implementation.
