@@ -64,6 +64,7 @@ Here's a collection of the recipes:
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
   * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using the `html/template` package.
+  * [Static web server](web/static) - a recipe that implements a simple web server serving static content.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
 * [Webhook](webhook) - a simple webhook implementation.
 
