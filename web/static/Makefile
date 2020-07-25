@@ -4,20 +4,31 @@
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
-SRC := .
+SRC := ./cmd
 
-##@ run: Run program
+##@ run-http: Run program built using the http package
 
-run:
-	@echo "Running $(PROJECT)..."
-	go run $(SRC)
+run-http:
+	@echo "Running $(PROJECT) (http)..."
+	go run $(SRC)/http
 
-##@ build: Build binary
+##@ run-gin: Run program built using the gin-gonic/gin package
 
-build:
-	@echo "Building $(PROJECT)..."
-	go build -o $(GOBIN)/$(PROJECT) $(SRC)
-	@-cp -rf templates $(GOBIN)
+run-gin:
+	@echo "Running $(PROJECT) (gin)..."
+	go run $(SRC)/gin
+
+##@ build-http: Build binary using the http package
+
+build-http:
+	@echo "Building $(PROJECT) (http)..."
+	go build -o $(GOBIN)/$(PROJECT)-http $(SRC)/http
+
+##@ build-gin: Build binary using the gin package
+
+build-gin:
+	@echo "Building $(PROJECT) (gin)..."
+	go build -o $(GOBIN)/$(PROJECT)-gin $(SRC)/http
 
 ##@ clean: Clean output files and build cache
 
