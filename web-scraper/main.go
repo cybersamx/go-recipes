@@ -5,74 +5,87 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strings"
+	"time"
 
 	"github.com/gocolly/colly"
 )
 
-func parseSymbol() string {
+const (
+	cacheDirPath = "./.cache"
+)
+
+func parseFlag() bool {
+	flush := flag.Bool("flush", false, "flush cache")
 	flag.Parse()
 
-	if len(flag.Args()) == 0 {
-		return ""
-	}
-
-	return strings.ToUpper(flag.Args()[0])
+	return *flush
 }
 
-func extractPrice(e *colly.HTMLElement) {
-	// Here's a sample of the DOM we want to extract the share price from:
-	// <div class="intraday__close">
-	//   <table class="table table--primary align--right">
-	//     <thead>
-	//       <tr class="table__row">
-	//         <th class="table__heading">Close</th>
-	//         <th class="table__heading">Chg</th>
-	//         <th class="table__heading">Chg %</th>
-	//       </tr>
-	//     </thead>
-	//     <tbody class="remove-last-border">
-	//       <tr class="table__row">
-	//         <td class="table__cell u-semi">$1,513.07</td>
-	//         <td class="table__cell not-fixed negative">-79.26</td>
-	//         <td class="table__cell not-fixed negative">-4.98%</td>
-	//         <td class="table__cell fixed-to-top negative">-79.26 -4.98%</td>
-	//       </tr>
-	//     </tbody>
-	//   </table>
-	// </div>
-
-	class := e.Attr("class")
-	if strings.Contains(class, "intraday__close") {
-		e.ForEach("table.table--primary tbody tr", func(_ int, tr *colly.HTMLElement) {
-			fmt.Println("Close price:", tr.ChildText("td:first-child"))
-			fmt.Println("Change:", tr.ChildText("td:nth-child(2)"))
-			fmt.Println("Change%:", tr.ChildText("td:nth-child(3)"))
-		})
+func removeCache(dirPath string) error {
+	info, err := os.Stat(dirPath)
+	if os.IsNotExist(err) || !info.IsDir() {
+		return nil
 	}
+
+	return os.RemoveAll(dirPath)
+}
+
+func today() string {
+	now := time.Now()
+	_, month, day := now.Date()
+	return fmt.Sprintf("%s_%d", month, day)
 }
 
 func main() {
-	symbol := parseSymbol()
-	if symbol == "" {
-		fmt.Println("You must enter a ticker symbol")
-		os.Exit(1)
+	if parseFlag() {
+		fmt.Println("Flushing", cacheDirPath)
+		if err := removeCache(cacheDirPath); err != nil {
+			log.Fatal(err)
+		}
 	}
 
-	fmt.Println("fetch stock quote for", symbol)
+	fmt.Println("Extracting events for on this day from ")
 
-	c := colly.NewCollector(
+	c := *colly.NewCollector(
 		// Good practice to set the user-agent. See http://go-colly.org/articles/scraping_related_http_headers/
 		colly.UserAgent("Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15"),
 		// Visit only the following domains.
-		colly.AllowedDomains("www.marketwatch.com", "marketwatch.com"),
+		colly.AllowedDomains("wikipedia.org", "en.wikipedia.org"),
 		// Cache web pages.
-		colly.CacheDir("./.cache"),
+		colly.CacheDir(cacheDirPath),
 	)
 
-	c.OnHTML("div", extractPrice)
+	c.OnRequest(func(req *colly.Request) {
+		// Set the request to the server.
+	})
 
-	url := fmt.Sprintf("https://www.marketwatch.com/investing/stock/%s", symbol)
+	c.OnResponse(func(res *colly.Response) {
+		// Get and examine the response from the server.
+	})
+
+	c.OnHTML("div.mw-parser-output", func(e *colly.HTMLElement) {
+		// Under div.mw-parser-output for for a h2 that is entitled Events.
+		// Once found, extract the listing from the sibling ul element.
+		ch := e.DOM.Children()
+		for i := 0; i < ch.Size(); i++ {
+			if ch.Get(i).Data == "h2" && ch.Eq(i).Text() == "Events" {
+				// The next sibling has all the events.
+				if i < ch.Size() - 1 {
+					ul := ch.Eq(i + 1)
+					for j := 0; j < ul.Children().Size(); j++ {
+						li := ul.Children().Eq(j)
+						fmt.Println(li.Text())
+					}
+				}
+			}
+		}
+	})
+
+	c.OnError(func(res *colly.Response, err error) {
+		fmt.Errorf("error: %v", err)
+	})
+
+	url := fmt.Sprintf("https://en.wikipedia.org/wiki/%s", today())
 	if err := c.Visit(url); err != nil {
 		log.Fatal(err)
 	}

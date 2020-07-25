@@ -1,6 +1,6 @@
 # Web Scrapping
 
-A recipe that extracts the price quote of a stock from MarketWatch using the `gocolly/colly` package.
+A recipe that extracts a list of historical events that happened "on this day" from Wikipedia using the `gocolly/colly` package.
 
 ## Setup
 
@@ -10,10 +10,10 @@ A recipe that extracts the price quote of a stock from MarketWatch using the `go
    $ make
    ```
 
-1. Run the program. You need to pass the program a ticker symbol eg. make run [ticker symbol].
+1. Run the program. You need to pass the program the --flush flag to flush out cache.
 
    ```bash
-   $  bin/web-scraper GOOG
+   $  bin/web-scraper --flush
    ```
 
 ## Reference
