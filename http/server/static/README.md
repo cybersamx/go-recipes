@@ -1,4 +1,4 @@
-# Simple Static Web Server
+# Simple Static HTTP Server
 
 This recipe shows a web server serving static content. Two implementations are included in the recipe, they are:
 

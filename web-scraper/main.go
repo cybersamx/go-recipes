@@ -44,7 +44,8 @@ func main() {
 		}
 	}
 
-	fmt.Println("Extracting events for on this day from ")
+	today := today()
+	fmt.Printf("On this day %s, the following events occured...\n", today)
 
 	c := *colly.NewCollector(
 		// Good practice to set the user-agent. See http://go-colly.org/articles/scraping_related_http_headers/
@@ -85,7 +86,7 @@ func main() {
 		fmt.Errorf("error: %v", err)
 	})
 
-	url := fmt.Sprintf("https://en.wikipedia.org/wiki/%s", today())
+	url := fmt.Sprintf("https://en.wikipedia.org/wiki/%s", today)
 	if err := c.Visit(url); err != nil {
 		log.Fatal(err)
 	}

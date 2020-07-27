@@ -36,6 +36,11 @@ Here's a collection of the recipes:
   * [GraphQL client](graphql/client) -a simple GraphQL client using the machinebox/graphql package.
   * [GraphQL server](graphql/server) - a simple GraphQL server using the 99designs/gqlgen package/codegen.
 * [gRPC](grpc) - a simple gRPC server-client setup.
+* [HTTP](http) - recipes for using the web.
+  * Server
+    * [JWT](http/server/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
+    * [HTML template](http/server/html-template) - a recipe that shows server-side http content rendering using the `html/template` package.
+    * [Static web server](http/server/static) - a recipe that implements a simple http server serving static content.
 * [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the `ThreeDotsLabs/watermill` package.
 * [Long polling](long-poll) - a simple long-polling implementation.
 * [Microservice](microservice) - recipes that implement microservice using the `go-kit/kit` package.
@@ -65,10 +70,6 @@ Here's a collection of the recipes:
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](parse) - a recipe that parses a date string to a Go struct value.
   * [Print](print) - a recipe that prints a date value to different formats using layouts.
-* [Web](web) - recipes for using the web.
-  * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
-  * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using the `html/template` package.
-  * [Static web server](web/static) - a recipe that implements a simple web server serving static content.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
 * [Webhook](webhook) - a simple webhook implementation.
 
