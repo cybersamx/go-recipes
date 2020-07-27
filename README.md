@@ -68,8 +68,8 @@ Here's a collection of the recipes:
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
   * [Unicode](string/unicode) - basic unicode representation and usage.
 * [Time](time) - recipes for manipulating time in Go.
-  * [Parse](parse) - a recipe that parses a date string to a Go struct value.
-  * [Print](print) - a recipe that prints a date value to different formats using layouts.
+  * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
+  * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
 * [Webhook](webhook) - a simple webhook implementation.
 
