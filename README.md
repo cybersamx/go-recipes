@@ -13,6 +13,7 @@ Go-related guides and docs:
 
 * [Goenv](docs/goenv.md) - guide to using goenv, a version manager for Go.
 * [Unicode](docs/unicode.md) - a primer on Unicode.
+* [Go time format](docs/time-format.md) - intro to go time format.
 
 ## Recipes
 
@@ -61,6 +62,9 @@ Here's a collection of the recipes:
 * [String](string) - strings and characters in Go.
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
   * [Unicode](string/unicode) - basic unicode representation and usage.
+* [Time](time) - recipes for manipulating time in Go.
+  * [Parse](parse) - a recipe that parses a date string to a Go struct value.
+  * [Print](print) - a recipe that prints a date value to different formats using layouts.
 * [Web](web) - recipes for using the web.
   * [JWT](web/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
   * [HTML template](web/html-template) - a recipe that shows server-side web content rendering using the `html/template` package.
