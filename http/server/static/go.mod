@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/web-form
+module github.com/cybersamx/go-recipes/http/server/static
 
 go 1.14
 

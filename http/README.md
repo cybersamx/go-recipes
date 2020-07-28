@@ -2,6 +2,10 @@
 
 Recipes that shows HTTP client and server implementations.
 
+## Client
+
+* [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
+
 ## Server
 
 * [JWT](server/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
