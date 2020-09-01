@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/grpc
+module github.com/cybersamx/go-recipes/grpc/hello-world
 
 go 1.14
 

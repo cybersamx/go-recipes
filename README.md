@@ -35,7 +35,8 @@ Here's a collection of the recipes:
 * [GraphQL](graphql) - recipes for using GraphQL in Go.
   * [GraphQL client](graphql/client) -a simple GraphQL client using the machinebox/graphql package.
   * [GraphQL server](graphql/server) - a simple GraphQL server using the 99designs/gqlgen package/codegen.
-* [gRPC](grpc) - a simple gRPC server-client setup.
+* [gRPC](grpc) - recipes on gRPC.
+  * [Hello world](grpc/hello-world) - a simple gRPC server-client setup.
 * [HTTP](http) - recipes for using the web.
   * [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
   * Server

@@ -4,15 +4,17 @@ package main
 
 import (
 	"context"
-	"github.com/cybersamx/go-recipes/grpc/proto"
-	"google.golang.org/grpc"
 	"log"
 	"net"
 	"os"
 	"os/signal"
-	"syreclabs.com/go/faker"
 	"syscall"
 	"time"
+
+	"google.golang.org/grpc"
+	"syreclabs.com/go/faker"
+
+	hello "github.com/cybersamx/go-recipes/grpc/hello-world/proto"
 )
 
 const (
