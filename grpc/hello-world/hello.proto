@@ -1,5 +1,7 @@
 syntax = "proto3";
 
+option go_package = "github.com/cybersamx/go-recipes/grpc/hello-world/genproto";
+
 // The greeter service - client/server.
 service Greeter {
     // Sends a greeting

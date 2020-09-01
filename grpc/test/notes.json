@@ -1,0 +1,17 @@
+[
+  {
+    "id": "186b657f-55d4-40f6-851b-9aacfdea7b4a",
+    "title": "Shopping list",
+    "content": "1. milk, 2. bananas, 3. bread"
+  },
+  {
+    "id": "315dcbef-9684-4930-bca4-5d446fd4a4fa",
+    "title": "Lee's birthday",
+    "content": "Aug 17, 2020"
+  },
+  {
+    "id": "9369d8f7-5825-466c-a56b-7bb3d85ddb20",
+    "title": "Price of the computer",
+    "content": "$700"
+  }
+]

@@ -14,7 +14,7 @@ import (
 	"google.golang.org/grpc"
 	"syreclabs.com/go/faker"
 
-	hello "github.com/cybersamx/go-recipes/grpc/hello-world/proto"
+	hello "github.com/cybersamx/go-recipes/grpc/hello-world/genproto"
 )
 
 const (

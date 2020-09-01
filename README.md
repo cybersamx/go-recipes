@@ -37,6 +37,7 @@ Here's a collection of the recipes:
   * [GraphQL server](graphql/server) - a simple GraphQL server using the 99designs/gqlgen package/codegen.
 * [gRPC](grpc) - recipes on gRPC.
   * [Hello world](grpc/hello-world) - a simple gRPC server-client setup.
+  * [gRPC test](grpc/test) - a recipe that implements unit tests for a gRPC server.
 * [HTTP](http) - recipes for using the web.
   * [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
   * Server

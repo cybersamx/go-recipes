@@ -1,6 +1,6 @@
-# gRPC
+# gRPC Hello World
 
-An example of gRPC using protobuf. It is a modification of [the official gRPC example](google.golang.org/grpc/examples/helloworld/helloworld).
+An example of gRPC client and server. It is a modification of [the official gRPC example](google.golang.org/grpc/examples/helloworld/helloworld).
 
 ## Setup
 
@@ -17,7 +17,8 @@ An example of gRPC using protobuf. It is a modification of [the official gRPC ex
 
    ```bash
    $ mkdir hello
-   $ protoc -I . hello.proto --go_out=plugins=grpc:hello
+   $ protoc -I . hello.proto --go_out=plugins=grpc:$(PROTO_DIR) \
+     --go_opt=paths=source_relative
    ```
 
 1. Run both server and client concurrently.
