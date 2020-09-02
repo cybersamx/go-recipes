@@ -21,18 +21,18 @@ const (
 
 func newService() *service {
 	serv := service{
-		notes: make(map[string]*pb.Note),
+		notes: make([]*pb.Note, 0),
 	}
 
 	if err := serv.readCatalogFile(); err != nil {
-		log.Fatalf("failed to read catalog: %v", err)
+		log.Fatalf("failed to read file: %v", err)
 	}
 
 	return &serv
 }
 
 type service struct {
-	notes map[string]*pb.Note
+	notes []*pb.Note
 }
 
 func (s *service) readCatalogFile() error {
@@ -41,50 +41,37 @@ func (s *service) readCatalogFile() error {
 		return err
 	}
 
-	var items []*pb.Note
-	if err := json.Unmarshal(catalogJSON, &items); err != nil {
+	if err := json.Unmarshal(catalogJSON, &s.notes); err != nil {
 		return err
-	}
-
-	for _, item := range items {
-		s.notes[item.Id] = item
 	}
 
 	return nil
 }
 
-func (s *service) AddNote(_ context.Context, note *pb.Note) (*pb.NoteID, error) {
+func (s *service) AddNote(_ context.Context, in *pb.Note) (*pb.NoteID, error) {
 	id, err := uuid.NewUUID()
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "Failed to create a note ID: %v", err)
+		return nil, status.Errorf(codes.Internal, "Failed to create a in ID: %v", err)
 	}
 
-	note.Id = id.String()
-	s.notes[note.Id] = note
+	in.Id = id.String()
+	s.notes = append(s.notes, in)
 
-	res := pb.NoteID{
-		Value: note.Id,
-	}
-
-	return &res, nil
+	return &pb.NoteID{Value: in.Id}, nil
 }
-func (s *service) GetNote(_ context.Context, noteID *pb.NoteID) (*pb.Note, error) {
-	found := s.notes[noteID.Value]
-	if found == nil {
-		return nil, status.Errorf(codes.NotFound, "Failed to get note with ID %s", noteID.Value)
+
+func (s *service) GetNote(_ context.Context, in *pb.NoteID) (*pb.Note, error) {
+	for _, item := range s.notes {
+		if item.Id == in.Value {
+			return item, nil
+		}
 	}
 
-	return found, nil
+	return nil, status.Errorf(codes.NotFound, "Failed to get note with ID %s", in.Value)
 }
 func (s *service) ListNotes(_ context.Context, _ *pb.Empty) (*pb.Notes, error) {
-	notes := make([]*pb.Note, 0)
-
-	for _, note := range s.notes {
-		notes = append(notes, note)
-	}
-
 	res := pb.Notes{
-		Notes: notes,
+		Notes: s.notes,
 	}
 
 	return &res, nil

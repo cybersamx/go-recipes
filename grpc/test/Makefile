@@ -1,53 +1,65 @@
-## Instructions
-## Comments that start with ##@ [target] [description] will be shown in help
+# Comments that start with ##@ [target] [description] will be shown in help
 
+# Project paths
 GOBASE := $(shell pwd)
 GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
 SRC := .
-PROTO_DIR := genproto
+GENPROTO_DIR := genproto
+
+# Colorized print
+BOLD := $(shell tput bold)
+RED := $(shell tput setaf 1)
+GREEN := $(shell tput setaf 2)
+BLUE := $(shell tput setaf 4)
+CYAN := $(shell tput setaf 6)
+RESET := $(shell tput sgr0)
+
+# Target setup
+
+.PHONY: all clean codegen build help run test
+
+all: test
 
 ##@ run: Run program
 
 run: codegen
-	@echo "Running $(PROJECT)..."
+	@echo "$(BOLD)$(GREEN)Running $(PROJECT)...$(RESET)"
 	go run $(SRC)
 
 ##@ build: Build binary
 
 build: codegen
-	@echo "Building $(PROJECT)..."
+	@echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	go build -o $(GOBIN)/$(PROJECT) $(SRC)
 
 ##@ test: Test program
 
 test: codegen
-	@echo "Test $(PROJECT)..."
+	@echo "$(BOLD)$(BLUE)Test $(PROJECT)...$(RESET)"
 	go test $(SRC)
 
 ##@ codegen: Generate code from proto file
 
 codegen: note_service.proto
-	@echo "Code generate $(PROJECT)..."
-	mkdir -p $(PROTO_DIR)
+	@echo "$(BOLD)$(BLUE)Code generate $(PROJECT)...$(RESET)"
+	mkdir -p $(GENPROTO_DIR)
 	protoc -I . note_service.proto \
-	--go_out=plugins=grpc:$(PROTO_DIR) --go_opt=paths=source_relative
+	--go_out=plugins=grpc:$(GENPROTO_DIR) --go_opt=paths=source_relative
 
 ##@ clean: Clean output files and build cache
 
 clean: go-clean
-	@echo "Removing bin..."
+	@echo "$(BOLD)$(RED)Removing bin and $(GENPROTO_DIR)...$(RESET)"
 	@-rm -rf $(GOBIN)
 
 go-clean:
-	@echo "Cleaning build cache..."
+	@echo "$(BOLD)$(RED)Cleaning build cache...$(RESET)"
 	go clean
 
 ##@ help: Help
 
-.PHONY: help
-all: help
 help: Makefile
-	@echo " Usage:\n  make \033[36m<target>\033[0m"
+	@echo " Usage:\n  make $(CYAN)<target>$(RESET)"
 	@echo
 	@sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'

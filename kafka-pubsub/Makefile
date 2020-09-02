@@ -11,7 +11,7 @@ PORT := 9092
 RETRIES := 5
 SLEEP := 3
 
-##@ run-full: Run kafka and zookeeper containers, and the Go program
+##@ run-full: Run Kafka and Zookeeper containers, and the Go program
 
 run-full:
 	@echo "Running $(PROJECT) in full..."
@@ -23,6 +23,10 @@ run-full:
 		done; \
 	echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
 	go run $(SRC)
+
+##@ teardown: Teardown Kafa and Zookeeper containers
+
+teardown:
 	@docker-compose down
 
 ##@ run: Run the program

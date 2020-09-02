@@ -1,13 +1,12 @@
 syntax = "proto3";
 
+package note_service;
 option go_package = "github.com/cybersamx/go-recipes/grpc/test/genproto";
 
-package note_service;
-
 service NoteService {
-  rpc AddNote (Note) returns (NoteID);
-  rpc GetNote (NoteID) returns (Note);
-  rpc ListNotes (Empty) returns (Notes);
+  rpc addNote (Note) returns (NoteID);
+  rpc getNote (NoteID) returns (Note);
+  rpc listNotes (Empty) returns (Notes);
 }
 
 message Empty {}
