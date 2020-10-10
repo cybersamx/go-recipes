@@ -144,7 +144,7 @@ const (
     Fatal
 )
 
-fmt.Println(Left, Right, Up, Down)  // Prints: 0 1 2 4
+fmt.Println(Info, Warn, Error, Fatal)  // Prints: 0 1 2 4
 ```
 
 Here's the idiomatic way for implementing a complete custom enum type in Go:
@@ -168,7 +168,7 @@ func (s Severity) String() string {
 
 // If Go sees that that a type implements the String() method, it will use it to print the
 // enum values in string.
-fmt.Println(Left, Right, Up, Down)  // Prints: Info Warn Error Fatal
+fmt.Println(Info, Warn, Error, Fatal)  // Prints: Info Warn Error Fatal
 ```
 
 

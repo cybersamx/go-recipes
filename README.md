@@ -25,6 +25,7 @@ Here's a collection of the recipes:
   * [Array Passing](collection/array-passing) - recipe that highlights that array is passed as a value to a function and what we can do to modify the original array.
   * [Map](collection/map) - basic map operations.
   * [Slice](collection/slice) - basic slice operations.
+* [Configurations](config) - load configurations into an app using a load order of default values > config file > environment variables > CLI arguments.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.

@@ -69,6 +69,7 @@ func (s *service) GetNote(_ context.Context, in *pb.NoteID) (*pb.Note, error) {
 
 	return nil, status.Errorf(codes.NotFound, "Failed to get note with ID %s", in.Value)
 }
+
 func (s *service) ListNotes(_ context.Context, _ *pb.Empty) (*pb.Notes, error) {
 	res := pb.Notes{
 		Notes: s.notes,

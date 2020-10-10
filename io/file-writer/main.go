@@ -14,7 +14,7 @@ const (
 	content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse molestie purus vitae vestibulum rutrum. Mauris mollis pellentesque aliquam."
 )
 
-// naiveWrite prints the content of the file directly using ReadAll in 1 pass.
+// naiveWrite writes the content to the file directly in 1 pass.
 func naiveWrite(writer io.Writer) (io.Writer, error) {
 	n, err := writer.Write([]byte(content))
 	log.Printf("wrote %d bytes\n", n)

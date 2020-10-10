@@ -5,7 +5,7 @@ option go_package = "github.com/cybersamx/go-recipes/grpc/hello-world/genproto";
 
 // The greeter service - client/server.
 service Greeter {
-  rpc sayHello (HelloRequest) returns (HelloReply) {}
+  rpc sayHello(HelloRequest) returns (HelloReply) {}
 }
 
 // The request message containing the user's name.

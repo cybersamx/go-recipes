@@ -4,9 +4,9 @@ package note_service;
 option go_package = "github.com/cybersamx/go-recipes/grpc/test/genproto";
 
 service NoteService {
-  rpc addNote (Note) returns (NoteID);
-  rpc getNote (NoteID) returns (Note);
-  rpc listNotes (Empty) returns (Notes);
+  rpc addNote(Note) returns (NoteID);
+  rpc getNote(NoteID) returns (Note);
+  rpc listNotes(Empty) returns (Notes);
 }
 
 message Empty {}
