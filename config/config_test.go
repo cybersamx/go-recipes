@@ -157,3 +157,33 @@ func TestFromLoadFlags(t *testing.T) {
 	assert.Equal(t, true, app.config.Debug)
 	assert.Equal(t, "postgresql://pq.example.com:30000", app.config.PostgresURI)
 }
+
+func TestOverrides(t *testing.T) {
+	viper.Reset()
+
+	app := NewApp()
+	v := viper.GetViper()
+
+	writeYAML(t)
+	defer func() {
+		require.NoError(t, os.Remove("config.yaml"))
+	}()
+
+	Setenv(t, "CYBER_DEBUG", "false")
+	defer func() {
+		Unsetenv(t, "CYBER_DEBUG")
+	}()
+
+	opts := BindConfigOpts{
+		FlagSet: getTestFlagSet(),
+		Args: []string{
+			"--postgres-uri", "postgresql://pq.example.com:30000",
+		},
+	}
+	app.BindConfig(v, opts)
+	app.LoadConfig(v)
+
+	assert.Equal(t, 5000, app.config.Port)
+	assert.Equal(t, false, app.config.Debug)
+	assert.Equal(t, "postgresql://pq.example.com:30000", app.config.PostgresURI)
+}
