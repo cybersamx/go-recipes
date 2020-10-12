@@ -21,7 +21,7 @@ func getTestFlagSet() *pflag.FlagSet {
 // CREDITS:
 // Based on https://github.com/spf13/viper/blob/master/internal/testutil/env.go
 // Licensed under the MIT license
-// Copyright (c) 2017 Canonical Ltd.
+// Copyright (c) 2014 Steve Francia
 
 func Setenv(t *testing.T, name, val string) {
 	setenv(t, name, val, true)

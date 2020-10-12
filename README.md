@@ -74,6 +74,8 @@ Here's a collection of the recipes:
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
   * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
+* [WebAssembly](wasm) - WebAssembly recipes.
+  * [Simple](wasm/simple) - a simple WebAssembly that prints "hello world" in the browser console.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
 * [Webhook](webhook) - a simple webhook implementation.
 
