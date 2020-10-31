@@ -1,27 +1,28 @@
- package main
+package main
 
- import (
-	 "bytes"
-	 "encoding/gob"
-	 "fmt"
-	 "github.com/google/uuid"
-	 "github.com/mediocregopher/radix/v3"
-	 "github.com/mediocregopher/radix/v3/resp"
-	 "log"
-	 "time"
- )
+import (
+	"bytes"
+	"encoding/gob"
+	"fmt"
+	"log"
+	"time"
+
+	"github.com/google/uuid"
+	"github.com/mediocregopher/radix/v3"
+	"github.com/mediocregopher/radix/v3/resp"
+)
 
 const (
 	expiry = 2  // Seconds
 	sleep  = 3  // Seconds
 )
 
- // Session represents a session of an application.
- type Session struct {
-	 SessionID  string
-	 UserID     uint
-	 Username   string
- }
+// Session represents a session of an application.
+type Session struct {
+	SessionID  string
+	UserID     uint
+	Username   string
+}
 
 func checkErr(err error) {
 	if err != nil {
@@ -49,7 +50,7 @@ func main() {
 		Username: "john2000",
 	}
 
-	log.Println("session:              ", session)
+	log.Println("session created: ", session)
 
 	// Set the object in sessions
 	var buffer bytes.Buffer // bytes.Buffer implements io.Reader and io.Writer.
@@ -60,25 +61,25 @@ func main() {
 	// See Radix documentation for more info NewLenReader and FlatCmd.
 	// https://godoc.org/github.com/mediocregopher/radix#FlatCmd
 	reader := resp.NewLenReader(&buffer, int64(buffer.Len()))
-	err = client.Do(radix.FlatCmd(nil, "HSET", "sessions", session.SessionID, reader))
+	err = client.Do(radix.FlatCmd(nil, "SET", session.SessionID, reader))
 	checkErr(err)
 
 	// Set timeout for the sessions (of type hash).
 	log.Printf("Set sessions to expire in %d seconds", expiry)
-	err = client.Do(radix.FlatCmd(nil, "EXPIRE", "sessions", expiry))
+	err = client.Do(radix.FlatCmd(nil, "EXPIRE", session.SessionID, expiry))
 	checkErr(err)
 
 	// Get the object.
-	err = client.Do(radix.FlatCmd(&buffer, "HGET", "sessions", session.SessionID))
+	err = client.Do(radix.FlatCmd(&buffer, "GET", session.SessionID))
 	checkErr(err)
 	var foundSession Session
 	dec := gob.NewDecoder(&buffer)
 	err = dec.Decode(&foundSession)
 	checkErr(err)
 
-	log.Println("session in redis:     ", foundSession)
+	log.Println("session in redis:", foundSession)
 
-	log.Printf("Wait %d seconds for session to expires", sleep)
+	log.Printf("Wait %d seconds for session to expire", sleep)
 	time.Sleep(sleep * time.Second)
 
 	// Get the object after timeout.
@@ -87,11 +88,11 @@ func main() {
 	mn := radix.MaybeNil{
 		Rcv: &tbuffer,
 	}
-	err = client.Do(radix.FlatCmd(&mn, "HGET", "sessions", session.SessionID))
+	err = client.Do(radix.FlatCmd(&mn, "GET",  session.SessionID))
 	if err != nil {
-		log.Fatal(err)
+		log.Fatalf("session should have expired but we are able to fetch object %v from redis", session)
 	} else if mn.Nil {
-		log.Println("session after timeout: nil")
+		log.Println("success: the session expired in redis, we didn't fetch the object from redis")
 		return
 	}
 
