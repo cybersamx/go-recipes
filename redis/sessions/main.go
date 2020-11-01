@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/gob"
-	"fmt"
 	"log"
 	"time"
 
@@ -30,8 +29,24 @@ func checkErr(err error) {
 	}
 }
 
-func getKey(session *Session) string {
-	return fmt.Sprintf("sessions.%s", session.SessionID)
+func gobEncode(val interface{}) (*bytes.Buffer, error) {
+	// bytes.Buffer implements io.Reader and io.Writer.
+	var buf bytes.Buffer
+	enc := gob.NewEncoder(&buf)
+	if err := enc.Encode(val); err != nil {
+		return nil, err
+	}
+
+	return &buf, nil
+}
+
+func gobDecode(buf *bytes.Buffer, val interface{}) error {
+	dec := gob.NewDecoder(buf)
+	if err := dec.Decode(val); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func main() {
@@ -53,14 +68,12 @@ func main() {
 	log.Println("session created: ", session)
 
 	// Set the object in sessions
-	var buffer bytes.Buffer // bytes.Buffer implements io.Reader and io.Writer.
-	enc := gob.NewEncoder(&buffer)
-	err = enc.Encode(session)
+	buffer, err := gobEncode(&session)
 	checkErr(err)
 
 	// See Radix documentation for more info NewLenReader and FlatCmd.
 	// https://godoc.org/github.com/mediocregopher/radix#FlatCmd
-	reader := resp.NewLenReader(&buffer, int64(buffer.Len()))
+	reader := resp.NewLenReader(buffer, int64(buffer.Len()))
 	err = client.Do(radix.FlatCmd(nil, "SET", session.SessionID, reader))
 	checkErr(err)
 
@@ -70,11 +83,10 @@ func main() {
 	checkErr(err)
 
 	// Get the object.
-	err = client.Do(radix.FlatCmd(&buffer, "GET", session.SessionID))
+	err = client.Do(radix.FlatCmd(buffer, "GET", session.SessionID))
 	checkErr(err)
 	var foundSession Session
-	dec := gob.NewDecoder(&buffer)
-	err = dec.Decode(&foundSession)
+	err = gobDecode(buffer, &foundSession)
 	checkErr(err)
 
 	log.Println("session in redis:", foundSession)
@@ -83,7 +95,6 @@ func main() {
 	time.Sleep(sleep * time.Second)
 
 	// Get the object after timeout.
-	var timeoutSession Session
 	var tbuffer bytes.Buffer
 	mn := radix.MaybeNil{
 		Rcv: &tbuffer,
@@ -95,9 +106,4 @@ func main() {
 		log.Println("success: the session expired in redis, we didn't fetch the object from redis")
 		return
 	}
-
-	dec2 := gob.NewDecoder(&tbuffer)
-	err = dec2.Decode(&timeoutSession)
-	checkErr(err)
-	log.Println("session after timeout:", timeoutSession)
 }
