@@ -3,11 +3,12 @@
 Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to specify a key to be automatically removed from Redis when it expires. In this recipe, we explore how we can implement expiring web sessions in Redis with the following highlights:
 
 * Use the [Radix](https://github.com/mediocregopher/radix) driver.
-* Use serialization save complex types into Redis.
+* Use the [Go-Redis](https://redis.uptrace.dev/) driver.
+* Use GOB serialization to save complex types into Redis.
 
 ## Setup
 
-1. Start MongoDB (server) via Docker Compose:
+1. Start Redis via Docker Compose:
 
    ```bash
    $ docker-compose up
@@ -43,3 +44,4 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
 
 * [Tutorial: Design and implementation of a simple Twitter clone using PHP and the Redis key-value store](https://redis.io/topics/twitter-clone)
 * [GoDoc: mediocreogopher/radix](ttps://godoc.org/github.com/mediocregopher)
+* [Go-Redis homepage](https://redis.uptrace.dev/)

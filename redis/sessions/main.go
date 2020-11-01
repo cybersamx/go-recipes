@@ -1,14 +1,14 @@
 package main
 
 import (
-	"bytes"
-	"encoding/gob"
 	"log"
 	"time"
 
+	"github.com/go-redis/redis/v8"
 	"github.com/google/uuid"
 	"github.com/mediocregopher/radix/v3"
-	"github.com/mediocregopher/radix/v3/resp"
+
+	"github.com/cybersamx/go-recipes/redis/sessions/rdb"
 )
 
 const (
@@ -16,40 +16,15 @@ const (
 	sleep  = 3  // Seconds
 )
 
-// Session represents a session of an application.
-type Session struct {
-	SessionID  string
-	UserID     uint
-	Username   string
-}
-
 func checkErr(err error) {
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
-func gobEncode(val interface{}) (*bytes.Buffer, error) {
-	// bytes.Buffer implements io.Reader and io.Writer.
-	var buf bytes.Buffer
-	enc := gob.NewEncoder(&buf)
-	if err := enc.Encode(val); err != nil {
-		return nil, err
-	}
+func runRadix(session *rdb.Session) {
+	log.Println("Running using the radix driver...")
 
-	return &buf, nil
-}
-
-func gobDecode(buf *bytes.Buffer, val interface{}) error {
-	dec := gob.NewDecoder(buf)
-	if err := dec.Decode(val); err != nil {
-		return err
-	}
-
-	return nil
-}
-
-func main() {
 	client, err := radix.NewPool("tcp", "localhost:6379", 10)
 	checkErr(err)
 	defer func() {
@@ -57,53 +32,84 @@ func main() {
 		checkErr(err)
 	}()
 
-	// If you want to set an object to redis, you would need to serialized to a flat string.
-	// And deserialized the string back to an object when you retrieve it from redis.
-	session := Session{
+	log.Println("session created: ", session)
+
+	log.Printf("Set sessions to expire in %d seconds", expiry)
+	checkErr(rdb.RadixSetSession(client, session, expiry))
+
+	// Get the object.
+	var foundSession rdb.Session
+	checkErr(rdb.RadixGetSession(client, &foundSession, session.SessionID))
+	log.Println("Found session in redis:", foundSession)
+
+	// Wait.
+	log.Printf("Wait %d seconds for session to expire", sleep)
+	time.Sleep(sleep * time.Second)
+
+	// Get the object after timeout.
+	foundSession = rdb.Session{}
+	err = rdb.RadixGetSession(client, &foundSession, session.SessionID)
+	if err == rdb.NotFoundErr {
+		// Expected.
+		log.Println("Success: the session expired in redis, we didn't fetch the object from redis")
+	} else if err != nil {
+		log.Fatalf("Unexpected failure: %v", err)
+	} else {
+		log.Fatal("Failure: session should have expired from redis")
+	}
+
+	log.Println()
+}
+
+func runRedis(session *rdb.Session) {
+	log.Println("Running using the go-redis driver...")
+
+	client := redis.NewClient(&redis.Options{
+		Addr: "localhost:6379",
+	})
+	defer func() {
+		err := client.Close()
+		checkErr(err)
+	}()
+
+	log.Println("session created: ", session)
+
+	log.Printf("Set sessions to expire in %d seconds", expiry)
+	checkErr(rdb.RedisSetSession(client, session, expiry))
+
+	// Get the object.
+	var foundSession rdb.Session
+	checkErr(rdb.RedisGetSession(client, &foundSession, session.SessionID))
+	log.Println("Found session in redis:", foundSession)
+
+	// Wait.
+	log.Printf("Wait %d seconds for session to expire", sleep)
+	time.Sleep(sleep * time.Second)
+
+	// Get the object after timeout.
+	foundSession = rdb.Session{}
+	err := rdb.RedisGetSession(client, &foundSession, session.SessionID)
+	if err == rdb.NotFoundErr {
+		// Expected.
+		log.Println("Success: the session expired in redis, we didn't fetch the object from redis")
+	} else if err != nil {
+		log.Fatalf("Unexpected failure: %v", err)
+	} else {
+		log.Fatal("Failure: session should have expired from redis")
+	}
+
+	log.Println()
+}
+
+func main() {
+	// If we want to set an object to redis, we would need to serialized to bytes.
+	// And deserialized the bytes back to an object after we fetch it from redis.
+	session := rdb.Session{
 		SessionID: uuid.New().String(),
 		UserID: 12345,
 		Username: "john2000",
 	}
 
-	log.Println("session created: ", session)
-
-	// Set the object in sessions
-	buffer, err := gobEncode(&session)
-	checkErr(err)
-
-	// See Radix documentation for more info NewLenReader and FlatCmd.
-	// https://godoc.org/github.com/mediocregopher/radix#FlatCmd
-	reader := resp.NewLenReader(buffer, int64(buffer.Len()))
-	err = client.Do(radix.FlatCmd(nil, "SET", session.SessionID, reader))
-	checkErr(err)
-
-	// Set timeout for the sessions (of type hash).
-	log.Printf("Set sessions to expire in %d seconds", expiry)
-	err = client.Do(radix.FlatCmd(nil, "EXPIRE", session.SessionID, expiry))
-	checkErr(err)
-
-	// Get the object.
-	err = client.Do(radix.FlatCmd(buffer, "GET", session.SessionID))
-	checkErr(err)
-	var foundSession Session
-	err = gobDecode(buffer, &foundSession)
-	checkErr(err)
-
-	log.Println("session in redis:", foundSession)
-
-	log.Printf("Wait %d seconds for session to expire", sleep)
-	time.Sleep(sleep * time.Second)
-
-	// Get the object after timeout.
-	var tbuffer bytes.Buffer
-	mn := radix.MaybeNil{
-		Rcv: &tbuffer,
-	}
-	err = client.Do(radix.FlatCmd(&mn, "GET",  session.SessionID))
-	if err != nil {
-		log.Fatalf("session should have expired but we are able to fetch object %v from redis", session)
-	} else if mn.Nil {
-		log.Println("success: the session expired in redis, we didn't fetch the object from redis")
-		return
-	}
+	runRadix(&session)
+	runRedis(&session)
 }
