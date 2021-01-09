@@ -6,8 +6,8 @@ GOBIN := $(GOBASE)/bin
 PROJECT := $(shell basename "$(PWD)")
 SRC := main.go
 
-APP_NAME := 'Kafka'
-PORT := 9092
+APP_NAME := 'Pulsar'
+PORT := 6650
 RETRIES := 5
 SLEEP := 3
 
@@ -16,7 +16,7 @@ SLEEP := 3
 run-full:
 	@echo "Running $(PROJECT) in full..."
 	@-docker-compose down > /dev/null 2>&1
-	@docker-compose up > /dev/null 2>&1 &
+	@docker-compose up pulsar > /dev/null 2>&1 &
 	@printf 'Launching $(APP_NAME)'
 	@for i in `seq 1 $(RETRIES)`; \
 		do nc -v -w 1 localhost $(PORT) > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \

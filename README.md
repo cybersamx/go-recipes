@@ -54,6 +54,7 @@ Here's a collection of the recipes:
   * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.
+* [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub setup in Apache Pulsar.
 * [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` and `go-redis/redis` drivers.
   * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
   * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.

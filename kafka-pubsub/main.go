@@ -5,23 +5,24 @@ package main
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
+	"os/signal"
+	"syscall"
+	"time"
+
 	"github.com/Shopify/sarama"
 	"github.com/ThreeDotsLabs/watermill"
 	"github.com/ThreeDotsLabs/watermill-kafka/v2/pkg/kafka"
 	"github.com/ThreeDotsLabs/watermill/message"
-	"log"
-	"os"
-	"os/signal"
 	"syreclabs.com/go/faker"
-	"syscall"
-	"time"
 )
 
 const (
 	kafkaBrokerURL     = "localhost:9092"
 	kafkaConsumerGroup = "consumer_group"
 	kafkaTopic         = "my_topic"
-	firingDelay        = time.Second
+	firingDelay        = 3 * time.Second
 )
 
 var (
@@ -39,7 +40,7 @@ func main() {
 
 	// --- Setup ---
 
-	// Set up a subscriber.
+	// Set up subscriber.
 	saramaConfig := kafka.DefaultSaramaSubscriberConfig()
 	saramaConfig.Consumer.Offsets.Initial = sarama.OffsetOldest
 	subConfig := kafka.SubscriberConfig{
@@ -54,7 +55,7 @@ func main() {
 		panic(err)
 	}
 
-	// Set up a publisher.
+	// Set up publisher.
 	pubConfig := kafka.PublisherConfig{
 		Brokers:   []string{"localhost:9092"},
 		Marshaler: kafka.DefaultMarshaler{},
@@ -74,8 +75,8 @@ func main() {
 		panic(err)
 	}
 
-	// Process incoming messages received via go channel.
-	go process(messages)
+	// Process incoming messages received via a go channel.
+	go consumeMessages(messages)
 
 	// Process outgoing messages.
 	go publishMessages(pub)
@@ -84,6 +85,16 @@ func main() {
 	log.Printf("received signal %d, terminating...\n", sig)
 	ctx.Done()
 	os.Exit(0)
+}
+
+func consumeMessages(messages <-chan *message.Message) {
+	for msg := range messages {
+		log.Printf("received message: %s, payload: %s", msg.UUID, string(msg.Payload))
+
+		// Acknowledge that the message is received otherwise it will be resent
+		// repeatedly.
+		msg.Ack()
+	}
 }
 
 func publishMessages(pub message.Publisher) {
@@ -97,15 +108,5 @@ func publishMessages(pub message.Publisher) {
 		}
 
 		time.Sleep(firingDelay)
-	}
-}
-
-func process(messages <-chan *message.Message) {
-	for msg := range messages {
-		log.Printf("received message: %s, payload: %s", msg.UUID, string(msg.Payload))
-
-		// Acknowledge that the message is received otherwise it will be resent
-		// repeatedly.
-		msg.Ack()
 	}
 }
