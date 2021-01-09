@@ -51,7 +51,7 @@ Here's a collection of the recipes:
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
   * [Basic](mongo/basic) - basic operations with Mongo.
   * [Pre-defined schema](mongo/schema) - a recipe similar to the [basic mongo recipe](mongo/basic), but it's implemented using a pre-defined schema.
-  * [Changestream](mongo/change-stream) - recipe using Mongo Changestream.
+  * [Changestream](mongo/change-stream) - a recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.
 * [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub setup in Apache Pulsar.
@@ -60,21 +60,22 @@ Here's a collection of the recipes:
   * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
 * [Reflection](reflect) - Go runtime reflection.
-  * [Deep Equal](equality) - recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
-  * [Type check](typecheck) - recipe that explores ways to check the type of value at runtime.
+  * [Deep Equal](equality) - a recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
+  * [Type check](typecheck) - a recipe that explores ways to check the type of value at runtime.
 * [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
-  * [No-package](retry/no-package) - recipe using retry without a third-party framework.
-  * [Retry](retry/retry) - recipe using the `flowchartsman/retry` package.
+  * [No-package](retry/no-package) - a recipe using retry without a third-party framework.
+  * [Retry](retry/retry) - a recipe using the `flowchartsman/retry` package.
 * [Scheduler](scheduler) - a recipe that highlights ways to schedule code to be run periodically.
-* [Serialization](serialization) - recipes on serialization.
-  * [CSV](serialization/csv) - recipe for csv serialization.
-  * [JSON](serialization/json) - recipe for json serialization.
+* [Serialization](serialization) - a recipes on serialization.
+  * [CSV](serialization/csv) - a recipe for csv serialization.
+  * [JSON](serialization/json) - a recipe for json serialization.
 * [String](string) - strings and characters in Go.
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
   * [Unicode](string/unicode) - basic unicode representation and usage.
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
   * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
+* [WaitGroup](waitgroup) - a recipe that demonstrates the use of `sync.WaitGroup` to help synchronize the execution of multiple concurrent goroutines.
 * [WebAssembly](wasm) - WebAssembly recipes.
   * [Simple](wasm/simple) - a simple WebAssembly that prints "hello world" in the browser console.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
