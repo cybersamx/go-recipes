@@ -37,7 +37,7 @@ Use `make` to create channel.
 unbufferedChan := make(chan string)
 unbufferedChan := make(chan string, 0)
 
-// Buffered channel.
+// Buffered concurrency.
 bufferedChan := make(chan string, 10)
 ```
 

@@ -46,7 +46,7 @@ func main() {
 	defer client.Close()
 
 	// Set up subscriber.
-	cMessages := make(chan pulsar.ConsumerMessage)
+	cMessages := make(chan pulsar.ConsumerMessage, 10)
 	sub, err := client.Subscribe(pulsar.ConsumerOptions{
 		Topic: pulsarTopic,
 		SubscriptionName: fmt.Sprintf("%s-subscriber", pulsarTopic),
