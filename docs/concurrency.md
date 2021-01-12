@@ -19,25 +19,7 @@ To run something concurrently in go, just preface a function (and anonymous func
 
 Channels are the conduits that enable message passing between concurrent goroutines.
 
-## Notes
-
-1. All receiving channels will block the current goroutine until there's data in the channel to receive. See next section for details.
-1. `make(chan string)` is the same as `make(chan string, 0)`.
-1. We can declare a unidirectional channel (receive-only or send-only) this way:
-
-   ```go
-   // Receive-only concurrency
-   recvChan := make(<-chan string)
-
-   // Send-only concurrency
-   sendChan := make(chan<- string)
-   ```
-
-   But in most declarations, a bidirectional channel declaration is used.
-
-   ```go
-   myChan := make(chan string)
-   ```
+All receiving channels will block the current goroutine until there's data in the channel to receive. See next section for details.
 
 ## Unbuffered Channel vs Buffered Channel
 
@@ -48,6 +30,52 @@ This recipe contrasts an unbuffered channel vs a buffered channel.
 | Type of Communication  | Synchronous        | Asynchronous     |
 | Receiver               | Receiver blocks until there's data to receive | Receiver blocks until there's data to receive |
 | Sender                 | The sender blocks until the receiver has received the value ||
+
+To declare a buffered channel, simply declare with a capacity.
+
+```go
+myChan := make(chan string, 5)
+```
+
+For unbuffered, just create a channel without the second argument. Also `make(chan string)` is the same as `make(chan string, 0)`.
+
+## Sending vs Receiving Channel
+
+We can declare a unidirectional channel (receive-only or send-only) this way:
+
+```go
+// Receive-only concurrency
+recvChan := make(<-chan string)
+
+// Send-only concurrency
+sendChan := make(chan<- string)
+```
+
+But in most declarations, a bidirectional channel declaration is used. So the following is accepted by convention.
+
+```go
+myChan := make(chan string)
+```
+
+### Receiving Values from Channel
+
+There are 2 ways to receive a value from a channel:
+
+* Using the `<-` operator.
+* USing the `range` keyword.
+
+```go
+msg := <-myChan
+fmt.Println(msg)
+```
+
+```go
+msg := range myChan {
+    fmt.Println(msg)
+}
+```
+
+**Note**: Unlike the conventional range that is used in iteration, range over a channel only returns a single argument back to the caller.
 
 # Sync Package
 

@@ -21,6 +21,8 @@ func main() {
 	}()
 
 	// A receiving concurrency will block until there's a message in the receiving concurrency.
-	msg := <- stream
-	fmt.Printf("Received a message from the concurrency after %v: %s\n", time.Since(start), msg)
+	// Here, we use range instead of <- to receive a message from a channel.
+	for msg := range stream {
+		fmt.Printf("Received a message from the concurrency after %v: %s\n", time.Since(start), msg)
+	}
 }

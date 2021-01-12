@@ -208,5 +208,5 @@ func main() {
 	http.Handle("/logout", logoutHandler())
 
 	log.Println("web server running at port", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), nil))
 }
