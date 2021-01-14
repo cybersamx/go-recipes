@@ -27,7 +27,7 @@ func main() {
 		for {
 			// A receiving concurrency will block until there's a message in the receiving concurrency.
 			time.Sleep(3 * time.Second)
-			msg := <- stream
+			msg := <-stream
 			fmt.Printf("Received %d from channel after %v\n", msg, time.Since(start))
 		}
 	}()

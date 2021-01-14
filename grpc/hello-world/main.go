@@ -18,8 +18,8 @@ import (
 )
 
 const (
-	port    = ":50051"
-	address = "localhost:50051"
+	port     = ":50051"
+	address  = "localhost:50051"
 	duration = 5 * time.Second
 )
 

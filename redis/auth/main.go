@@ -21,8 +21,8 @@ func main() {
 	// the connection to Redis.
 	connHandler := func(network, addr string) (radix.Conn, error) {
 		return radix.Dial(network, addr,
-			radix.DialTimeout(30 * time.Second),  // Additional configuration.
-			radix.DialAuthPass("secrets"),  // Set password.
+			radix.DialTimeout(30*time.Second), // Additional configuration.
+			radix.DialAuthPass("secrets"),     // Set password.
 		)
 	}
 

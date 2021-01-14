@@ -14,7 +14,7 @@ func Seed() {
 
 // RandomIntRange returns a random integer n where n >= lower && n < upper.
 func RandomIntRange(lower, upper int) int {
-	return lower + rand.Intn(upper - lower)
+	return lower + rand.Intn(upper-lower)
 }
 
 // RandomInt returns a random integer n where n >= 0 && n < upper.
@@ -24,7 +24,7 @@ func RandomInt(upper int) int {
 
 // RandomFloatRange returns a random float64 n where n >= lower && n < upper.
 func RandomFloatRange(lower, upper int) float64 {
-	return float64(lower) + rand.Float64() * float64(upper - lower)
+	return float64(lower) + rand.Float64()*float64(upper-lower)
 }
 
 // RandomFloat returns a random float n where n >= 0 && n < upper.

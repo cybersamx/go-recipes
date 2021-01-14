@@ -64,8 +64,8 @@ func schedStrategy1(task taskFunc, dur time.Duration) {
 func schedStrategy2(task taskFunc, ticker *time.Ticker) {
 	for {
 		select {
-			case t := <-ticker.C:
-				task(t)
+		case t := <-ticker.C:
+			task(t)
 		}
 	}
 }
@@ -79,8 +79,8 @@ func schedStrategy3(task taskFunc, ticker *time.Ticker) {
 func schedStrategy4(task taskFunc, dur time.Duration) {
 	for {
 		select {
-			case t := <-time.After(dur):
-				task(t)
+		case t := <-time.After(dur):
+			task(t)
 		}
 	}
 }

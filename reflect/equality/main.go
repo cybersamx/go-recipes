@@ -57,7 +57,7 @@ func main() {
 		Longitude:     -118.2672541,
 		IsResidential: false,
 		rating:        90,
-		Occupants:     []Person{
+		Occupants: []Person{
 			{Name: "Shaq", Gender: Male, Age: 48},
 			{Name: "Kobe", Gender: Male, Age: 41},
 		},
@@ -72,7 +72,7 @@ func main() {
 		Longitude:     -118.2672541,
 		IsResidential: false,
 		rating:        90,
-		Occupants:     []Person{
+		Occupants: []Person{
 			{Name: "Shaq", Gender: Male, Age: 48},
 			{Name: "Kobe", Gender: Male, Age: 41},
 		},
@@ -86,7 +86,7 @@ func main() {
 		Latitude:      34.0430175,
 		Longitude:     -118.2672541,
 		IsResidential: false,
-		Occupants:     []Person{
+		Occupants: []Person{
 			{Name: "Kobe", Gender: Male, Age: 41},
 			{Name: "Shaq", Gender: Male, Age: 48},
 		},

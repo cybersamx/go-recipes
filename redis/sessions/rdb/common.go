@@ -6,9 +6,9 @@ import (
 
 // Session represents a session of an application.
 type Session struct {
-	SessionID  string
-	UserID     uint
-	Username   string
+	SessionID string
+	UserID    uint
+	Username  string
 }
 
 var (

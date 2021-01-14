@@ -12,8 +12,8 @@ import (
 )
 
 const (
-	expiry = 2  // Seconds
-	sleep  = 3  // Seconds
+	expiry = 2 // Seconds
+	sleep  = 3 // Seconds
 )
 
 func checkErr(err error) {
@@ -106,8 +106,8 @@ func main() {
 	// And deserialized the bytes back to an object after we fetch it from redis.
 	session := rdb.Session{
 		SessionID: uuid.New().String(),
-		UserID: 12345,
-		Username: "john2000",
+		UserID:    12345,
+		Username:  "john2000",
 	}
 
 	runRadix(&session)

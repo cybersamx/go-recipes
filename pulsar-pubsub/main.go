@@ -15,11 +15,11 @@ import (
 )
 
 const (
-	pulsarBrokerURL    = "pulsar://localhost:6650"
-	pulsarTopic        = "my_topic"
-	pulsarOpTimeout    = 30 * time.Second
-	pulsarConTimeout   = 30 * time.Second
-	firingDelay        = 3 * time.Second
+	pulsarBrokerURL  = "pulsar://localhost:6650"
+	pulsarTopic      = "my_topic"
+	pulsarOpTimeout  = 30 * time.Second
+	pulsarConTimeout = 30 * time.Second
+	firingDelay      = 3 * time.Second
 )
 
 func main() {
@@ -48,10 +48,10 @@ func main() {
 	// Set up subscriber.
 	cMessages := make(chan pulsar.ConsumerMessage, 10)
 	sub, err := client.Subscribe(pulsar.ConsumerOptions{
-		Topic: pulsarTopic,
+		Topic:            pulsarTopic,
 		SubscriptionName: fmt.Sprintf("%s-subscriber", pulsarTopic),
-		Type: pulsar.Shared,
-		MessageChannel: cMessages,
+		Type:             pulsar.Shared,
+		MessageChannel:   cMessages,
 	})
 	if err != nil {
 		panic(err)

@@ -62,10 +62,10 @@ type entry struct {
 }
 
 type Preferences struct {
-	Font string
+	Font     string
 	TextSize int
-	BGColor string
-	Margin  int
+	BGColor  string
+	Margin   int
 }
 
 func serializePreferences(preferences *Preferences) (string, error) {
@@ -123,7 +123,7 @@ func vendCookieHandler() http.Handler {
 func readCookieHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		for _, cookie := range r.Cookies() {
-			if _, err := io.WriteString(w, cookie.Value + "\n"); err != nil {
+			if _, err := io.WriteString(w, cookie.Value+"\n"); err != nil {
 				w.WriteHeader(http.StatusInternalServerError)
 			}
 		}

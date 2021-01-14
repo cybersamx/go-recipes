@@ -30,7 +30,7 @@ func insertDataXORM(n int) {
 	last := getLastBusStopID(engine.DB().DB)
 
 	// Randomly generate and write fake data to the database.
-	for i := last + 1; i <= n + last; i++ {
+	for i := last + 1; i <= n+last; i++ {
 		user := getBusStop(i)
 		_, err := session.Insert(&user)
 		if err != nil {
@@ -85,4 +85,3 @@ func selectDataXORM(n int) {
 		}
 	}
 }
-

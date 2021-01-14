@@ -11,7 +11,7 @@ type result struct {
 }
 
 const (
-	ctxTimeout = 2 * time.Second
+	ctxTimeout  = 2 * time.Second
 	workTimeout = 5 * time.Second
 )
 
@@ -29,7 +29,7 @@ func main() {
 		// NOTE: Change the time to exceed the ctxTimeout and see the result.
 		time.Sleep(workTimeout * time.Second)
 
-		ch <-result{value: time.Now().String()}
+		ch <- result{value: time.Now().String()}
 	}()
 
 	// Wait for the task to finish.

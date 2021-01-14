@@ -9,7 +9,7 @@ import (
 )
 
 func DecodeGetStatesRequest() httptransport.DecodeRequestFunc {
-	return func (_ context.Context, r *http.Request) (interface{}, error) {
+	return func(_ context.Context, r *http.Request) (interface{}, error) {
 		return nil, nil
 	}
 }

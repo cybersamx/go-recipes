@@ -11,7 +11,7 @@ import (
 
 const (
 	sqliteFile = "test.db"
-	gcSeconds = 5
+	gcSeconds  = 5
 )
 
 func main() {

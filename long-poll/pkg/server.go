@@ -17,12 +17,13 @@ import (
 const (
 	port = 8000
 )
+
 var events = []string{"empty", "full", "new", "removed"}
 
 func init() {
 	log.SetFormatter(&log.TextFormatter{
-		DisableColors:             false,
-		FullTimestamp:             true,
+		DisableColors: false,
+		FullTimestamp: true,
 	})
 	log.SetOutput(os.Stdout)
 	log.SetLevel(log.InfoLevel)
@@ -59,7 +60,7 @@ func respondWithEvent(w http.ResponseWriter) {
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UnixNano())
 	timeout := time.Duration(5) * time.Second
-	wait := time.Duration(rand.Intn(20) - 10) * time.Second
+	wait := time.Duration(rand.Intn(20)-10) * time.Second
 	if wait < 0 {
 		log.Print("server received request and return an event back to the sender immediately")
 		respondWithEvent(w)
@@ -87,4 +88,3 @@ func ListenForMessages() {
 	err := http.ListenAndServe(fmt.Sprintf(":%d", port), http.HandlerFunc(rootHandler))
 	log.Fatal(err)
 }
-

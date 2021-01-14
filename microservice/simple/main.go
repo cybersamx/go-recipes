@@ -44,7 +44,7 @@ func main() {
 	})
 
 	srv := http.Server{
-		Addr: addr,
+		Addr:    addr,
 		Handler: router,
 	}
 

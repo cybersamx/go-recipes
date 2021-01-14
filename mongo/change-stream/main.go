@@ -84,7 +84,6 @@ func publishToMongo(ctx context.Context, client *mongo.Client) {
 	}
 }
 
-
 func processFromMongo(ctx context.Context, client *mongo.Client) {
 	db := client.Database("test")
 	messages := db.Collection("messages")

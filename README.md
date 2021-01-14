@@ -21,18 +21,22 @@ Go-related guides and docs:
 Here's a collection of the recipes:
 
 * [Collection](collection) - recipes on Go collections.
-  * [Array Passing](collection/array-passing) - recipe that highlights that array is passed as a value to a function and what we can do to modify the original array.
+  * [Array Passing](collection/array-passing) - recipe that highlights how an array is passed as a value to a function and what we can do to modify the original array.
   * [Map](collection/map) - basic map operations.
   * [Slice](collection/slice) - basic slice operations.
 * [Concurrency](concurrency) - Go concurrency.
   * [Channel](concurrency/channel)
     * [Basic Channel](concurrency/channel/basic) - Basic channel example.
+    * [Buffered Channel](concurrency/channel/buffered) - Buffered channel example.
   * [WaitGroup](concurrency/waitgroup) - a recipe that demonstrates the use of `sync.WaitGroup` to help synchronize the execution of multiple concurrent goroutines.
 * [Configurations](config) - load configurations into an app using a load order of default values > config file > environment variables > CLI arguments.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Context](context) - recipes on `context` package.
   * [Timeout](context/timeout) - timeout using `context` package.
-* [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern using vanilla Go and with open source frameworks dig and wire.
+* [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern.
+  * [No DI framework](no-framework) - Basic DI implemented using Go, no third-party DI framework.
+  * [Dig framework](dig) - how to leverage the Dig DI framework that injects dependencies at runtime.
+  * [Wire framework](wire) - how to leverage the Wire DI framework that generate code that injects dependencies at compile time.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
 * [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock using the `golang/mock` (aka Gomock) and `testify/mock` packages in a Go unit test.
 * [File I/O](io) - recipes on file input/output operations.
@@ -60,15 +64,15 @@ Here's a collection of the recipes:
   * [Changestream](mongo/change-stream) - a recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.
-* [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub setup in Apache Pulsar.
+* [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub in Apache Pulsar.
 * [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` and `go-redis/redis` drivers.
-  * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
-  * [Sessions](redis/sessions) - a recipe that implements serialization of complex data to redis using GOB and ephemeral sessions in Redis by setting up Redis to remove expired content.
+  * [Counter](redis/counter) - a recipe that implements a global atomic counter that showcases basic operations in Redis.
+  * [Sessions](redis/sessions) - a recipe that implements the serialization of complex data to redis using GOB and ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep Equal](equality) - a recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
-  * [Type check](typecheck) - a recipe that explores ways to check the type of value at runtime.
-* [Retry](retry) - a recipe that implements retry, which can be useful for connecting to a service in the network reliably.
+  * [Type check](typecheck) - a recipe that highlights the different ways to check the type of a value at runtime.
+* [Retry](retry) - a recipe that implements retry, which can be useful for a reliable connection to a service in the network.
   * [No-package](retry/no-package) - a recipe using retry without a third-party framework.
   * [Retry](retry/retry) - a recipe using the `flowchartsman/retry` package.
 * [Scheduler](scheduler) - a recipe that highlights ways to schedule code to be run periodically.
@@ -82,7 +86,7 @@ Here's a collection of the recipes:
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
   * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
 * [WebAssembly](wasm) - WebAssembly recipes.
-  * [Simple](wasm/simple) - a simple WebAssembly that prints "hello world" in the browser console.
+  * [Simple](wasm/simple) - a simple WebAssembly that prints "hello world" on the browser console.
 * [Web Scaper](web-scraper) - a recipe that extracts the price of a stock from MarketWatch.com using the `gocolly/colly` package.
 * [Webhook](webhook) - a simple webhook implementation.
 

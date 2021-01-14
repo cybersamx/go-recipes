@@ -29,13 +29,13 @@ type StateResponse struct {
 func stateToStateRes(state *models.State) *StateResponse {
 	return &StateResponse{
 		Abbreviation: state.Abbreviation,
-		Name: state.Name,
-		Population: state.Population,
+		Name:         state.Name,
+		Population:   state.Population,
 	}
 }
 
 func GetStatesEndpoint(svc services.StateService) endpoint.Endpoint {
-	return func (_ context.Context, request interface{}) (interface{}, error) {
+	return func(_ context.Context, request interface{}) (interface{}, error) {
 		var statesRes []*StateResponse
 		for _, state := range svc.GetStates() {
 			statesRes = append(statesRes, stateToStateRes(state))
@@ -46,7 +46,7 @@ func GetStatesEndpoint(svc services.StateService) endpoint.Endpoint {
 }
 
 func GetStateEndpoint(svc services.StateService) endpoint.Endpoint {
-	return func (_ context.Context, request interface{}) (interface{}, error) {
+	return func(_ context.Context, request interface{}) (interface{}, error) {
 		req, ok := request.(GetStateRequest)
 		if !ok {
 			return nil, ErrWrongRequestType

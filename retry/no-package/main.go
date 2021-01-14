@@ -34,7 +34,7 @@ func main() {
 		// Use option 1 to keep it timeout. Using option 2 here to illustrate the use of
 		// anonymous function.
 		ok := func() bool {
-			log.Printf("attempt %d: connecting to mongo %s\n", i + 1, uri)
+			log.Printf("attempt %d: connecting to mongo %s\n", i+1, uri)
 			cctx, ccancel := context.WithTimeout(ctx, connectTimeout)
 			defer ccancel()
 			err := client.Connect(cctx)
@@ -56,7 +56,7 @@ func main() {
 			defer pcancel()
 			if err := client.Ping(pctx, readpref.Primary()); err != nil {
 				// Ping mongo failed, retry unless we exhausted our retries
-				if i == retries - 1 {
+				if i == retries-1 {
 					log.Printf("exhausted our retries\n")
 					return true
 				}

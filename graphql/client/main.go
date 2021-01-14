@@ -14,8 +14,8 @@ type Language struct {
 }
 
 type Country struct {
-	Code string
-	Name string
+	Code      string
+	Name      string
 	Languages []Language
 }
 
@@ -43,7 +43,7 @@ func main() {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 
-	ctx, cancel := context.WithTimeout(context.Background(), 10 * time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	var res ResponseData
@@ -76,7 +76,7 @@ func main() {
 	req.Header.Set("Content-Type", "application/json")
 	req.Header.Set("Accept", "application/json")
 
-	ctx, cancel = context.WithTimeout(context.Background(), 10 * time.Second)
+	ctx, cancel = context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
 	if err := client.Run(ctx, req, &res); err != nil {

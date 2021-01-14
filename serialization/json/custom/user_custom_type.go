@@ -3,7 +3,7 @@ package custom
 import "encoding/json"
 
 type SensitiveString struct {
-	string  // Underlying type
+	string // Underlying type
 }
 
 func (ss SensitiveString) MarshalJSON() ([]byte, error) {
@@ -22,9 +22,9 @@ func (ss *SensitiveString) UnmarshalJSON(data []byte) error {
 }
 
 type UserCustomType struct {
-	ID        string          `json:"id"`
-	Email     string          `json:"email"`
-	Password  SensitiveString `json:"password"`
-	Note      string          `json:"note,omitempty"`
-	Tags      string          `json:"-"`
+	ID       string          `json:"id"`
+	Email    string          `json:"email"`
+	Password SensitiveString `json:"password"`
+	Note     string          `json:"note,omitempty"`
+	Tags     string          `json:"-"`
 }

@@ -4,9 +4,9 @@ import "fmt"
 
 // Using a custom type.
 type State struct {
-	name string
+	name         string
 	abbreviation string
-	population int
+	population   int
 }
 
 func main() {
@@ -24,9 +24,9 @@ func main() {
 	// --- Add an item ---
 
 	ca := State{
-		name: "California",
+		name:         "California",
 		abbreviation: "CA",
-		population: 39512223,
+		population:   39512223,
 	}
 	states["CA"] = ca
 	fmt.Println(states)
@@ -44,14 +44,14 @@ func main() {
 
 	// Test for existence. You can also replace state with _ given we are not interested in the value.
 	state, ok := states["CA"]
-	fmt.Printf("does CA exist? %t\n", ok)
+	fmt.Printf("does CA exist? %s %t\n", state, ok)
 
 	// --- Iterate the map ---
 
 	ma := State{
-		name: "Massachusetts",
+		name:         "Massachusetts",
 		abbreviation: "MA",
-		population: 6892503,
+		population:   6892503,
 	}
 	states["MA"] = ma
 

@@ -44,7 +44,6 @@ func callServer() (retEvent string, retErr error) {
 		}
 	}()
 
-
 	switch resp.StatusCode {
 	case http.StatusOK:
 		return string(body), nil

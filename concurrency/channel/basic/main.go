@@ -21,6 +21,6 @@ func main() {
 	}()
 
 	// A receiving concurrency will block until there's a message in the receiving concurrency.
-	msg := <- stream
+	msg := <-stream
 	fmt.Printf("Received a message from the concurrency after %v: %s\n", time.Since(start), msg)
 }

@@ -16,7 +16,7 @@ func main() {
 
 	// Ad-hoc layouts.
 
-	layouts := []string {
+	layouts := []string{
 		"Mon, 2 Jan 2006 15:04:05 MST",
 		"2006-01-02T15:04:05",
 		"2006-01-02T15:04:05-0700",
@@ -43,7 +43,7 @@ func main() {
 
 	// There are also pre-defined layouts.
 
-	predefines := []string {
+	predefines := []string{
 		time.RFC1123,
 		time.RFC1123Z,
 		time.RFC3339,

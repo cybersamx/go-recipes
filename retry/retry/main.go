@@ -48,17 +48,17 @@ func main() {
 		if err != nil && err != topology.ErrTopologyConnected {
 			log.Printf("can't connect to mongo: %v\n", err)
 			retErr = err
-			return  // Return the err to retrier telling it to retry.
+			return // Return the err to retrier telling it to retry.
 		}
 
 		pctx, pcancel := context.WithTimeout(ctx, pingTimeout)
 		defer pcancel()
 		if err := client.Ping(pctx, readpref.Primary()); err != nil {
 			retErr = err
-			return  // Return the err to retrier telling it to retry.
+			return // Return the err to retrier telling it to retry.
 		}
 
-		return nil  // Success
+		return nil // Success
 	})
 
 	if err != nil {

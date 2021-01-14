@@ -20,7 +20,7 @@ func insertDataSQL(n int) {
 	last := getLastBusStopID(db)
 
 	// Randomly generate and write fake data to the database.
-	for i := last + 1; i <= n + last; i++ {
+	for i := last + 1; i <= n+last; i++ {
 		busStop := getBusStop(i)
 		_, err := db.Exec("INSERT INTO bus_stops(id, updated_at, number, latitude, longitude, siteats, city_site) VALUES($1, $2, $3, $4, $5, $6, $7)",
 			busStop.ID, busStop.UpdatedAt, busStop.Number, busStop.Latitude, busStop.Longitude, busStop.SiteATS, busStop.CitySite)

@@ -45,7 +45,7 @@ func main() {
 	}
 
 	today := today()
-	fmt.Printf("On this day %s, the following events occured...\n", today)
+	fmt.Printf("On this day %s, the following events occurred...\n", today)
 
 	c := *colly.NewCollector(
 		// Good practice to set the user-agent. See http://go-colly.org/articles/scraping_related_http_headers/
@@ -71,7 +71,7 @@ func main() {
 		for i := 0; i < ch.Size(); i++ {
 			if ch.Get(i).Data == "h2" && ch.Eq(i).Text() == "Events" {
 				// The next sibling has all the events.
-				if i < ch.Size() - 1 {
+				if i < ch.Size()-1 {
 					ul := ch.Eq(i + 1)
 					for j := 0; j < ul.Children().Size(); j++ {
 						li := ul.Children().Eq(j)

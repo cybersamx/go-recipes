@@ -93,7 +93,7 @@ func TestUserAliasType_MarshalJSON(t *testing.T) {
 
 	assert.Equal(t, "a0927e9f-dfad-4fab-84cd-2e3ceead1781", userMap["id"])
 	assert.Equal(t, "somebody@example.com", userMap["email"])
-	assert.Empty(t, userMap["password"])    // JSON has an empty password, ie. "password": "".
+	assert.Empty(t, userMap["password"]) // JSON has an empty password, ie. "password": "".
 	assert.Nil(t, userMap["note"])
 }
 
@@ -109,7 +109,7 @@ func TestUserCustomType_MarshalJSON(t *testing.T) {
 
 	assert.Equal(t, "a0927e9f-dfad-4fab-84cd-2e3ceead1781", userMap["id"])
 	assert.Equal(t, "somebody@example.com", userMap["email"])
-	assert.Empty(t, userMap["password"])    // JSON has an empty password, ie. "password": "".
+	assert.Empty(t, userMap["password"]) // JSON has an empty password, ie. "password": "".
 	assert.Nil(t, userMap["note"])
 }
 
@@ -125,6 +125,6 @@ func TestUserReflectType_MarshalJSON(t *testing.T) {
 
 	assert.Equal(t, "a0927e9f-dfad-4fab-84cd-2e3ceead1781", userMap["id"])
 	assert.Equal(t, "somebody@example.com", userMap["email"])
-	assert.Nil(t, userMap["password"])  // JSON does not have the "password" field.
+	assert.Nil(t, userMap["password"]) // JSON does not have the "password" field.
 	assert.Nil(t, userMap["note"])
 }

@@ -14,7 +14,7 @@ func (a *App) Run() {
 }
 
 func NewApp() *App {
-	app := &App {}
+	app := &App{}
 
 	return app
 }

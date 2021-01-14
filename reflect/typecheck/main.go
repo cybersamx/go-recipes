@@ -57,11 +57,11 @@ func typeCast(vals []interface{}) {
 	// When typecasting in Go, always include the second variable. If you cast
 	// a value with only 1 variable, it's okay if the type assertion succeeds.
 	var v interface{} = "hello world"
-	str := v.(string)   // No problem.
+	str := v.(string) // No problem.
 	fmt.Println(str)
 
 	// But if the type assertion fails, the program will panic.
-	n := v.(int)    // Panic
+	n := v.(int) // Panic
 	fmt.Println(n)
 }
 

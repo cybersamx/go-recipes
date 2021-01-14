@@ -14,7 +14,7 @@ type StateService interface {
 	GetState(abbreviation string) (*models.State, error)
 }
 
-type StateServiceImpl struct {}
+type StateServiceImpl struct{}
 
 var (
 	states []*models.State
@@ -41,8 +41,10 @@ func init() {
 		panic(err)
 	}
 	states, err = loadYAML(file)
+	if err != nil {
+		panic(err)
+	}
 }
-
 
 func (ss StateServiceImpl) GetStates() []*models.State {
 	return states

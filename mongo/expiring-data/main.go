@@ -49,7 +49,7 @@ func dropCollection(db *mongo.Database) error {
 	ctx, cancel := context.WithTimeout(context.Background(), timeout)
 	defer cancel()
 
-	return 	db.Drop(ctx)
+	return db.Drop(ctx)
 }
 
 func createToken(db *mongo.Database, token Token) error {

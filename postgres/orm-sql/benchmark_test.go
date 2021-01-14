@@ -112,7 +112,6 @@ func benchmarkSelectGORM(b *testing.B, n int) {
 	}
 }
 
-
 // --- Main Test Func ---
 
 func TestMain(m *testing.M) {

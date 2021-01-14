@@ -13,17 +13,17 @@ type User struct {
 	CreatedAt   time.Time `json:"created_at"`
 	UpdatedUNIX int64     `json:"updated"`
 	Email       string    `json:"email"`
-	Password    string    `json:"-"`                // This field will be omitted completely
-	Note        string    `json:"note,omitempty"`   // This field will be omitted in the output if field is empty
+	Password    string    `json:"-"`              // This field will be omitted completely
+	Note        string    `json:"note,omitempty"` // This field will be omitted in the output if field is empty
 }
 
 func printJSON(user User, isPrettyPrint bool) {
 	var data []byte
-	var err  error
+	var err error
 
 	if isPrettyPrint {
 		prefix := ""
-		indent := "  "  // 2 spaces
+		indent := "  " // 2 spaces
 		data, err = json.MarshalIndent(&user, prefix, indent)
 	} else {
 		data, err = json.Marshal(&user)

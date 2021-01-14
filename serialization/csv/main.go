@@ -24,7 +24,7 @@ func fatal(msg string, err error) {
 }
 
 func writeToFile(filename string) {
-	file, err := os.OpenFile(filename, os.O_CREATE | os.O_WRONLY, os.ModePerm)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY, os.ModePerm)
 	fatal("can't open file", err)
 
 	defer func() {

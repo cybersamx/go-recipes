@@ -56,7 +56,7 @@ func TestNoteService_AddNote(t *testing.T) {
 	res, err := client.AddNote(context.Background(), &newNote)
 	assert.NoError(t, err)
 	assert.NotEmpty(t, res.Value)
-	assert.Len(t, service.notes, count + 1)
+	assert.Len(t, service.notes, count+1)
 
 	var foundNote *pb.Note
 	for _, item := range service.notes {

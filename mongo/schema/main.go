@@ -37,7 +37,6 @@ func newClient(username, password, host, database string) (*mongo.Client, error)
 	return mongo.NewClient(options.Client().ApplyURI(uri))
 }
 
-
 func connectDatabase(ctx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
 	err := client.Connect(ctx)
 	if err != nil {

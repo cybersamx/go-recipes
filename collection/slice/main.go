@@ -4,9 +4,9 @@ import "fmt"
 
 // Using a custom type.
 type State struct {
-	name string
+	name         string
 	abbreviation string
-	population int
+	population   int
 }
 
 func main() {
@@ -21,9 +21,9 @@ func main() {
 
 	// --- Add an item ---
 	ca := State{
-		name: "California",
+		name:         "California",
 		abbreviation: "CA",
-		population: 39512223,
+		population:   39512223,
 	}
 	states = append(states, ca)
 	fmt.Println(states)
@@ -38,9 +38,9 @@ func main() {
 	// --- Iterate the map ---
 
 	ma := State{
-		name: "Massachusetts",
+		name:         "Massachusetts",
 		abbreviation: "MA",
-		population: 6892503,
+		population:   6892503,
 	}
 	states = append(states, ma)
 
@@ -59,7 +59,7 @@ func main() {
 	fmt.Printf("slice[:4] = %v\n", slice[:4])
 	fmt.Printf("slice[4:] = %v\n", slice[4:])
 	// Note: slice[4:] is exactly the same as slice[4:len(slice)].
-	fmt.Printf("slice[4:len(slice) = %v\n", slice[4:len(slice)])
+	fmt.Printf("slice[4:len(slice) = %v\n", slice[4:])
 	fmt.Printf("slice[2:6] = %v\n", slice[2:6])
 	// Note: slice[0:0] returns [], an empty slice.
 	fmt.Printf("slice[0:0] = %v\n", slice[0:0])

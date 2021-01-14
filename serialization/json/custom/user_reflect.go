@@ -65,11 +65,11 @@ func toMap(user UserReflect) (map[string]interface{}, error) {
 }
 
 type UserReflect struct {
-	ID        string    `json:"id"`
-	Email     string    `json:"email"`
-	Password  string    `json:"password"`
-	Note      string    `json:"note,omitempty"`
-	Tags      string    `json:"-"`
+	ID       string `json:"id"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	Note     string `json:"note,omitempty"`
+	Tags     string `json:"-"`
 }
 
 func (u UserReflect) MarshalJSON() ([]byte, error) {
