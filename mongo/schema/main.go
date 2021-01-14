@@ -12,13 +12,6 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-type config struct {
-	host     string
-	database string
-	username string
-	password string
-}
-
 // User represents a user account of an application.
 type User struct {
 	ID         primitive.ObjectID `bson:"_id"`
@@ -30,24 +23,20 @@ type User struct {
 	ModifiedAt time.Time          `bson:"modifiedAt"`
 }
 
+const (
+	timeout = 30 * time.Second
+	dbName  = "go-recipes"
+)
 
-func newDefaultConfig() config {
-	return config{
-		host:     "localhost",
-		database: "go-recipes",
-		username: "nobody",
-		password: "secrets",
-	}
-}
-
-func newClient(cfg config) (*mongo.Client, error) {
+func newClient(username, password, host, database string) (*mongo.Client, error) {
 	uri := fmt.Sprintf("mongodb://%s:%s@%s/%s",
-		cfg.username,
-		cfg.password,
-		cfg.host,
-		cfg.database)
+		username,
+		password,
+		host,
+		database)
 	return mongo.NewClient(options.Client().ApplyURI(uri))
 }
+
 
 func connectDatabase(ctx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
 	err := client.Connect(ctx)
@@ -58,7 +47,10 @@ func connectDatabase(ctx context.Context, client *mongo.Client, database string)
 	return db, nil
 }
 
-func createUser(ctx context.Context, db *mongo.Database, user User) error {
+func createUser(db *mongo.Database, user User) error {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
 	_, err := db.Collection("users").InsertOne(ctx, user)
 	if err != nil {
 		return fmt.Errorf("problem inserting a user: %v", err)
@@ -67,7 +59,10 @@ func createUser(ctx context.Context, db *mongo.Database, user User) error {
 	return nil
 }
 
-func updateUser(ctx context.Context, db *mongo.Database, user User) (int64, error) {
+func updateUser(db *mongo.Database, user User) (int64, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
 	result, err := db.Collection("users").UpdateOne(
 		ctx,
 		bson.D{{"_id", user.ID}},
@@ -80,7 +75,10 @@ func updateUser(ctx context.Context, db *mongo.Database, user User) (int64, erro
 	return result.UpsertedCount, err
 }
 
-func deleteUser(ctx context.Context, db *mongo.Database, userID primitive.ObjectID) (int64, error) {
+func deleteUser(db *mongo.Database, userID primitive.ObjectID) (int64, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
 	result, err := db.Collection("users").DeleteOne(ctx, bson.D{
 		{"_id", userID},
 	})
@@ -91,7 +89,10 @@ func deleteUser(ctx context.Context, db *mongo.Database, userID primitive.Object
 	return result.DeletedCount, nil
 }
 
-func getUser(ctx context.Context, db *mongo.Database, userID primitive.ObjectID) (*User, error) {
+func getUser(db *mongo.Database, userID primitive.ObjectID) (*User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
+
 	var result User
 	err := db.Collection("users").FindOne(ctx, bson.D{
 		{"_id", userID},
@@ -108,19 +109,20 @@ func printUser(user *User) {
 }
 
 func main() {
-	cfg := newDefaultConfig()
-	client, err := newClient(cfg)
+	client, err := newClient("nobody", "secrets", "localhost", dbName)
 	if err != nil {
 		log.Fatalf("problem setting up a client to Mongo: %v", err)
 	}
 
-	ctx, cancel := context.WithTimeout(context.Background(), 30 * time.Second)
-	defer cancel()
-	db, err := connectDatabase(ctx, client, cfg.database)
+	db, err := connectDatabase(context.Background(), client, dbName)
 	if err != nil {
-		log.Fatalf("problem connecting to Mongo database %s: %v", cfg.database, err)
+		log.Fatalf("problem connecting to Mongo database %s: %v", dbName, err)
 	}
-	defer client.Disconnect(ctx)
+	defer func() {
+		if err := client.Disconnect(context.Background()); err != nil {
+			panic(err)
+		}
+	}()
 
 	// Create user
 	user := User{
@@ -133,14 +135,14 @@ func main() {
 		ModifiedAt: time.Now(),
 	}
 
-	if err := createUser(ctx, db, user); err != nil {
+	if err := createUser(db, user); err != nil {
 		log.Fatalf("problem creating a user: %v", err)
 	}
 
 	fmt.Printf("successfully created user %s, userID %s\n", user.Username, user.ID)
 
 	// Get user
-	foundUser, err := getUser(ctx, db, user.ID)
+	foundUser, err := getUser(db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -150,7 +152,7 @@ func main() {
 
 	// Update user
 	user.City = "London"
-	upsertCount, err := updateUser(ctx, db, user)
+	upsertCount, err := updateUser(db, user)
 	if err != nil {
 		log.Fatalf("problem updating user %s", user.ID)
 	}
@@ -158,7 +160,7 @@ func main() {
 	fmt.Printf("successfully updated %d user %s, userID %s\n", upsertCount, user.Username, user.ID)
 
 	// Get user
-	foundUser, err = getUser(ctx, db, user.ID)
+	foundUser, err = getUser(db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -167,7 +169,7 @@ func main() {
 	printUser(foundUser)
 
 	// Delete user
-	deleteCount, err := deleteUser(ctx, db, user.ID)
+	deleteCount, err := deleteUser(db, user.ID)
 	if err != nil {
 		log.Fatalf("problem deleting a user: %v", err)
 	}

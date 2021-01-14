@@ -5,6 +5,6 @@ db.createUser({
         {
             role: 'readWrite',
             db:   'go-recipes',
-        }
-    ]
+        },
+    ],
 });

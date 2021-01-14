@@ -55,6 +55,7 @@ Here's a collection of the recipes:
 * [Microservice](microservice) - recipes that implement microservice using the `go-kit/kit` package.
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
   * [Basic](mongo/basic) - basic operations with Mongo.
+  * [Expiring Data](mongo/expiring-data) - remove expired data using MongoDB TTL indexing.
   * [Pre-defined schema](mongo/schema) - a recipe similar to the [basic mongo recipe](mongo/basic), but it's implemented using a pre-defined schema.
   * [Changestream](mongo/change-stream) - a recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
@@ -62,7 +63,7 @@ Here's a collection of the recipes:
 * [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub setup in Apache Pulsar.
 * [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` and `go-redis/redis` drivers.
   * [Counter](redis/counter) - a recipe that implements global atomic counter that showcases basic operations in Redis.
-  * [Sessions](redis/sessions) - a recipe that implements ephemeral sessions in Redis by setting up Redis to remove expired content.
+  * [Sessions](redis/sessions) - a recipe that implements serialization of complex data to redis using GOB and ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep Equal](equality) - a recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
