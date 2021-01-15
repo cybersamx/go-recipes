@@ -14,16 +14,16 @@ import (
 
 // Token represents token that.
 type Token struct {
-	ID       primitive.ObjectID `bson:"_id"`
-	Value    string             `bson:"value"`
-	ExpireAt time.Time          `bson:"expireAt"`
+	ID       primitive.ObjectID `bson:"_id,omitempty"`
+	Value    string             `bson:"value,omitempty"`
+	ExpireAt time.Time          `bson:"expireAt,omitempty"`
 }
 
 const (
 	timeout      = 30 * time.Second
 	ttl          = 60 * time.Second
 	indexTimeout = 10 * time.Second
-	collection   = "tokens"
+	collName  = "tokens"
 	dbName       = "go-recipes"
 )
 
@@ -45,15 +45,8 @@ func connectDatabase(ctx context.Context, client *mongo.Client, database string)
 	return db, nil
 }
 
-func dropCollection(db *mongo.Database) error {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
-
-	return db.Drop(ctx)
-}
-
-func createToken(db *mongo.Database, token Token) error {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func createToken(parentCtx context.Context, db *mongo.Database, token Token) error {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
 	_, err := db.Collection("tokens").InsertOne(ctx, token)
@@ -64,7 +57,57 @@ func createToken(db *mongo.Database, token Token) error {
 	return nil
 }
 
-func createTTLIndex(db *mongo.Database) error {
+func containsKey(m primitive.M, key string) bool {
+	_, ok := m[key]
+	return ok
+}
+
+// containsChildKey returns true if param key matches the child key in { "key": { key: "someValue" }}
+func containsChildKey(m primitive.M, key string) bool {
+	val := m["key"]
+	if val != nil {
+		childMap := val.(primitive.M)
+		_, ok := childMap[key]
+		return ok
+	}
+
+	return false
+}
+
+// ttlIndexExist checks to see if a TTL index for `field` in `collection` already exist.
+func ttlIndexExist(parentCtx context.Context, collection *mongo.Collection, field string) (bool, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
+	defer cancel()
+
+	cursor, err := collection.Indexes().List(ctx)
+	if err != nil {
+		return false, err
+	}
+
+	var indexes []bson.M
+	if err := cursor.All(ctx, &indexes); err != nil {
+		return false, err
+	}
+
+	for _, m := range indexes {
+		if containsKey(m, "expireAfterSeconds") && containsChildKey(m, field) {
+			return true, nil
+		}
+	}
+
+	return false, nil
+}
+
+func createTTLIndex(parentCtx context.Context, collection *mongo.Collection, field string) error {
+	ok, err := ttlIndexExist(parentCtx, collection, field)
+	if err != nil {
+		return err
+	}
+	if ok {
+		// Skip index creation given the index already exist.
+		return nil
+	}
+
 	// Create TTL index
 	models := []mongo.IndexModel{
 		{
@@ -75,8 +118,11 @@ func createTTLIndex(db *mongo.Database) error {
 		},
 	}
 
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
+	defer cancel()
+
 	opts := options.CreateIndexes().SetMaxTime(indexTimeout)
-	names, err := db.Collection(collection).Indexes().CreateMany(context.Background(), models, opts)
+	names, err := collection.Indexes().CreateMany(ctx, models, opts)
 
 	fmt.Println("created indexes", names)
 
@@ -89,21 +135,20 @@ func main() {
 		log.Fatalf("problem setting up a client to Mongo: %v", err)
 	}
 
-	db, err := connectDatabase(context.Background(), client, dbName)
+	ctx := context.Background()
+	db, err := connectDatabase(ctx, client, dbName)
 	if err != nil {
 		log.Fatalf("problem connecting to Mongo database %s: %v", dbName, err)
 	}
 	defer func() {
-		if err := client.Disconnect(context.Background()); err != nil {
+		disCtx, cancel := context.WithTimeout(ctx, timeout)
+		defer cancel()
+		if err := client.Disconnect(disCtx); err != nil {
 			panic(err)
 		}
 	}()
 
-	if err := dropCollection(db); err != nil {
-		panic(err)
-	}
-
-	if err := createTTLIndex(db); err != nil {
+	if err := createTTLIndex(ctx, db.Collection(collName), "expireAt"); err != nil {
 		panic(err)
 	}
 
@@ -113,7 +158,7 @@ func main() {
 		ExpireAt: time.Now().Add(ttl),
 	}
 
-	if err := createToken(db, token); err != nil {
+	if err := createToken(ctx, db, token); err != nil {
 		log.Fatalf("problem creating a user: %v", err)
 	}
 }

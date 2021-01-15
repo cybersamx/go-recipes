@@ -14,18 +14,19 @@ import (
 
 // User represents a user account of an application.
 type User struct {
-	ID         primitive.ObjectID `bson:"_id"`
-	Username   string             `bson:"username"`
-	Email      string             `bson:"email"`
-	City       string             `bson:"city"`
-	Age        int                `bson:"age"`
-	CreatedAt  time.Time          `bson:"createdAt"`
-	ModifiedAt time.Time          `bson:"modifiedAt"`
+	ID         primitive.ObjectID `bson:"_id,omitempty"`
+	Username   string             `bson:"username,omitempty"`
+	Email      string             `bson:"email,omitempty"`
+	City       string             `bson:"city,omitempty"`
+	Age        int                `bson:"age,omitempty"`
+	CreatedAt  time.Time          `bson:"createdAt,omitempty"`
+	ModifiedAt time.Time          `bson:"modifiedAt,omitempty"`
 }
 
 const (
-	timeout = 30 * time.Second
-	dbName  = "go-recipes"
+	timeout  = 30 * time.Second
+	dbName   = "go-recipes"
+	collName = "users"
 )
 
 func newClient(username, password, host, database string) (*mongo.Client, error) {
@@ -37,8 +38,8 @@ func newClient(username, password, host, database string) (*mongo.Client, error)
 	return mongo.NewClient(options.Client().ApplyURI(uri))
 }
 
-func connectDatabase(ctx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
-	err := client.Connect(ctx)
+func connectDatabase(parentCtx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
+	err := client.Connect(parentCtx)
 	if err != nil {
 		return nil, err
 	}
@@ -46,11 +47,11 @@ func connectDatabase(ctx context.Context, client *mongo.Client, database string)
 	return db, nil
 }
 
-func createUser(db *mongo.Database, user User) error {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func createUser(parentCxt context.Context, db *mongo.Database, user User) error {
+	ctx, cancel := context.WithTimeout(parentCxt, timeout)
 	defer cancel()
 
-	_, err := db.Collection("users").InsertOne(ctx, user)
+	_, err := db.Collection(collName).InsertOne(ctx, user)
 	if err != nil {
 		return fmt.Errorf("problem inserting a user: %v", err)
 	}
@@ -58,11 +59,11 @@ func createUser(db *mongo.Database, user User) error {
 	return nil
 }
 
-func updateUser(db *mongo.Database, user User) (int64, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func updateUser(parentCtx context.Context, db *mongo.Database, user User) (int64, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
-	result, err := db.Collection("users").UpdateOne(
+	result, err := db.Collection(collName).UpdateOne(
 		ctx,
 		bson.D{{"_id", user.ID}},
 		bson.D{{"$set", user}},
@@ -74,11 +75,11 @@ func updateUser(db *mongo.Database, user User) (int64, error) {
 	return result.UpsertedCount, err
 }
 
-func deleteUser(db *mongo.Database, userID primitive.ObjectID) (int64, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func deleteUser(parentCtx context.Context, db *mongo.Database, userID primitive.ObjectID) (int64, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
-	result, err := db.Collection("users").DeleteOne(ctx, bson.D{
+	result, err := db.Collection(collName).DeleteOne(ctx, bson.D{
 		{"_id", userID},
 	})
 	if err != nil {
@@ -88,12 +89,12 @@ func deleteUser(db *mongo.Database, userID primitive.ObjectID) (int64, error) {
 	return result.DeletedCount, nil
 }
 
-func getUser(db *mongo.Database, userID primitive.ObjectID) (*User, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func getUser(parentCtx context.Context, db *mongo.Database, userID primitive.ObjectID) (*User, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
 	var result User
-	err := db.Collection("users").FindOne(ctx, bson.D{
+	err := db.Collection(collName).FindOne(ctx, bson.D{
 		{"_id", userID},
 	}).Decode(&result)
 	if err != nil {
@@ -113,12 +114,15 @@ func main() {
 		log.Fatalf("problem setting up a client to Mongo: %v", err)
 	}
 
-	db, err := connectDatabase(context.Background(), client, dbName)
+	ctx := context.Background()
+	db, err := connectDatabase(ctx, client, dbName)
 	if err != nil {
 		log.Fatalf("problem connecting to Mongo database %s: %v", dbName, err)
 	}
 	defer func() {
-		if err := client.Disconnect(context.Background()); err != nil {
+		disCtx, cancel := context.WithTimeout(ctx, timeout)
+		defer cancel()
+		if err := client.Disconnect(disCtx); err != nil {
 			panic(err)
 		}
 	}()
@@ -134,14 +138,14 @@ func main() {
 		ModifiedAt: time.Now(),
 	}
 
-	if err := createUser(db, user); err != nil {
+	if err := createUser(ctx, db, user); err != nil {
 		log.Fatalf("problem creating a user: %v", err)
 	}
 
 	fmt.Printf("successfully created user %s, userID %s\n", user.Username, user.ID)
 
 	// Get user
-	foundUser, err := getUser(db, user.ID)
+	foundUser, err := getUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -151,7 +155,7 @@ func main() {
 
 	// Update user
 	user.City = "London"
-	upsertCount, err := updateUser(db, user)
+	upsertCount, err := updateUser(ctx, db, user)
 	if err != nil {
 		log.Fatalf("problem updating user %s", user.ID)
 	}
@@ -159,7 +163,7 @@ func main() {
 	fmt.Printf("successfully updated %d user %s, userID %s\n", upsertCount, user.Username, user.ID)
 
 	// Get user
-	foundUser, err = getUser(db, user.ID)
+	foundUser, err = getUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -168,7 +172,7 @@ func main() {
 	printUser(foundUser)
 
 	// Delete user
-	deleteCount, err := deleteUser(db, user.ID)
+	deleteCount, err := deleteUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem deleting a user: %v", err)
 	}

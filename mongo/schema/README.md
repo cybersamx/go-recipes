@@ -4,11 +4,15 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
 
 There's another recipe that performs the same task but without a pre-defined schema is found [here](../basic).
 
-## Requirements
-
-* MongoDB version 4 and above.
-
 ## Setup
+
+1. To run everything in 1 command ie. spin up the mongo container, run the go program, and finally tear down the mongo container, just run the following:
+
+   ```bash
+   $ make
+   ```
+
+To do everything step-by-step.
 
 1. Launch a shell session and start MongoDB (server) via Docker:
 
@@ -33,12 +37,6 @@ There's another recipe that performs the same task but without a pre-defined sch
 
    ```bash
    $ go run ./main.go
-   ```
-
-1. Alternatively, you can run everything with the following command.
-
-   ```bash
-   $ make
    ```
 
 ## Reference and Credits

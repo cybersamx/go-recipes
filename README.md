@@ -60,6 +60,7 @@ Here's a collection of the recipes:
 * [MongoDB](mongo) - recipes for working with MongoDB using the official driver.
   * [Basic](mongo/basic) - basic operations with Mongo.
   * [Expiring Data](mongo/expiring-data) - remove expired data using MongoDB TTL indexing.
+  * [Mongo Operations](mongo-ops) - Recipe on running Mongo commands and other queries.
   * [Pre-defined schema](mongo/schema) - a recipe similar to the [basic mongo recipe](mongo/basic), but it's implemented using a pre-defined schema.
   * [Changestream](mongo/change-stream) - a recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.

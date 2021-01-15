@@ -24,8 +24,9 @@ type User struct {
 }
 
 const (
-	timeout = 30 * time.Second
-	dbName  = "go-recipes"
+	timeout  = 30 * time.Second
+	dbName   = "go-recipes"
+	collName = "users"
 )
 
 func newClient(username, password, host, database string) (*mongo.Client, error) {
@@ -37,8 +38,8 @@ func newClient(username, password, host, database string) (*mongo.Client, error)
 	return mongo.NewClient(options.Client().ApplyURI(uri))
 }
 
-func connectDatabase(ctx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
-	err := client.Connect(ctx)
+func connectDatabase(parentCtx context.Context, client *mongo.Client, database string) (*mongo.Database, error) {
+	err := client.Connect(parentCtx)
 	if err != nil {
 		return nil, err
 	}
@@ -46,11 +47,11 @@ func connectDatabase(ctx context.Context, client *mongo.Client, database string)
 	return db, nil
 }
 
-func createUser(db *mongo.Database, user User) (string, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func createUser(parentCtx context.Context, db *mongo.Database, user User) (string, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
-	result, err := db.Collection("users").InsertOne(ctx, bson.D{
+	result, err := db.Collection(collName).InsertOne(ctx, bson.D{
 		{"username", user.Username},
 		{"email", user.Email},
 		{"city", user.City},
@@ -65,15 +66,15 @@ func createUser(db *mongo.Database, user User) (string, error) {
 	return result.InsertedID.(primitive.ObjectID).Hex(), nil
 }
 
-func updateUser(db *mongo.Database, user User) (int64, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func updateUser(parentCtx context.Context, db *mongo.Database, user User) (int64, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
 	objectID, err := primitive.ObjectIDFromHex(user.ID)
 	if err != nil {
 		return 0, fmt.Errorf("problem converting a string ID to an ObjectID: %v", err)
 	}
-	result, err := db.Collection("users").UpdateOne(
+	result, err := db.Collection(collName).UpdateOne(
 		ctx,
 		bson.D{
 			{"_id", objectID},
@@ -93,15 +94,15 @@ func updateUser(db *mongo.Database, user User) (int64, error) {
 	return result.UpsertedCount, err
 }
 
-func deleteUser(db *mongo.Database, userID string) (int64, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func deleteUser(parentCtx context.Context, db *mongo.Database, userID string) (int64, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
 	objectID, err := primitive.ObjectIDFromHex(userID)
 	if err != nil {
 		return 0, fmt.Errorf("problem converting a string ID to an ObjectID: %v", err)
 	}
-	result, err := db.Collection("users").DeleteOne(ctx, bson.D{
+	result, err := db.Collection(collName).DeleteOne(ctx, bson.D{
 		{"_id", objectID},
 	})
 	if err != nil {
@@ -111,8 +112,8 @@ func deleteUser(db *mongo.Database, userID string) (int64, error) {
 	return result.DeletedCount, nil
 }
 
-func getUser(db *mongo.Database, userID string) (*User, error) {
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+func getUser(parentCtx context.Context, db *mongo.Database, userID string) (*User, error) {
+	ctx, cancel := context.WithTimeout(parentCtx, timeout)
 	defer cancel()
 
 	objectID, err := primitive.ObjectIDFromHex(userID)
@@ -121,7 +122,7 @@ func getUser(db *mongo.Database, userID string) (*User, error) {
 	}
 
 	var result User
-	err = db.Collection("users").FindOne(ctx, bson.D{
+	err = db.Collection(collName).FindOne(ctx, bson.D{
 		{"_id", objectID},
 	}).Decode(&result)
 	if err != nil {
@@ -141,12 +142,15 @@ func main() {
 		log.Fatalf("problem setting up a client to Mongo: %v", err)
 	}
 
-	db, err := connectDatabase(context.Background(), client, dbName)
+	ctx := context.Background()
+	db, err := connectDatabase(ctx, client, dbName)
 	if err != nil {
 		log.Fatalf("problem connecting to Mongo database %s: %v", dbName, err)
 	}
 	defer func() {
-		if err := client.Disconnect(context.Background()); err != nil {
+		disCtx, cancel := context.WithTimeout(ctx, timeout)
+		defer cancel()
+		if err := client.Disconnect(disCtx); err != nil {
 			panic(err)
 		}
 	}()
@@ -161,7 +165,7 @@ func main() {
 		ModifiedAt: time.Now(),
 	}
 
-	id, err := createUser(db, user)
+	id, err := createUser(ctx, db, user)
 	if err != nil {
 		log.Fatalf("problem creating a user: %v", err)
 	}
@@ -170,7 +174,7 @@ func main() {
 	fmt.Printf("successfully created user %s, userID %s\n", user.Username, user.ID)
 
 	// Get user
-	foundUser, err := getUser(db, user.ID)
+	foundUser, err := getUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -180,7 +184,7 @@ func main() {
 
 	// Update user
 	user.City = "London"
-	upsertCount, err := updateUser(db, user)
+	upsertCount, err := updateUser(ctx, db, user)
 	if err != nil {
 		log.Fatalf("problem updating user %s", user.ID)
 	}
@@ -188,7 +192,7 @@ func main() {
 	fmt.Printf("successfully updated %d user %s, userID %s\n", upsertCount, user.Username, user.ID)
 
 	// Get user
-	foundUser, err = getUser(db, user.ID)
+	foundUser, err = getUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem finding user %s", user.ID)
 	}
@@ -197,7 +201,7 @@ func main() {
 	printUser(foundUser)
 
 	// Delete user
-	deleteCount, err := deleteUser(db, user.ID)
+	deleteCount, err := deleteUser(ctx, db, user.ID)
 	if err != nil {
 		log.Fatalf("problem deleting a user: %v", err)
 	}

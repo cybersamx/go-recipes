@@ -4,17 +4,15 @@ An example of how you would connect to MongoDB and perform basic CRUD operations
 
 There's another recipe that performs the same task but it's implemented using a pre-defined schema that helps the mapping of MongoDB documents to Go data structures. The alternate recipe can be found [here](../schema).
 
-## Requirements
-
-* MongoDB version 4 and above.
-
 ## Setup
 
-1. Launch a shell session and start MongoDB (server) via Docker:
+1. To run everything in 1 command ie. spin up the mongo container, run the go program, and finally tear down the mongo container, just run the following:
 
    ```bash
-   $ docker-compose up
+   $ make
    ```
+
+To do everything step-by-step.
 
 1. You can connect to Mongo via the console:
 
@@ -33,12 +31,6 @@ There's another recipe that performs the same task but it's implemented using a 
 
    ```bash
    $ go run ./main.go
-   ```
-
-1. Alternatively, you can run everything with the following command.
-
-   ```bash
-   $ make
    ```
 
 ## Reference and Credits
