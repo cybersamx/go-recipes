@@ -33,6 +33,7 @@ The unit tests in this recipe are used to test `AccountService`. When `AccountSe
 1. Install mockgen
 
    ```bash
+   $ go get github.com/golang/mock/mockgen@latest
    $ mockgen -source=./model/account.go -package=mock_recipe AccountModel > api/mock_recipe/model_mockgen.go
    ```
 
@@ -45,7 +46,8 @@ The unit tests in this recipe are used to test `AccountService`. When `AccountSe
 1. Alternatively, just run everything with the following command:
 
    ```bash
-   $ make
+   $ make install   # Optional: run this if you haven't installed mockgen
+   $ make  # Run all the above commands
    ```
 
 ## Reference

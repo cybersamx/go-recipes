@@ -41,6 +41,13 @@ There are time when we need to remove data in a Mongo collection after a specifi
    $ docker-compose down
    ```
 
+1. Alternatively, you can run everything with just 2 commands.
+
+   ```bash
+   $ make
+   $ make teardown    # Run this to remove containers
+   ```
+
 ## Reference and Credits
 
 * [MongoDB Go Driver API Guide](https://godoc.org/go.mongodb.org/mongo-driver/mongo)

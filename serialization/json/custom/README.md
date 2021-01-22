@@ -31,7 +31,7 @@ In the recipe, we also define additional fields `Note` and `Tags` to validate th
 1. Test the program
 
    ```bash
-   $ make test
+   $ make
    ```
 
 ## Reference

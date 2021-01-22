@@ -39,6 +39,13 @@ To do everything step-by-step.
    $ go run ./main.go
    ```
 
+1. Alternatively, you can run everything with just 2 commands.
+
+   ```bash
+   $ make
+   $ make teardown    # Run this to remove the container
+   ```
+
 ## Reference and Credits
 
 * [MongoDB Connection String URI](https://docs.mongodb.com/manual/reference/connection-string/)

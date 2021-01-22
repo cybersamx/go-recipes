@@ -1,6 +1,6 @@
 # ORM vs SQL
 
-Recipe to show how to insert, update, and select with the standard `sql` package as well as with popular ORM packages such as `xorm`. The recipe also demonstrates the use of go benchmark to shows the comparative performance between the different packages. 
+Recipe to show how to insert, update, and select with the standard `sql` package as well as with popular ORM packages such as `xorm`. The recipe also demonstrates the use of go benchmark to shows the comparative performance between the different packages.
 
 ## Requirements
 
@@ -36,6 +36,8 @@ This recipe uses Postgres. We will be using Docker to spin up an instance of Pos
    ```
 
 ## Benchmark Results
+
+**TODO:** Updated Jan 22, 2021 - the data looks a bit suspicious. I will be running the benchmarks soon to re-verify the results. Stay tuned.
 
 **Environment:** MacOS High Sierra, Go 1.12.4, Macbook Pro 2.5GHz Intel Core i7.
 

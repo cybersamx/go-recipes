@@ -32,10 +32,11 @@ This is a simple recipe that performs authentication in Redis using the [Radix](
    $ go run ./main.go
    ```
 
-1. Alternatively, just run:
+1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
    $ make
+   $ make teardown    # Run this to remove the container
    ```
 
 ## Reference and Credits

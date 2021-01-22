@@ -32,11 +32,11 @@ This sample code is basically based on the [Kafka example](https://github.com/Th
    $ docker-compose down
    ```
 
-1. Alternatively, you can run everything with just one command.
+1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
    $ make
-   $ make teardown    # Run this to remove containers
+   $ make teardown    # Run this to remove the containers
    ```
 
 ## Reference and Credits

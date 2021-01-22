@@ -17,13 +17,13 @@ All 3 recipes use the shared [pkg](pkg) package containing all the pertinent dep
 
 ## Setup
 
-1. Install Wire
+1. Install Wire if you haven't installed `wire`.
 
    ```bash
    $ make install
    ```
 
-1. Run the program
+1. Run the program.
 
    ```bash
    $ make run-no-framework
@@ -31,7 +31,7 @@ All 3 recipes use the shared [pkg](pkg) package containing all the pertinent dep
    $ make run-wire
    ```
 
-1. On another shell
+1. On another shell.
 
    ```bash
    $ curl localhost:8000

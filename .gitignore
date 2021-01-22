@@ -103,7 +103,7 @@ Temporary Items
 .apdisk
 
 # Custom
-**/tmp
+**/.tmp
 **/data.csv
 
 # End of https://www.gitignore.io/api/go,macos,jetbrains

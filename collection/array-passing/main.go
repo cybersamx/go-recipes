@@ -9,7 +9,7 @@ func squareArrayVal(array [3]int) {
 }
 func squareArrayPtr(array *[3]int) {
 	for i, v := range *array {
-		(*array)[i] = v * v
+		array[i] = v * v
 	}
 }
 func squareSliceVal(slice []int) {

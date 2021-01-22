@@ -49,6 +49,6 @@ func main() {
 	}
 
 	if entity == nil {
-		fmt.Printf("no entity was retrieved.\n")
+		fmt.Printf("no data was fetched.\n")
 	}
 }

@@ -34,6 +34,13 @@ To do everything step-by-step.
    $ docker-compose down
    ```
 
+1. Alternatively, you can run everything with just 2 commands.
+
+   ```bash
+   $ make
+   $ make teardown    # Run this to remove the container
+   ```
+
 ## Reference and Credits
 
 * [MongoDB Go Driver API Guide](https://godoc.org/go.mongodb.org/mongo-driver/mongo)

@@ -30,6 +30,7 @@ An example of gRPC client and server. It is a modification of [the official gRPC
    You can also run the following command that combines steps 2 and 3.
 
    ```bash
+   $ make install  # Optional: run this if you haven't installed protoc-gen-go
    $ make run
    ```
 

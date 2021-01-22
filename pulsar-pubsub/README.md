@@ -8,7 +8,7 @@ This sample code is based on the original [Kafka recipe](../kafka-pubsub). The p
 
 ## Pulsar Setup
 
-1. Run Apache Pulsar. Note this will run Pulsar-Manager - see next section for details.
+1. Run Apache Pulsar. Note this will run Pulsar-Manager - see next section for details. **It can take 10-25 seconds for pulsar to start.**
 
    ```bash
    $ docker-compose up
@@ -32,7 +32,7 @@ This sample code is based on the original [Kafka recipe](../kafka-pubsub). The p
 
    ```bash
    $ make
-   $ docker-compose down    # Run this to remove containers
+   $ docker-compose down    # Run this to remove the containers
    ```
 
 ## Pulsar Manager Setup

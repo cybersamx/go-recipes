@@ -34,10 +34,11 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
    $ go run ./main.go
    ```
 
-1. Alternatively, just run:
+1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
    $ make
+   $ make teardown    # Run this to remove the container
    ```
 
 ## Reference and Credits

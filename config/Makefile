@@ -1,56 +1,75 @@
-# Comments that start with ##@ [target] [description] will be shown in help
-
-# Project paths
-GOBASE := $(shell pwd)
-GOBIN := $(GOBASE)/bin
-PROJECT := $(shell basename "$(PWD)")
+PROJECT_ROOT := $(shell pwd)
+PROJECT := $(shell basename $(PROJECT_ROOT))
+PROJECT_BIN := ./bin
 SRC := .
+GO_ENV := CGO_ENABLED=0
+ROOT_DIR := $(shell git rev-parse --show-toplevel)
+LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 
 # Colorized print
 BOLD := $(shell tput bold)
 RED := $(shell tput setaf 1)
-GREEN := $(shell tput setaf 2)
 BLUE := $(shell tput setaf 4)
-CYAN := $(shell tput setaf 6)
 RESET := $(shell tput sgr0)
 
-# Target setup
+# Set up the default target all and set up phony targets.
 
-.PHONY: all clean build help run test
+.PHONY: all
 
-all: test
+all: run
 
 ##@ run: Run program
 
+.PHONY: run
+
 run:
-	@echo "$(BOLD)$(GREEN)Running $(PROJECT)...$(RESET)"
-	go run $(SRC)
+	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
+	$(GO_ENV) go run $(SRC)
 
 ##@ build: Build binary
 
+.PHONY: build
+
 build:
-	@echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
-	go build -o $(GOBIN)/$(PROJECT) $(SRC)
+	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
+	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
 ##@ test: Test program
 
 test:
-	@echo "$(BOLD)$(BLUE)Test $(PROJECT)...$(RESET)"
+	@echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
 	go test $(SRC)
+
+##@ lint: Run linter
+
+.PHONY: lint
+
+lint:
+	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	golangci-lint run -v -c $(LINTER_CONFIG)
+
+##@ format: Run gofmt
+
+.PHONY: format
+
+format:
+	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
+	gofmt -e -s -w $(SRC)
 
 ##@ clean: Clean output files and build cache
 
-clean: go-clean
-	@echo "$(BOLD)$(RED)Removing bin and $(GENPROTO_DIR)...$(RESET)"
-	@-rm -rf $(GOBIN)
+.PHONY: clean
 
-go-clean:
-	@echo "$(BOLD)$(RED)Cleaning build cache...$(RESET)"
+clean:
+	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
+	@-rm -rf $(PROJECT_BIN)
 	go clean
 
 ##@ help: Help
 
+.PHONY: help
+
 help: Makefile
-	@echo " Usage:\n  make $(CYAN)<target>$(RESET)"
-	@echo
-	@sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'
+	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
+	@-echo
+	@-sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'

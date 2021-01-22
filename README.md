@@ -32,7 +32,8 @@ Here's a collection of the recipes:
 * [Configurations](config) - load configurations into an app using a load order of default values > config file > environment variables > CLI arguments.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Context](context) - recipes on `context` package.
-  * [Timeout](context/timeout) - timeout using `context` package.
+  * [Deadline](context/deadline) - timeout using `context.WithDeadline` function.
+  * [Timeout](context/timeout) - timeout using `context.WithTimeout` function.
 * [Dependency injection](di) - recipes that shows different ways to implementing dependency injection design pattern.
   * [No DI framework](no-framework) - Basic DI implemented using Go, no third-party DI framework.
   * [Dig framework](dig) - how to leverage the Dig DI framework that injects dependencies at runtime.
@@ -62,7 +63,6 @@ Here's a collection of the recipes:
   * [Expiring Data](mongo/expiring-data) - remove expired data using MongoDB TTL indexing.
   * [Mongo Operations](mongo-ops) - Recipe on running Mongo commands and other queries.
   * [Pre-defined schema](mongo/schema) - a recipe similar to the [basic mongo recipe](mongo/basic), but it's implemented using a pre-defined schema.
-  * [Changestream](mongo/change-stream) - a recipe using Mongo Changestream.
 * [Postgres](postgres) - recipes on postgres and general SQL operations.
   * [ORM](postgres/orm-sql) - recipes for working with PostgreSQL using 3 popular frameworks: `sql`, `go-xorm/xorm`, and `jinzhu/gorm` packages.
 * [Pulsar pubsub](pulsar-pubsub) - a recipe that implements a simple pubsub in Apache Pulsar.
@@ -95,6 +95,20 @@ Here's a collection of the recipes:
 Other somewhat Go-related recipes:
 
 * [Go Docker images](long-poll) - the long-poll recipe also contain an extensive example of building Go application Docker images using various base Docker images ubuntu, alpine, scratch, and distroless.
+
+## Setup
+
+The [Makefile](Makefile) in the project root directory calls the Makefile each recipe. To build all recipes run:
+
+```bash
+$ make build
+```
+
+To remove the built binaries and build cache, run:
+
+```bash
+$ make clean
+```
 
 ## Credits and Reference
 

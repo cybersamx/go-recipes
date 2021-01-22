@@ -1,39 +1,69 @@
-## Instructions
-## Comments that start with ##@ [target] [description] will be shown in help
-
-GOBASE := $(shell pwd)
-GOBIN := $(GOBASE)/bin
-PROJECT := $(shell basename "$(PWD)")
+PROJECT_ROOT := $(shell pwd)
+PROJECT := $(shell basename $(PROJECT_ROOT))
+PROJECT_BIN := ./bin
 SRC := .
+GO_ENV := CGO_ENABLED=0
+ROOT_DIR := $(shell git rev-parse --show-toplevel)
+LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
+
+# Colorized print
+BOLD := $(shell tput bold)
+RED := $(shell tput setaf 1)
+BLUE := $(shell tput setaf 4)
+RESET := $(shell tput sgr0)
+
+# Set up the default target all and set up phony targets.
+
+.PHONY: all
+
+all: run
 
 ##@ run: Run program
 
+.PHONY: run
+
 run:
-	@echo "Running $(PROJECT)..."
-	ENABLE_CLIENT=true go run $(SRC)
+	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
+	$(GO_ENV) go run $(SRC)
 
 ##@ build: Build binary
 
+.PHONY: build
+
 build:
-	@echo "Building $(PROJECT)..."
-	go build -o $(GOBIN)/$(PROJECT) $(SRC)
+	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
+	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
+
+##@ lint: Run linter
+
+.PHONY: lint
+
+lint:
+	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	golangci-lint run -v -c $(LINTER_CONFIG)
+
+##@ format: Run gofmt
+
+.PHONY: format
+
+format:
+	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
+	gofmt -e -s -w $(SRC)
 
 ##@ clean: Clean output files and build cache
 
-clean:
-	@echo "Removing bin..."
-	@-rm -rf $(GOBIN)
-	@-$(MAKE) go-clean
+.PHONY: clean
 
-go-clean:
-	@echo "Cleaning build cache..."
+clean:
+	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
+	@-rm -rf $(PROJECT_BIN)
 	go clean
 
 ##@ help: Help
 
 .PHONY: help
-all: help
+
 help: Makefile
-	@echo " Usage:\n  make \033[36m<target>\033[0m"
-	@echo
-	@sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'
+	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
+	@-echo
+	@-sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'

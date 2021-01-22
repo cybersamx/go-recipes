@@ -1,45 +1,72 @@
-## Instructions
-## Comments that start with ##@ [target] [description] will be shown in help
-
-GOBASE := $(shell pwd)
-PROJECT := $(shell basename "$(PWD)")
+PROJECT_ROOT := $(shell pwd)
+PROJECT := $(shell basename "$(PROJECT_ROOT)")
 SRC := ./api
+ROOT_DIR := $(shell git rev-parse --show-toplevel)
+LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 
 MOCK_PACKAGE_NAME := mock_recipe
 MOCK_SOURCE := ./model/account.go
 MOCK_INTERFACE := AccountModel
 
-run: install test
+# Colorized print
+BOLD := $(shell tput bold)
+RED := $(shell tput setaf 1)
+BLUE := $(shell tput setaf 4)
+RESET := $(shell tput sgr0)
 
-##@ run: Test program
+# Set up the default target all and set up phony targets.
 
-test:
-	@echo "Testing $(PROJECT)..."
-	${GOPATH}/bin/mockgen -source=$(MOCK_SOURCE) -package=$(MOCK_PACKAGE_NAME) $(MOCK_INTERFACE) > api/$(MOCK_PACKAGE_NAME)/model_mockgen.go
-	go test -v $(SRC)
+.PHONY: all
+
+all: test
 
 ##@ install: Install mockgen
 
+.PHONY: install
+
 install:
-	@echo "Installing mockgen..."
+	@-echo "$(BOLD)$(BLUE)Installing mockgen...$(RESET)"
 	go get github.com/golang/mock/mockgen@latest
+
+##@ run: Test program
+
+.PHONY: test
+
+test:
+	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
+	${GOPATH}/bin/mockgen -source=$(MOCK_SOURCE) -package=$(MOCK_PACKAGE_NAME) $(MOCK_INTERFACE) > api/$(MOCK_PACKAGE_NAME)/model_mockgen.go
+	go test -v $(SRC)
+
+##@ lint: Run linter
+
+.PHONY: lint
+
+lint:
+	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	golangci-lint run -v -c $(LINTER_CONFIG)
+
+##@ format: Run gofmt
+
+.PHONY: format
+
+format:
+	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
+	gofmt -e -s -w $(SRC)
 
 ##@ clean: Clean output files and build cache
 
-clean:
-	@echo "Removing bin..."
-	@-rm -rf $(GOBIN)
-	@-$(MAKE) go-clean
+.PHONY: clean
 
-go-clean:
-	@echo "Cleaning build cache..."
+clean:
+	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
+	@-rm -rf $(PROJECT_BIN)
 	go clean
 
 ##@ help: Help
 
 .PHONY: help
-all: help
+
 help: Makefile
-	@echo " Usage:\n  make \033[36m<target>\033[0m"
-	@echo
-	@sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'
+	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
+	@-echo
+	@-sed -n 's/^##@//p' $< | column -t -s ':' | sed -e 's/[^ ]*/ &/2'
