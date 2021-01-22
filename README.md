@@ -82,6 +82,7 @@ Here's a collection of the recipes:
   * [JSON](serialization/json) - a recipe for json serialization.
 * [String](string) - strings and characters in Go.
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
+  * [Regular Expression](string/regexp) - a recipe on using regular expression in Go.
   * [Unicode](string/unicode) - basic unicode representation and usage.
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.

@@ -83,7 +83,6 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-
 	client, err := newClient(ctx, uri, retries, initialDelay, maxDelay)
 
 	defer func() {

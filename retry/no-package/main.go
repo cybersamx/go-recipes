@@ -2,17 +2,20 @@ package main
 
 import (
 	"context"
+	"log"
+	"time"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"go.mongodb.org/mongo-driver/mongo/readpref"
 	"go.mongodb.org/mongo-driver/x/mongo/driver/topology"
-	"log"
-	"time"
 )
 
-const connectTimeout = 5 * time.Second
-const pingTimeout = 2 * time.Second
-const retries = 5
+const (
+	connectTimeout = 5 * time.Second
+	pingTimeout    = 2 * time.Second
+	retries        = 5
+)
 
 func main() {
 	ctx, cancel := context.WithCancel(context.Background())
