@@ -6,7 +6,19 @@ It has a neat interface and implements an [exponential backoff](https://en.wikip
 
 ## Setup
 
-1. Run the application
+1. Run the application. Since we don't have mongo running in the background, the program will retry 5 times before it finally exits.
+
+   ```bash
+   $ make run
+   ```
+
+1. On a separate shell, starts mongo.
+
+   ```bash
+   $ docker-compose up
+   ```
+
+1. Go back to the original shell and run the application again. Now the program should connect to the datastore.
 
    ```bash
    $ make run
