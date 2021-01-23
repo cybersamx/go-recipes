@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/kafka-pubsub
 
-go 1.14
+go 1.15
 
 require (
 	github.com/Shopify/sarama v1.26.4

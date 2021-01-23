@@ -1,3 +1,3 @@
 module github.com/cybersamx/go-recipes/string/iterate
 
-go 1.14
+go 1.15

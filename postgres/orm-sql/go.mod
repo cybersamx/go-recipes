@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/postgres/orm-sql
 
-go 1.14
+go 1.15
 
 require (
 	github.com/cybersamx/go-recipes/random v0.0.0-20200613195614-895af3181768

@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/http/server/static
 
-go 1.14
+go 1.15
 
 require (
 	github.com/gin-contrib/static v0.0.0-20191128031702-f81c604d8ac2

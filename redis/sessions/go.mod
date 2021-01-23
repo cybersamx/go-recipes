@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/redis/sessions
 
-go 1.14
+go 1.15
 
 require (
 	github.com/go-redis/redis/v8 v8.3.3

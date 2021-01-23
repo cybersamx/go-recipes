@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/wasm/simple
 
-go 1.14
+go 1.15
 
 require (
 	github.com/shurcooL/go v0.0.0-20200502201357-93f07166e636 // indirect
