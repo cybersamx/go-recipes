@@ -57,6 +57,14 @@ func (o *Order) TotalCost() float64 {
 
 func homeHandler() http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		// NOTE: This handler is registered with the path /, which is catch-all ie. any
+		// path is not registered with other handlers is routed here. So we need to add
+		// a conditional below.
+		if r.URL.Path != "/" {
+			http.NotFound(w, r)
+			return
+		}
+
 		tmpl := template.Must(template.ParseFiles(templateFile))
 		htmlContent := &Order{
 			Shipper: "Acme",

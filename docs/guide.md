@@ -244,7 +244,13 @@ Here are the structs that implement the 2 interfaces.
 | [os.File](https://golang.org/pkg/os/#File)                   |   ✓    |    ✓   | Create by calling `os.Create`, `os.NewFile`, `os.Open`, or `os.OpenFile`.                              |
 | os.Stdout, os.Stdin, os.Stderr                               |   ✓    |    ✓   | These are public variables exposed by the `os` package. They are special files of type `os.File`.      |
 
+### Write String to any Writer
 
+Use `io.WriteString` to write a string value to an `io.Writer`.
+
+```go
+io.WriteString(w, "Hello world")
+```
 
 ## Reference
 
