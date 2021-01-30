@@ -23,11 +23,11 @@ indent_size = 4
 
 # --- JavaScript and TypeScript files ---
 [*.{js,jsx,ts,tsx}]
-indent_size = 4
+indent_size = 2
 
 # --- HTML ---
 [*.{html,htm}]
-indent_size = 4
+indent_size = 2
 
 # --- Others ---
 [Makefile]

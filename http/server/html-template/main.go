@@ -66,7 +66,7 @@ func homeHandler() http.Handler {
 		}
 
 		tmpl := template.Must(template.ParseFiles(templateFile))
-		htmlContent := &Order{
+		content := &Order{
 			Shipper: "Acme",
 			Customer: &Customer{
 				FirstName: "Kirby",
@@ -86,7 +86,7 @@ func homeHandler() http.Handler {
 				{Product: "Sock", Qty: 2, Cost: 15.0},
 			},
 		}
-		if err := tmpl.Execute(w, htmlContent); err != nil {
+		if err := tmpl.Execute(w, content); err != nil {
 			http.Error(w, err.Error(), http.StatusInternalServerError)
 		}
 	})

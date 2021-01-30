@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href="bundle.css">
+  </head>
+  <body>
+    <form action="" method="post">
+      <main class="container">
+        <div class="paper">
+          <div class="textfield">
+            <label class="mdc-text-field mdc-text-field--outlined username-textfield">
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span class="mdc-floating-label" id="username">Username</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+              <input type="text" class="mdc-text-field__input" aria-labelledby="username" name="username" required value="sam" />
+            </label>
+          </div>
+          <div class="textfield">
+            <label class="mdc-text-field mdc-text-field--outlined password-textfield">
+              <span class="mdc-notched-outline">
+                <span class="mdc-notched-outline__leading"></span>
+                <span class="mdc-notched-outline__notch">
+                  <span class="mdc-floating-label" id="password">Password</span>
+                </span>
+                <span class="mdc-notched-outline__trailing"></span>
+              </span>
+              <input type="password" class="mdc-text-field__input" aria-labelledby="password" name="password" required value="pass" />
+            </label>
+          </div>
+          <div class="button">
+            <button class="mdc-button--outlined mdc-button signin-button" type="submit">
+              <div class="mdc-button__ripple"></div>
+              <span class="mdc-button__label">Sign In</span>
+            </button>
+          </div>
+          <div class="message">
+            {{ .Error }}
+          </div>
+        </div>
+      </main>
+    </form>
+    <script src="bundle.js" async></script>
+  </body>
+</html>

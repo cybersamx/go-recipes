@@ -52,6 +52,7 @@ Here's a collection of the recipes:
 * [HTTP](http) - recipes for using the web.
   * [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
   * Server
+    * [Advanced template](http/server/advanced-template) - a web application using Go templating and Material Design Components for the real world.
     * [JWT](http/server/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
     * [HTML template](http/server/html-template) - a recipe that shows server-side http content rendering using the `html/template` package.
     * [Static web server](http/server/static) - a recipe that implements a simple http server serving static content.
