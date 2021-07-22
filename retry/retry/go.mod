@@ -4,5 +4,5 @@ go 1.15
 
 require (
 	github.com/flowchartsman/retry v1.2.0
-	go.mongodb.org/mongo-driver v1.4.4
+	go.mongodb.org/mongo-driver v1.5.1
 )
