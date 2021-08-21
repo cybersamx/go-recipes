@@ -15,7 +15,7 @@ const (
 )
 
 func parseFlag() string {
-	dir := flag.String("dir", rootDir, "flush cache")
+	dir := flag.String("dir", rootDir, "static html directory")
 	flag.Parse()
 
 	return *dir

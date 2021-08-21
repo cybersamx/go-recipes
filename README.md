@@ -72,8 +72,9 @@ Here's a collection of the recipes:
   * [Sessions](redis/sessions) - a recipe that implements the serialization of complex data to redis using GOB and ephemeral sessions in Redis by setting up Redis to remove expired content.
   * [Authentication](auth) - authentication in Redis.
 * [Reflection](reflect) - Go runtime reflection.
-  * [Deep Equal](equality) - a recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
-  * [Type check](typecheck) - a recipe that highlights the different ways to check the type of a value at runtime.
+  * [Deep Equal](reflect/equality) - a recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
+  * [Print Fields](reflect/print-fields) - Given a value of a custom `struct` type, this recipe prints out the field names and values.
+  * [Type check](reflect/typecheck) - a recipe that highlights the different ways to check the type of a value at runtime.
 * [Retry](retry) - a recipe that implements retry, which can be useful for a reliable connection to a service in the network.
   * [No-package](retry/no-package) - a recipe using retry without a third-party framework.
   * [Retry](retry/retry) - a recipe using the `flowchartsman/retry` package.
