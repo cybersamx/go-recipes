@@ -82,6 +82,8 @@ Here's a collection of the recipes:
 * [Serialization](serialization) - a recipes on serialization.
   * [CSV](serialization/csv) - a recipe for csv serialization.
   * [JSON](serialization/json) - a recipe for json serialization.
+* [SQL](sql) - a recipes on relational databases.
+  * [SQLite](sql/sqlite) - A simple recipe that shows how to connect to a SQLite database.
 * [String](string) - strings and characters in Go.
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
   * [Regular Expression](string/regexp) - a recipe on using regular expression in Go.
