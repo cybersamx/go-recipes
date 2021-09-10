@@ -52,9 +52,7 @@ Here's a collection of the recipes:
 * [HTTP](http) - recipes for using the web.
   * [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
   * Server
-    * [Advanced template](http/server/advanced-template) - a web application using Go templating and Material Design Components for the real world.
     * [JWT](http/server/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
-    * [HTML template](http/server/html-template) - a recipe that shows server-side http content rendering using the `html/template` package.
     * [Static web server](http/server/static) - a recipe that implements a simple http server serving static content.
 * [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the `ThreeDotsLabs/watermill` package.
 * [Long polling](long-poll) - a simple long-polling implementation.
@@ -88,6 +86,9 @@ Here's a collection of the recipes:
   * [Count Iterate](string/count-iterate) - simple recipe that explores how we count and iterate over a string by rune and byte.
   * [Regular Expression](string/regexp) - a recipe on using regular expression in Go.
   * [Unicode](string/unicode) - basic unicode representation and usage.
+* [Template](template) - recipes for using Go template.
+  * [Advanced template](template/advanced) - a web application using Go templating and Material Design Components for the real world.
+  * [HTML template](template/html) - a recipe that shows server-side http content rendering using the `html/template` package.
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
   * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
