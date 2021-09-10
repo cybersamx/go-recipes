@@ -2,6 +2,10 @@ PROJECT_ROOT := $(shell pwd)
 PROJECT := $(shell basename $(PROJECT_ROOT))
 PROJECT_BIN := ./bin
 SRC := .
+HTTP_SRC_DIR := cmd/http
+GIN_SRC_DIR := cmd/gin
+SRC_STATIC_WEB := public
+TARGET_STATIC_WEB := public
 GO_ENV := CGO_ENABLED=0
 ROOT_DIR := $(shell git rev-parse --show-toplevel)
 LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
@@ -18,21 +22,31 @@ RESET := $(shell tput sgr0)
 
 all: run
 
-##@ run: Run program
+##@ run-http: Run the web server implemented with the http package
 
-.PHONY: run
+.PHONY: run-http
 
-run:
+run-http: web-build
 	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
-	$(GO_ENV) go run $(SRC)
+	@cd $(HTTP_SRC_DIR); $(GO_ENV) go run $(SRC); cd -
 
-##@ build: Build binary
+##@ run-gin: Run the web server implemented with the gin package
 
-.PHONY: build
+.PHONY: run-gin
 
-build:
-	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
-	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
+run-gin: web-build
+	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
+	@cd $(GIN_SRC_DIR); $(GO_ENV) go run $(SRC); cd -
+
+##@ web-build: Copy the static directory
+
+.PHONY: web-build
+
+web-build:
+	@mkdir -p $(GIN_SRC_DIR)/$(TARGET_STATIC_WEB)
+	@mkdir -p $(HTTP_SRC_DIR)/$(TARGET_STATIC_WEB)
+	@cp -rf $(SRC_STATIC_WEB)/* $(GIN_SRC_DIR)/$(TARGET_STATIC_WEB)
+	@cp -rf $(SRC_STATIC_WEB)/* $(HTTP_SRC_DIR)/$(TARGET_STATIC_WEB)
 
 ##@ lint: Run linter
 
@@ -49,15 +63,6 @@ lint:
 format:
 	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
 	gofmt -e -s -w $(SRC)
-
-##@ clean: Clean output files and build cache
-
-.PHONY: clean
-
-clean:
-	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
-	@-rm -rf $(PROJECT_BIN)
-	go clean
 
 ##@ help: Help
 
