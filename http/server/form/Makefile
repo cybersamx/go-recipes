@@ -1,11 +1,8 @@
 PROJECT_ROOT := $(shell pwd)
 PROJECT := $(shell basename $(PROJECT_ROOT))
 PROJECT_BIN := ./bin
+STATIC_DIR := public
 SRC := .
-HTTP_SRC_DIR := cmd/http
-GIN_SRC_DIR := cmd/gin
-SRC_STATIC_WEB := public
-TARGET_STATIC_WEB := public
 GO_ENV := CGO_ENABLED=0
 ROOT_DIR := $(shell git rev-parse --show-toplevel)
 LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
@@ -20,33 +17,31 @@ RESET := $(shell tput sgr0)
 
 .PHONY: all
 
-all: run
+all: build
 
-##@ run-http: Run the web server implemented with the http package
+##@ run: Run the web server
 
-.PHONY: run-http
+.PHONY: run
 
-run-http: web-copy
+run:
 	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
-	@cd $(HTTP_SRC_DIR); $(GO_ENV) go run $(SRC); cd -
+	$(GO_ENV) go run $(SRC)
 
-##@ run-gin: Run the web server implemented with the gin package
+##@ web-build: Copy the static directory
 
-.PHONY: run-gin
+.PHONY: web-build
 
-run-gin: web-copy
-	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
-	@cd $(GIN_SRC_DIR); $(GO_ENV) go run $(SRC); cd -
+web-build:
+	@mkdir -p $(PROJECT_BIN)/$(STATIC_DIR)
+	@cp -rf $(STATIC_DIR)/* $(PROJECT_BIN)/$(STATIC_DIR)
 
-##@ web-copy: Copy the static directory
+##@ build: Build binary
 
-.PHONY: web-copy
+.PHONY: build
 
-web-copy:
-	@mkdir -p $(GIN_SRC_DIR)/$(TARGET_STATIC_WEB)
-	@mkdir -p $(HTTP_SRC_DIR)/$(TARGET_STATIC_WEB)
-	@cp -rf $(SRC_STATIC_WEB)/* $(GIN_SRC_DIR)/$(TARGET_STATIC_WEB)
-	@cp -rf $(SRC_STATIC_WEB)/* $(HTTP_SRC_DIR)/$(TARGET_STATIC_WEB)
+build: web-build
+	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
+	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
 ##@ lint: Run linter
 

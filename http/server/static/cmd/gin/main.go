@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 
@@ -10,23 +9,14 @@ import (
 )
 
 const (
-	port    = 8000
-	rootDir = "./public"
+	port      = 8000
+	staticDir = "./public"
 )
 
-func parseFlag() string {
-	dir := flag.String("dir", rootDir, "static html directory")
-	flag.Parse()
-
-	return *dir
-}
-
 func main() {
-	dir := parseFlag()
-
 	addr := fmt.Sprintf(":%d", port)
 	router := gin.Default()
-	router.Use(static.Serve("/", static.LocalFile(dir, false)))
-	log.Println("web server running at port", port)
+	router.Use(static.Serve("/", static.LocalFile(staticDir, false)))
+	log.Println("web server running in port", port)
 	log.Fatal(router.Run(addr))
 }

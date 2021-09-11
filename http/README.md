@@ -8,6 +8,7 @@ Recipes that shows HTTP client and server implementations.
 
 ## Server
 
+* [Form](server/form) - a recipe that processes a form submission (object binding and validation) using the gin framework.
 * [JWT](server/jwt) - a recipe that shows the handling of simple web form submission and a simple authentication using JWT.
 * [Static HTTP server](server/static) - a recipe that implements a simple http server serving static content.
 

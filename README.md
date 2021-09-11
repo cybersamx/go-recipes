@@ -52,6 +52,7 @@ Here's a collection of the recipes:
 * [HTTP](http) - recipes for using the web.
   * [Client](client) - a recipe that implements a simple HTTP client that sends a GET request.
   * Server
+    * [Form](http/server/form) - a recipe that processes a form submission (object binding and validation) using the gin framework.
     * [JWT](http/server/jwt) - a recipe that shows the handling of simple web form submission and a simple JWT-based authentication using the `dgrijalva/jwt-go` package.
     * [Static web server](http/server/static) - a recipe that implements a simple http server serving static content.
 * [Kafka pubsub](kafka-pubsub) - a recipe that implements a simple pubsub setup in Kakfa using the `ThreeDotsLabs/watermill` package.
