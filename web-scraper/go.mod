@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/cookie
+module github.com/cybersamx/go-recipes/web-scraper
 
 go 1.15
 
