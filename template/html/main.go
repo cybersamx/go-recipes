@@ -9,7 +9,7 @@ import (
 
 const (
 	port         = 8000
-	templateFile = "templates/home.html"
+	templateFile = "templates/home.gohtml"
 )
 
 type Address struct {

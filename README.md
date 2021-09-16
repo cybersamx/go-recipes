@@ -90,6 +90,7 @@ Here's a collection of the recipes:
 * [Template](template) - recipes for using Go template.
   * [Advanced template](template/advanced) - a web application using Go templating and Material Design Components for the real world.
   * [HTML template](template/html) - a recipe that shows server-side http content rendering using the `html/template` package.
+  * [Layouts](layouts) - a recipe that embeds reusable templates (aka layouts) into another template.
 * [Time](time) - recipes for manipulating time in Go.
   * [Parse](time/parse) - a recipe that parses a date string to a Go struct value.
   * [Print](time/print) - a recipe that prints a date value to different formats using layouts.
