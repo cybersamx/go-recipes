@@ -14,6 +14,17 @@ If you have a module path in mind, just pass it as an argument.
 $ go mod init github.com/cybersamx/go-recipes
 ```
 
+## Update the Dependencies in a Module
+
+To pull the latest version of all dependencies in a module.
+
+```bash
+$ go get -u
+$ go mod tidy
+```
+
+Credit: [Stackoverflow: Go Update All Modules](https://stackoverflow.com/questions/67201708/go-update-all-modules)
+
 ## Tidy Up Your Module
 
 To make sure that your `go.mod` matches the modules to be imported in your source code, run the following command to add missing or remove unneeded modules.

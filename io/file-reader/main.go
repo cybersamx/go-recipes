@@ -1,5 +1,3 @@
-// Modified from the official gRPC example: google.golang.org/grpc/examples/helloworld/helloworld.
-
 package main
 
 import (
