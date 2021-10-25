@@ -1,0 +1,18 @@
+{{define "content"}}
+<p>
+  {{.Title}}
+</p>
+<p>
+  <div><strong>Shipping Address</strong></div>
+  <div>
+    {{ .Address.StreetAddress }}<br />
+    {{ .Address.City }}<br />
+    {{ .Address.State }}<br />
+    {{ .Address.ZipCode }}<br />
+  </div>
+</p>
+<p>
+  <strong>Free Shipping?</strong>
+  {{if gt .TotalCost 40.0}}Yes{{else}}No{{end}}
+</p>
+{{end}}

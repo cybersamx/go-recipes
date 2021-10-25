@@ -1,8 +1,28 @@
-# Multi-Templates
+# Layouts (Multi-Templates and Parameters)
 
-In large production websites, we embed reusable templates (aka layouts) to make the website more scalable. For example, we would have 1 layout for the header and 1 layout for the footer; and we embed these templates into the main template.
+As we scale our website, we will likely be embedding a html template into another template so that we can reuse code and content.
 
-This recipe shows how we embed `header.gohtml` and `footer.gohtml` layouts into the main template `home.gohtml`.
+This recipe demonstrates 2 things:
+
+1. Parse and load multiple templates.
+1. Pass data to an embedded template.
+
+## Load Multiple Templates
+
+Multiple templates can be parsed with one of the following ways:
+
+* Use both `filepath.Glob` and `template.ParseFiles`
+* Use `template.ParseGlob`, which is a convenience function of calling the above 2 functions.
+
+Then we call `template.Must` by passing the return value from the template parsing function (above). We then receive a `template.Template` value.
+
+We use the `ExecuteTemplate` method in the `template.Template` value to render a specific named template. To make this work, we must define a template name in the template file `*.gohtml` with the directive `{{define "myTemplateName"}}`.
+
+## Pass Data to an Embedded Template
+
+If you look at the code, you see that we embed a template named `content` into the `home` template by using this directive .
+
+We use the directive `{{template "content" .Data}}` in `home.gohtml` to tell Go to embed the content in the template `content` with the passed data `.Data` at runtime. The problem is that we can only pass 0 or 1 parameter to the template. So if you need to pass more than 1 value, you would need to wrap all the multiple values in that main parameter. See the code for details.
 
 ## Setup
 
