@@ -17,7 +17,7 @@ To update goenv, run the following:
 ```javascript
 $ brew update           # Update Homebrew itself
 $ brew upgrade goenv    # Upgrade goenv
-``` 
+```
 
 ## Usage
 
@@ -34,7 +34,9 @@ $ goenv install 1.13.4  # Download and install Go version 1.13.4
 
 There are times when the Go version you want to install isn't found in the list from `goenv install --list`. This means that you can't run `goenv install` to install that particular version. Usually this happens when a new version of Go has not been added by the maintainers of goenv.
 
-In this case, you have to manually install the new version Go and then configure goenv to use the new version. Here's how you would do it:
+In this case, you have to manually install the new version Go and then configure goenv to use the new version.
+
+You can use [this script](./goenv.sh) to install, shim, and bind an unsupported Go framework to goenv - currently the script only support MacOS. Or follow the instructions below.
 
 1. Go to the official [Go download page](https://golang.org/dl/) to download the latest. Say it's go version 1.14.3. **Please download the tarball for the Go binaries/libraries. Do not download the pkg (MacOS) or msi (Windows) file**. You want to unarchive the file into a directory and move it to the right path for goenv to recognize it.
 
@@ -46,7 +48,7 @@ In this case, you have to manually install the new version Go and then configure
    $ # Be sure to rename the directory to its canonical version
    $ mv go ~/.goenv/versions/1.14.3
    ```
-   
+
 1. Verify that goenv recognizes the new Go version.
 
    ```bash
