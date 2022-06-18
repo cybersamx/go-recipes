@@ -1,7 +1,7 @@
 # EditorConfig helps developers define and maintain consistent
 # coding styles between different editors and IDEs
 
-# Top-most editor config file
+# Top-most editor viper file
 root = true
 
 # --- All files ---

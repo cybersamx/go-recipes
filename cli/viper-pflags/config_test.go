@@ -56,7 +56,7 @@ debug: true
 postgres-uri: postgresql://postgres.us-east-2.rds.amazonaws.com/mydb
 `
 
-	filename := "config.yaml"
+	filename := "viper.yaml"
 	file, err := os.Create(filename)
 	require.NoError(t, err)
 
@@ -94,7 +94,7 @@ func TestLoadFromConfigFile(t *testing.T) {
 
 	writeYAML(t)
 	defer func() {
-		require.NoError(t, os.Remove("config.yaml"))
+		require.NoError(t, os.Remove("viper.yaml"))
 	}()
 
 	opts := BindConfigOpts{
@@ -166,7 +166,7 @@ func TestOverrides(t *testing.T) {
 
 	writeYAML(t)
 	defer func() {
-		require.NoError(t, os.Remove("config.yaml"))
+		require.NoError(t, os.Remove("viper.yaml"))
 	}()
 
 	Setenv(t, "CYBER_DEBUG", "false")

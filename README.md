@@ -29,7 +29,7 @@ Here's a collection of the recipes:
     * [Basic Channel](concurrency/channel/basic) - Basic channel example.
     * [Buffered Channel](concurrency/channel/buffered) - Buffered channel example.
   * [WaitGroup](concurrency/waitgroup) - a recipe that demonstrates the use of `sync.WaitGroup` to help synchronize the execution of multiple concurrent goroutines.
-* [Configurations](config) - load configurations into an app using a load order of default values > config file > environment variables > CLI arguments.
+* [CLI](cli) - recipes on CLI arguments and flags.
 * [Cookie](cookie) - a recipe for working with http cookies. Includes a write-up on the architecture of http cookie and its key attributes.
 * [Context](context) - recipes on `context` package.
   * [Deadline](context/deadline) - timeout using `context.WithDeadline` function.

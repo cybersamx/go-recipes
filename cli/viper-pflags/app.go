@@ -10,7 +10,7 @@ type App struct {
 
 func (a *App) Run() {
 	log.Println("Running...")
-	log.Println("config", a.config)
+	log.Println("viper", a.config)
 }
 
 func NewApp() *App {

@@ -20,13 +20,13 @@ type BindConfigOpts struct {
 	Args    []string
 }
 
-// BindConfig set up and binds configuration to app. The order of setting config file, flags, and
-// env vars at build time doesn't influence the config load order at runtime. The order is:
-// default values > config file > environment variables > CLI arguments
+// BindConfig set up and binds configuration to app. The order of setting viper file, flags, and
+// env vars at build time doesn't influence the viper load order at runtime. The order is:
+// default values > viper file > environment variables > CLI arguments
 // For details on load precedence see https://github.com/spf13/viper#why-viper
 func (a *App) BindConfig(v *viper.Viper, set ...BindConfigOpts) {
 	// Config flag
-	v.SetConfigName("config")
+	v.SetConfigName("viper")
 	v.SetConfigType("yaml")
 	v.AddConfigPath(".") // Working directory
 
@@ -64,10 +64,10 @@ func (a *App) BindConfig(v *viper.Viper, set ...BindConfigOpts) {
 
 // LoadConfig loads the configurations at runtime.
 func (a *App) LoadConfig(v *viper.Viper) {
-	// If there's no config file to load, it's ok and move on.
+	// If there's no viper file to load, it's ok and move on.
 	_ = v.ReadInConfig()
 
 	if err := v.UnmarshalExact(&a.config); err != nil {
-		panic(fmt.Errorf("failed to umarshal parsed configurations to config: %v", err))
+		panic(fmt.Errorf("failed to umarshal parsed configurations to viper: %v", err))
 	}
 }
