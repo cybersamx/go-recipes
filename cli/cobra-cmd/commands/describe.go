@@ -1,27 +1,22 @@
 package commands
 
 import (
-	"fmt"
-
 	"github.com/spf13/cobra"
-	"github.com/spf13/viper"
 )
 
 var describeCmd = cobra.Command{
-	Use:   "describe",
-	Short: "Describe a specific resource object.",
-	Long:  "Describe a specific resource object.",
-	RunE: func(cmd *cobra.Command, args []string) error {
-		fmt.Println(
-			"describe",
-			args,
-			viper.GetString("format"),
-			viper.GetBool("debug"),
-			viper.GetString("key"))
-		return nil
-	},
+	Use:   "describe",                              // Name of the command
+	Short: "Describe a specific resource object.",  // Short descriptor in the usage table of cobra-cmd --help
+	Long:  "Describe a specific resource object..", // Long help description in the output of cobra-cmd describe --help
+	RunE:  describe,
 }
 
 func init() {
 	rootCmd.AddCommand(&describeCmd)
+}
+
+func describe(cmd *cobra.Command, args []string) error {
+	printArgs(cmd, args)
+
+	return nil
 }

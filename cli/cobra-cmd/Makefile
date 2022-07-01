@@ -16,7 +16,7 @@ RESET := $(shell tput sgr0)
 
 .PHONY: all
 
-all: run
+all: build
 
 ##@ run: Run program
 

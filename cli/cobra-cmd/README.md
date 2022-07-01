@@ -32,6 +32,7 @@ An example of using the viper and cobra packages to build a cli program that tak
 | `./cobra-cmd run help`                               | A help screen for the run subcommand. The long description will be used.                                |
 | `./cobra-cmd run arg`                                | Output from the run command, which shows default value of format flag ie. yaml                          |
 | `./cobra-cmd run arg --format json`                  | Output from the run command, which shows passed param value of format flag ie. json                     |
+| `./cobra-cmd run arg -f json`                        | Output from the run command, which shows passed param value of f (short) flag ie. json                  |
 | `CYBER_FORMAT=csv ./cobra-cmd run arg`               | Output from the run command, which shows the environment variable for format ie. csv                    |
 | `CYBER_FORMAT=csv ./cobra-cmd run arg --format json` | Output from the run command, if both env and flag variables are present, flag variable takes precedence |
 
