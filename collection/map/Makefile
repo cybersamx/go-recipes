@@ -16,7 +16,7 @@ RESET := $(shell tput sgr0)
 
 .PHONY: all
 
-all: run
+all: build
 
 ##@ run: Run program
 
@@ -34,12 +34,19 @@ build:
 	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
+##@ test: Test program
+
+test:
+	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
+	go test $(SRC)
+
 ##@ lint: Run linter
 
 .PHONY: lint
 
 lint:
 	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	@type golangci-lint &> /dev/null || echo 'Please install golangci-lint - see https://golangci-lint.run/usage/install/. Aborting...'; exit 1
 	golangci-lint run -v -c $(LINTER_CONFIG)
 
 ##@ format: Run gofmt

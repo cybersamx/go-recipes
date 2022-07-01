@@ -9,21 +9,21 @@ This recipe highlights common operations as well as some relevant tips and pitfa
 Go `append` function works for both nil and empty slices. Here's an example for nil slice.
 
 ```go
-var nilSlice []State
+var nilslice []State
 
 // Append to a nil slice.
-nilSlice = append(nilSlice, State{name: "California", population: 39512223})
-fmt.Println(nilSlice)
+nilslice = append(nilSlice, State{name: "California", population: 39512223})
+fmt.Println(nilslice)
 ```
 
 Works the same for an empty slice.
 
 ```go
-var emptySlce = []State{}
+var emptyslice = []State{}
 
 // Append to an empty slice.
-emptySlce = append(emptySlce, State{name: "California", population: 39512223})
-fmt.Println(emptySlce)
+emptySlce = append(emptyslice, State{name: "California", population: 39512223})
+fmt.Println(emptyslice)
 ```
 
 > **Note**
@@ -32,7 +32,7 @@ fmt.Println(emptySlce)
 > ```go
 > b := append([]T{}, a)
 > ```
-> 
+>
 > is the same as:
 >
 > ```go
@@ -46,9 +46,9 @@ In this [blog](https://blog.golang.org/slices), Rob Pike describes it best:
 
 "A slice is a data structure describing a contiguous section of an array stored separately from the slice variable itself. _**A slice is not an array. A slice describes a piece of an array.**_"
 
-In other words, we can create slice out of a slice. And the new subslice isn't a copy of the original slice, it's merely a slice of the original slace - all data stays. 
+In other words, we can create slice out of a slice. And the new subslice isn't a copy of the original slice, it's merely a slice of the original slace - all data stays.
 
-We describes the boundaries of subslice by using the `[:]` operator. Let's use the following slice as a reference:
+We describe the boundaries of subslice by using the `[:]` operator. Let's use the following slice as a reference:
 
 ```go
 s := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}

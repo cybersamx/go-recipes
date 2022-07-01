@@ -1,6 +1,3 @@
-# There's a difference between $(PWD) and $(shell pwd).
-# $(PWD) = The current path where we invoke make.
-# $(shell pwd) = The current path of the Makefile.
 PROJECT_ROOT := $(shell pwd)
 PROJECT := $(shell basename $(PROJECT_ROOT))
 PROJECT_BIN := ./bin
@@ -12,24 +9,19 @@ LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 # Colorized print
 BOLD := $(shell tput bold)
 RED := $(shell tput setaf 1)
-GREEN := $(shell tput setaf 2)
 BLUE := $(shell tput setaf 4)
-CYAN := $(shell tput setaf 6)
 RESET := $(shell tput sgr0)
 
-# Set up the default target all and set up phony targets ie. they are not files.
+# Set up the default target all and set up phony targets.
 
 .PHONY: all
 
-all: run
+all: build
 
 ##@ run: Run program
 
 .PHONY: run
 
-# @  = Don't print command.
-# @- = Don't print command and ignore error.
-# @? = target
 run:
 	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
 	$(GO_ENV) go run $(SRC)
@@ -42,12 +34,19 @@ build:
 	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
+##@ test: Test program
+
+test:
+	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
+	go test $(SRC)
+
 ##@ lint: Run linter
 
 .PHONY: lint
 
 lint:
 	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	@type golangci-lint &> /dev/null || echo 'Please install golangci-lint - see https://golangci-lint.run/usage/install/. Aborting...'; exit 1
 	golangci-lint run -v -c $(LINTER_CONFIG)
 
 ##@ format: Run gofmt

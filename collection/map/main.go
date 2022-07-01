@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-// Using a custom type.
 type State struct {
 	name         string
 	abbreviation string
@@ -17,9 +16,10 @@ func main() {
 
 	// For map, you need to initialize it before you can add an item to it.
 	// Adding an item to a nil map will cause a panic.
-	// The following is an equivalent.
-	// states = map[string]state{}
 	states = make(map[string]State)
+
+	// Or use th
+	// states = map[string]state{}
 
 	// --- Add an item ---
 

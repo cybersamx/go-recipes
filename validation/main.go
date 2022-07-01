@@ -9,15 +9,14 @@ import (
 
 	"github.com/go-playground/locales/en"
 	ut "github.com/go-playground/universal-translator"
-	"github.com/go-playground/validator/v10"
 	ent "github.com/go-playground/validator/v10/translations/en"
 )
 
 type Person struct {
-	Name string `validate:"required"`
-	Email string `validate:"email"`
-	Age int `validate:"gte=12,lte=120"`
-	Tags map[string]string `validate:"dive,required"`
+	Name  string            `validate:"required"`
+	Email string            `validate:"email"`
+	Age   int               `validate:"gte=12,lte=120"`
+	Tags  map[string]string `validate:"dive,required"`
 }
 
 func checkError(err error) {
@@ -27,8 +26,8 @@ func checkError(err error) {
 	}
 
 	// validate.Var and validateStruct return a validator.ValidationErrors type, which
-	// an type alias for a slice that also implements the error interface. So we can
-	// validator.ValidationErrors as a slice and error.
+	// an type alias for a slice-basics that also implements the error interface. So we can
+	// validator.ValidationErrors as a slice-basics and error.
 	for _, verr := range verrs {
 		fmt.Printf("Namespace=%s StructNamespace=%s Field=%s StructField=%s\n", verr.Namespace(), verr.StructNamespace(), verr.Field(), verr.StructField())
 		fmt.Printf("Tag=%s Kind=%s Type=%s Value=%s Param=%s\n\n", verr.Tag(), verr.Kind(), verr.Type(), verr.Value(), verr.Param())
@@ -49,9 +48,9 @@ func validateVar(validate *validator.Validate) {
 
 func validateStruct(validate *validator.Validate) {
 	person := Person{
-		Name: "",
+		Name:  "",
 		Email: "sam@example",
-		Age: 5,
+		Age:   5,
 		Tags: map[string]string{
 			"Job": "",
 		},

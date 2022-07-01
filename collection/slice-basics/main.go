@@ -2,7 +2,6 @@ package main
 
 import "fmt"
 
-// Using a custom type.
 type State struct {
 	name         string
 	abbreviation string

@@ -21,9 +21,9 @@ Go-related guides and docs:
 Here's a collection of the recipes:
 
 * [Collection](collection) - recipes on Go collections.
-  * [Array Passing](collection/array-passing) - recipe that highlights how an array is passed as a value to a function and what we can do to modify the original array.
+  * [Array Passing](collection/array-slice-passing) - recipe that highlights how an array is passed as a value to a function and what we can do to modify the original array.
   * [Map](collection/map) - basic map operations.
-  * [Slice](collection/slice) - basic slice operations.
+  * [Slice](collection/slice-basics) - basic slice operations.
 * [Concurrency](concurrency) - Go concurrency.
   * [Channel](concurrency/channel)
     * [Basic Channel](concurrency/channel/basic) - Basic channel example.

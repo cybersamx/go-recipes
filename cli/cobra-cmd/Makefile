@@ -37,7 +37,7 @@ build:
 ##@ test: Test program
 
 test:
-	@echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
+	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
 	go test $(SRC)
 
 ##@ lint: Run linter
@@ -46,6 +46,7 @@ test:
 
 lint:
 	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
+	@type golangci-lint &> /dev/null || echo 'Please install golangci-lint - see https://golangci-lint.run/usage/install/. Aborting...'; exit 1
 	golangci-lint run -v -c $(LINTER_CONFIG)
 
 ##@ format: Run gofmt

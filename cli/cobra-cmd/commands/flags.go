@@ -42,15 +42,15 @@ func printArgs(cmd *cobra.Command, args []string) {
 	}
 	fmt.Println()
 
-	fmt.Print("flag-names:")
+	fmt.Print("flag-names: ")
 	cmd.Flags().Visit(func(flag *pflag.Flag) {
-		fmt.Printf(" %s", flag.Name)
+		fmt.Printf("%s ", flag.Name)
 	})
 	fmt.Println()
 
-	fmt.Print("flag-values:")
+	fmt.Print("flag-values: ")
 	cmd.Flags().Visit(func(flag *pflag.Flag) {
-		fmt.Printf(" %s", flag.Value)
+		fmt.Printf("%s ", flag.Value)
 	})
 	fmt.Println()
 }
