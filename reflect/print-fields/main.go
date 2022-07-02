@@ -25,7 +25,7 @@ type Location struct {
 	Coordinate Coordinate
 }
 
-// objToValues Return the values of obj and return the field names as a flatten string slice-basics.
+// objToValues Return the values of obj and return the field names as a flatten string slice-custom-type.
 func objToNames(obj interface{}, names []string, tag string) []string {
 	var typ reflect.Type
 
@@ -55,7 +55,7 @@ func objToNames(obj interface{}, names []string, tag string) []string {
 	return names
 }
 
-// objToValues Return the values of obj and return the field values as a flatten string slice-basics.
+// objToValues Return the values of obj and return the field values as a flatten string slice-custom-type.
 func objToValues(obj interface{}, vals []string) []string {
 	var val reflect.Value
 

@@ -26,8 +26,8 @@ func checkError(err error) {
 	}
 
 	// validate.Var and validateStruct return a validator.ValidationErrors type, which
-	// an type alias for a slice-basics that also implements the error interface. So we can
-	// validator.ValidationErrors as a slice-basics and error.
+	// an type alias for a slice-custom-type that also implements the error interface. So we can
+	// validator.ValidationErrors as a slice-custom-type and error.
 	for _, verr := range verrs {
 		fmt.Printf("Namespace=%s StructNamespace=%s Field=%s StructField=%s\n", verr.Namespace(), verr.StructNamespace(), verr.Field(), verr.StructField())
 		fmt.Printf("Tag=%s Kind=%s Type=%s Value=%s Param=%s\n\n", verr.Tag(), verr.Kind(), verr.Type(), verr.Value(), verr.Param())

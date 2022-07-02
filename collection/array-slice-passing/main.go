@@ -45,15 +45,15 @@ func main() {
 	slice := []int{1, 2, 3}
 
 	fmt.Println("--- Slice ---")
-	fmt.Printf("Address of slice-basics: %p\n", &slice)
+	fmt.Printf("Address of slice-custom-type: %p\n", &slice)
 	fmt.Println("original:              ", slice)
 
-	// Pass the slice-basics as a value. We get a copy of the slice-basics variable, which references
-	// the original data structure. We can modify the original slice-basics.
+	// Pass the slice-custom-type as a value. We get a copy of the slice-custom-type variable, which references
+	// the original data structure. We can modify the original slice-custom-type.
 	squareSliceVal(slice)
 	fmt.Println("first pass by value:   ", slice)
 
-	// Pass the slice-basics as a pointer. We can modify the original slice-basics.
+	// Pass the slice-custom-type as a pointer. We can modify the original slice-custom-type.
 	squareSlicePtr(&slice)
 	fmt.Println("second pass by pointer:", slice)
 }
