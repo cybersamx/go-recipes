@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/generics/constraints
+module github.com/cybersamx/go-recipes/generics/type-constraints
 
 go 1.18
 

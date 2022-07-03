@@ -44,8 +44,9 @@ Here's a collection of the recipes:
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
   * [Writer](writer) - a recipe for writing a file
 * [Generics](generics) - recipes of Go Generics
-  * [Constraints](generics/constraints) - some examples of constraints
   * [Custom type](generics/custom-type) - using a custom type as a type parameter
+  * [Type constraints](generics/type-constraints) - some examples of type constraint basics
+  * [Type parameters](generics/type-parameters) - some examples of type parameter basics
 * [GraphQL](graphql) - recipes for using GraphQL in Go.
   * [GraphQL client](graphql/client) -a simple GraphQL client using the machinebox/graphql package.
   * [GraphQL server](graphql/server) - a simple GraphQL server using the 99designs/gqlgen package/codegen.

@@ -44,7 +44,7 @@ func doubleImprovedNum[T ImprovedNum](t []T) {
 	}
 }
 
-// doubleOrdered uses the Ordered type in the constraints package.
+// doubleOrdered uses the Ordered type in the type-constraints package.
 func doubleOrdered[T constraints.Ordered](t []T) {
 	for i, v := range t {
 		t[i] = v + v
@@ -72,7 +72,7 @@ func main() {
 	doubleImprovedNum(integers)
 	fmt.Println(integers)
 
-	// Or just use the constraints defined in the constraints package.
+	// Or just use the type-constraints defined in the type-constraints package.
 	doubleOrdered(integers)
 	fmt.Println(integers)
 }
