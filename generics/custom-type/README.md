@@ -1,12 +1,12 @@
-# Custom Type in Go Generics
+# Custom Type as a Type Constraint
 
-A recipe on using a custom type in Go generics.
+A recipe on using a custom type as a type constraint in Go generics.
 
 ## Basics
 
-In this example, we "constrain" the generic type T to the interface `Animal`. So any types that implement the behaviors ie. `Talk` and `Species` functions can be passed to the function `Print` which accepts the T type `Animal`.
+With Go support for generics, we no longer need to declare `interface{}` as a type for passing a value to a function. We can now use type parameter and type constraint to define the set of types the generic function or type would accept.
 
-With Go support for generics, we no longer need to declare `interface{}` as a type for passing a value to a function.
+In this example, we "constrain" the parameter type T to the interface `Animal`. So any types that implement the behaviors ie. `Talk` and `Species` functions can be passed to the generic function `Print` which accepts the type  `Animal`.
 
 ## Reference
 
