@@ -39,6 +39,7 @@ Here's a collection of the recipes:
   * [Dig framework](dig) - how to leverage the Dig DI framework that injects dependencies at runtime.
   * [Wire framework](wire) - how to leverage the Wire DI framework that generate code that injects dependencies at compile time.
 * [Ephemeral SQL data model](ephemeral-sql-data) - a recipe implementing a garbage collector that removes expired records in an SQL database in the background.
+* [Enum](enum) - a recipe showing the implementation of enum in Go.
 * [Fake vs mock in unit testing](fake-mock) - a recipe that shows the use of fake and mock using the `golang/mock` (aka Gomock) and `testify/mock` packages in a Go unit test.
 * [File I/O](io) - recipes on file input/output operations.
   * [Reader](reader) - a recipe that shows the different ways of reading file: incrementally and all-at-once.
