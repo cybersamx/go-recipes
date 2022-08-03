@@ -1,6 +1,6 @@
 # Expiring Sessions
 
-Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to specify a key to be automatically removed from Redis when it expires. In this recipe, we explore how we can implement expiring web sessions in Redis with the following highlights:
+Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to mark a key to be automatically removed from Redis when it expires. In this example, we explore how we can implement expiring web sessions in redis:
 
 * Use the [Radix](https://github.com/mediocregopher/radix) driver.
 * Use the [Go-Redis](https://redis.uptrace.dev/) driver.
@@ -8,7 +8,7 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
 
 ## Setup
 
-1. Start Redis via Docker Compose:
+1. Start redis via docker compose:
 
    ```bash
    $ docker-compose up
@@ -21,6 +21,12 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
    127.0.0.1:6379> KEYS sessions
    ```
 
+1. Run Go program.
+
+   ```bash
+   $ go run ./main.go
+   ```
+
 1. Shut down and remove the container when you are done.
 
    ```bash
@@ -28,16 +34,10 @@ Web sessions are ephemeral. We can leverage the `EXPIRE` command in Redis to spe
    $ docker-compose down
    ```
 
-1. Run Go program.
-
-   ```bash
-   $ go run ./main.go
-   ```
-
 1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
-   $ make
+   $ make run
    $ make teardown    # Run this to remove the container
    ```
 

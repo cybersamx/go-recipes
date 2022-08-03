@@ -56,7 +56,7 @@ func newClient(parent context.Context, uri string, retries int, initialDelay, ma
 			} else {
 				log.Printf("can't connect mongo: %v\n", cerr)
 				retErr = cerr
-				return // Return the err to retrier telling it to retry.
+				return // Return err to retrier telling it to retry.
 			}
 		}
 

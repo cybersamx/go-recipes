@@ -9,17 +9,18 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-// This struct maps to the schema of the result that return from running mongo command runCommand({ hostInfo: 1 }).
+// HostInfo maps to the schema of the result that return from running mongo command
+// runCommand({ hostInfo: 1 }).
 // See https://docs.mongodb.com/manual/reference/command/hostInfo/
 type HostInfo struct {
 	System struct {
-		Hostname string `bson:"hostname,omitempty"`
-		CoresCount int  `bson:"numCores,omitempty"`
-		MemSize int     `bson:"memSizeMB,omitempty"`
+		Hostname   string `bson:"hostname,omitempty"`
+		CoresCount int    `bson:"numCores,omitempty"`
+		MemSize    int    `bson:"memSizeMB,omitempty"`
 	}
 	OS struct {
-		Type string `bson:"type,omitempty"`
-		Name string `bson:"name,omitempty"`
+		Type    string `bson:"type,omitempty"`
+		Name    string `bson:"name,omitempty"`
 		Version string `bson:"version,omitempty"`
 	}
 }
@@ -158,7 +159,7 @@ func CollectionExists(parentCtx context.Context, db *mongo.Database, collName st
 // For more info on the underlying command, see https://docs.mongodb.com/manual/reference/command/hostInfo/
 func GetHostInfo(parentCtx context.Context, db *mongo.Database) (*HostInfo, error) {
 	cmd := bson.D{
-		{"hostInfo", 1 },
+		{"hostInfo", 1},
 	}
 
 	var hostInfo HostInfo

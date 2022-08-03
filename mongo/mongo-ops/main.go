@@ -46,7 +46,7 @@ func connectDatabase(parentCtx context.Context, client *mongo.Client, database s
 }
 
 func main() {
-	// Using admin account to connect since some of the commands require elevated privileges.
+	// Using admin account to connect since some commands require elevated privileges.
 	client, err := newClient("root", "password", "localhost", dbName)
 	if err != nil {
 		log.Fatalf("problem setting up a client to Mongo: %v", err)

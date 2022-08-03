@@ -1,6 +1,6 @@
 # Custom Type as a Type Constraint
 
-A recipe on using a custom type as a type constraint in Go generics.
+An example of using a custom type as a type constraint in Go generics.
 
 ## Basics
 

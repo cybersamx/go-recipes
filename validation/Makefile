@@ -1,10 +1,11 @@
+# Standard Go Makefile
+
 PROJECT_ROOT := $(shell pwd)
 PROJECT := $(shell basename $(PROJECT_ROOT))
 PROJECT_BIN := ./bin
 SRC := .
 GO_ENV := CGO_ENABLED=0
 ROOT_DIR := $(shell git rev-parse --show-toplevel)
-LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 
 # Colorized print
 BOLD := $(shell tput bold)
@@ -15,62 +16,47 @@ RESET := $(shell tput sgr0)
 # Set up the default target all and set up phony targets.
 
 .PHONY: all
+all: build
 
-all: run test
+##@ mod: Install modules
+
+.PHONY: mod
+mod:
+	@-echo "$(BOLD)$(BLUE)Installing modules for $(PROJECT)...$(RESET)"
+	$(GO_ENV) go mod tidy
 
 ##@ run: Run program
 
 .PHONY: run
-
-run:
+run: mod
 	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
 	$(GO_ENV) go run $(SRC)
 
 ##@ build: Build binary
 
 .PHONY: build
-
-build:
+build: mod
 	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
-##@ run: Test program
+##@ test: Test program
 
 .PHONY: test
-
-test:
+test: mod
 	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
-	go test -v $(SRC)
-
-##@ lint: Run linter
-
-.PHONY: lint
-
-lint:
-	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
-	golangci-lint run -v -c $(LINTER_CONFIG)
-
-##@ format: Run gofmt
-
-.PHONY: format
-
-format:
-	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
-	gofmt -e -s -w $(SRC)
+	go test $(SRC)
 
 ##@ clean: Clean output files and build cache
 
 .PHONY: clean
-
 clean:
-	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
+	@-echo "$(BOLD)$(RED)Removing build cache and bin from $(PROJECT)...$(RESET)"
 	@-rm -rf $(PROJECT_BIN)
 	go clean
 
 ##@ help: Help
 
 .PHONY: help
-
 help: Makefile
 	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
 	@-echo

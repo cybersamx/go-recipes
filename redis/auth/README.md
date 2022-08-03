@@ -1,16 +1,18 @@
 # Authentication
 
-This is a simple recipe that performs authentication in Redis using the [Radix](https://github.com/mediocregopher/radix) driver.
+A simple example that performs authentication in Redis using the [Radix](https://github.com/mediocregopher/radix) driver.
 
 ## Setup
 
-1. Start MongoDB (server) via Docker Compose:
+Here's a sequence of steps to running this program.
+
+1. Start redis.
 
    ```bash
    $ docker-compose up
    ```
 
-1. In the another shell, you can connect to Redis via the CLI tool:
+1. In the another shell, you can connect to Redis via the CLI tool.
 
    ```bash
    $ docker-compose exec redis redis-cli
@@ -19,6 +21,12 @@ This is a simple recipe that performs authentication in Redis using the [Radix](
 
    Note: `secrets` is the password. See <docker-compose.yaml>.
 
+1. Run Go program.
+
+   ```bash
+   $ go run ./main.go
+   ```
+
 1. Shut down and remove the container when you are done.
 
    ```bash
@@ -26,16 +34,10 @@ This is a simple recipe that performs authentication in Redis using the [Radix](
    $ docker-compose down
    ```
 
-1. Run Go program.
-
-   ```bash
-   $ go run ./main.go
-   ```
-
 1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
-   $ make
+   $ make run
    $ make teardown    # Run this to remove the container
    ```
 

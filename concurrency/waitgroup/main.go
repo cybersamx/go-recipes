@@ -7,10 +7,9 @@ import (
 )
 
 func main() {
-	// Without WaitGroup, main doesn't wait for goroutines to exit. So we will highly unlikely
-	// see any output from the goroutines.
+	// Without WaitGroup, main doesn't wait for goroutines to exit and the goroutines
+	// won't complete their execution to print the output.
 
-	// Initialize a waitgroup.
 	var wg sync.WaitGroup
 
 	// Add 1 to tell wg that a goroutine is starting.

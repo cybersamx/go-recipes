@@ -1,9 +1,9 @@
 # Print Fields
 
-There are 2 recipes here.
+This example covers the following:
 
-* Given a value of a custom `struct` type, print out the field names and values.
-* Given a value of a custom `struct` type, print out the names and values of fields that are tagged.
+* Given a value of a custom `struct` type, print out the names and values of all its fields.
+* Given a value of a custom `struct` type, print out the names and values of its fields that are tagged.
 
 ## Setup
 

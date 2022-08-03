@@ -58,13 +58,13 @@ You can use [this script](./goenv.sh) to install, shim, and bind an unsupported 
      1.11.4
    * 1.13.4 (set by /Users/schow/.goenv/version)
      1.14.3
-   ```    
+   ```
 
 1. Switch the global version of Go to `1.14.3`.
 
    ```bash
    $ goenv global 1.14.3
-   $ goenv vesions
+   $ goenv versions
      system
      1.10.3
      1.11.4

@@ -4,10 +4,11 @@ import (
 	"bytes"
 	"encoding/base64"
 	"encoding/gob"
-	"github.com/gorilla/securecookie"
 	"io"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/securecookie"
 )
 
 const (

@@ -1,6 +1,6 @@
-package graph
-
 //go:generate go run github.com/99designs/gqlgen
+
+package graph
 
 import (
 	"github.com/cybersamx/go-recipes/graphql/server/graph/model"

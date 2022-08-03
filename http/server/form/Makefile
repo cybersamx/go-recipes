@@ -1,11 +1,11 @@
+# Standard Go Makefile
+
 PROJECT_ROOT := $(shell pwd)
 PROJECT := $(shell basename $(PROJECT_ROOT))
 PROJECT_BIN := ./bin
-STATIC_DIR := public
 SRC := .
 GO_ENV := CGO_ENABLED=0
 ROOT_DIR := $(shell git rev-parse --show-toplevel)
-LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 
 # Colorized print
 BOLD := $(shell tput bold)
@@ -16,53 +16,47 @@ RESET := $(shell tput sgr0)
 # Set up the default target all and set up phony targets.
 
 .PHONY: all
-
 all: build
 
-##@ run: Run the web server
+##@ mod: Install modules
+
+.PHONY: mod
+mod:
+	@-echo "$(BOLD)$(BLUE)Installing modules for $(PROJECT)...$(RESET)"
+	$(GO_ENV) go mod tidy
+
+##@ run: Run program
 
 .PHONY: run
-
-run:
+run: mod
 	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
 	$(GO_ENV) go run $(SRC)
-
-##@ web-build: Copy the static directory
-
-.PHONY: web-build
-
-web-build:
-	@mkdir -p $(PROJECT_BIN)/$(STATIC_DIR)
-	@cp -rf $(STATIC_DIR)/* $(PROJECT_BIN)/$(STATIC_DIR)
 
 ##@ build: Build binary
 
 .PHONY: build
-
-build: web-build
+build: mod
 	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
 
-##@ lint: Run linter
+##@ test: Test program
 
-.PHONY: lint
+.PHONY: test
+test: mod
+	@-echo "$(BOLD)$(BLUE)Testing $(PROJECT)...$(RESET)"
+	go test $(SRC)
 
-lint:
-	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
-	golangci-lint run -v -c $(LINTER_CONFIG)
+##@ clean: Clean output files and build cache
 
-##@ format: Run gofmt
-
-.PHONY: format
-
-format:
-	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
-	gofmt -e -s -w $(SRC)
+.PHONY: clean
+clean:
+	@-echo "$(BOLD)$(RED)Removing build cache and bin from $(PROJECT)...$(RESET)"
+	@-rm -rf $(PROJECT_BIN)
+	go clean
 
 ##@ help: Help
 
 .PHONY: help
-
 help: Makefile
 	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
 	@-echo

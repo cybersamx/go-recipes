@@ -1,17 +1,17 @@
 # Global, Atomic Counter in Redis
 
-The 2 most mature, performant, and commonly used Redis drivers in Go are:
+The 2 most mature and commonly used Redis drivers in Go are:
 
 * [gomodule/redigo](https://github.com/gomodule/redigo)
 * [mediocregopher/radix](https://github.com/mediocregopher/radix)
 
 A full list of Redis drivers for Go is available [here](http://redis.io/clients#go).
 
-In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wiki/Atomicity_(database_systems)) counter using Redis using the [Radix](https://github.com/mediocregopher/radix) driver. Why not just implement a counter locally in the Go program instead. Sure, we can do that if it's just 1 client running a single thread. But in a concurrent context where we have multiple goroutines or in a distributed system, we need to have a system to support an atomic increment operation. Redis provides that support via the `INCR` command.
+In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wiki/Atomicity_(database_systems)) counter using Redis using the [Radix](https://github.com/mediocregopher/radix) driver. Why not just implement a counter locally in the Go program instead. Sure, we can do that if it's just 1 client running a single thread. But in a concurrent context where we have multiple goroutines or in a distributed system, we need to have a system to support an atomic increment operation across the network. Redis provides support for a counter via the `INCR` command.
 
 ## Setup
 
-1. Start MongoDB (server) via Docker Compose:
+1. Start redis.
 
    ```bash
    $ docker-compose up
@@ -23,23 +23,22 @@ In this recipe, we will implement a global, [atomic](https://en.wikipedia.org/wi
    $ docker-compose exec redis redis-cli
    ```
 
-1. Shut down and remove the container when you are done.
-
-   ```bash
-   $ # This should remove both redis-server and redis-cli
-   $ docker-compose down
-   ```
-
 1. Run Go program.
 
    ```bash
    $ go run ./main.go
    ```
 
+1. Shut down and remove the container when you are done.
+
+   ```bash
+   $ docker-compose down
+   ```
+
 1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
-   $ make
+   $ make run
    $ make teardown    # Run this to remove the container
    ```
 

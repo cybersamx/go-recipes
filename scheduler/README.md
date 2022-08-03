@@ -1,6 +1,6 @@
 # Recurring Task
 
-Scheduling task, such as cleaning up expired resources, rotating keys, periodically is a common requirement for any system program. This recipe highlights the various ways of running an recurring task in the background in Go:
+Scheduling tasks, such as cleaning up expired resources, rotating keys, is a common operation for any system program. This example highlights the various ways of running  recurring tasks in the background in Go:
 
 * **Strategy 1** - Using `time.Sleep()`.
 * **Strategy 2** - Using `time.Ticker` #1.

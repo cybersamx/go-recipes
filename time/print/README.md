@@ -1,15 +1,15 @@
 # Format Output Time
 
-This recipe prints a date value to different formats using layouts.
+This example prints a date value with different datetime formats.
 
 Read [Intro to go time format](../../docs/time-format.md) for details.
 
 ## Setup
 
-1. Run the program
+1. Run the program.
 
    ```bash
-   $ make
+   $ make run
    ```
 
 ## Reference

@@ -1,6 +1,10 @@
 # Go Slice
 
-This recipe highlights common operations as well as some relevant tips and pitfalls on using slice in Go.
+<<<<<<< Updated upstream
+This example highlights common operations, including tips and pitfalls, on Go slice.
+=======
+This example highlights common operations and some relevant tips on using slices in Go.
+>>>>>>> Stashed changes
 
 ## Tips and Gotchas
 
@@ -12,17 +16,17 @@ Go `append` function works for both nil and empty slices. Here's an example for 
 var nilslice []State
 
 // Append to a nil slice.
-nilslice = append(nilSlice, State{name: "California", population: 39512223})
+nilslice = append(nilslice, State{name: "California", population: 39512223})
 fmt.Println(nilslice)
 ```
 
-Works the same for an empty slice.
+Works with an empty slice.
 
 ```go
 var emptyslice = []State{}
 
 // Append to an empty slice.
-emptySlce = append(emptyslice, State{name: "California", population: 39512223})
+emptyslice = append(emptyslice, State{name: "California", population: 39512223})
 fmt.Println(emptyslice)
 ```
 
@@ -46,7 +50,7 @@ In this [blog](https://blog.golang.org/slices), Rob Pike describes it best:
 
 "A slice is a data structure describing a contiguous section of an array stored separately from the slice variable itself. _**A slice is not an array. A slice describes a piece of an array.**_"
 
-In other words, we can create slice out of a slice. And the new subslice isn't a copy of the original slice, it's merely a slice of the original slace - all data stays.
+In other words, we can create slice out of a slice. And the new subslice isn't a copy of the original slice, it's merely a slice of the original slice - all data stays.
 
 We describe the boundaries of subslice by using the `[:]` operator. Let's use the following slice as a reference:
 
@@ -61,6 +65,14 @@ s := []int{0, 1, 2, 3, 4, 5, 6, 7, 8, 9}
 | s[2:6]   | [2 3 4 5]             | slice with elements from index 2 thru index (6-1) |
 | s[0:0]   | []                    | slice with 0 elements, an empty slice             |
 | s[:]     | [0 1 2 3 4 5 6 7 8 9] | full slice inclusive of all elements              |
+
+Use `[:]` to remove an element from a slice. For example:
+
+```go
+numbers := []int{1, 2, 3, 4}
+numbers = numbers[1:]
+fmt.Println(numbers)  // Output 2, 3, 4
+```
 
 ## Setup
 

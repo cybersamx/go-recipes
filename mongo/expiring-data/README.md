@@ -1,13 +1,13 @@
 # TTL Collection
 
-There are time when we need to remove data in a Mongo collection after a specific time. This recipe shows how we can remove expired data using MongoDB TTL indexing. This is similar to the [Redis recipe sessions](../../redis/sessions).
+There are times when we need to remove data in a Mongo collection after a specific time. This example shows how we can remove expired data using [MongoDB TTL indexing](https://www.mongodb.com/docs/manual/core/index-ttl/).
 
 ## Notes
 
-1. MongoDB runs the TTLMonitor on a separate thread that looks for TTL indexes all collections.
+1. MongoDB runs the TTLMonitor on a separate thread that looks for TTL indexes in all collections.
 1. By default, the TTLMonitor runs every 60 seconds. Read [here](http://hassansin.github.io/working-with-mongodb-ttl-index) for more information.
-1. To enable TTLMonitor in our MongoDB service, the file [setup-ttl.js](./setup-ttl.js) is created and mounted on the Mongo container. And the file is then ingested and executed by Mongo during booting to enable TTLMonitor.
-1. It's important that the field that the TTL index is set to is of type `time.Time`, any other data types will not trigger the object to be removed after expiration.
+1. To enable TTLMonitor in our MongoDB service, the file [setup-ttl.js](./setup-ttl.js) is created and mounted on the Mongo container. The file will be ingested and executed by Mongo during boot-up to enable TTLMonitor.
+1. It's important that the time field of the TTL index is set to is of type `time.Time`, any other data types will not trigger the object to be removed after expiration.
 1. Since the code includes dropping a collection, we added an `dbAdmin` role to the user - see [create-user.js](./create-user.js).
 
 ## Setup
@@ -44,7 +44,7 @@ There are time when we need to remove data in a Mongo collection after a specifi
 1. Alternatively, you can run everything with just 2 commands.
 
    ```bash
-   $ make
+   $ make run
    $ make teardown    # Run this to remove containers
    ```
 

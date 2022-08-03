@@ -16,8 +16,14 @@ const (
 )
 
 func main() {
+	fmt.Println(
+		`This program will run a task for x seconds with timeout for y.
+If x > y, the task will be canceled via context cancel.
+If x < y, the task will complete.
+Change ctxTimeout and workTimeout in the code.`)
+
 	ctx, cancel := context.WithTimeout(context.Background(), ctxTimeout)
-	// Call cancel when done or we'll have a context leak.
+	// Call cancel when we go out of scope or we'll have a context leak.
 	defer cancel()
 
 	ch := make(chan result, 1)

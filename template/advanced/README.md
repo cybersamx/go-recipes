@@ -1,12 +1,6 @@
 # Advanced Template
 
-We have a recipe called [html-template](../html)
-that provides sample code where serve substituted content using Go templates.
-
-However, in production we require more sophistication that includes a more polished UI and form submission.
-
-* The Material Design Components (MDC) to spiffy the UI. Instead of referencing the MDC from the CDN, this recipe uses the components that are installed locally and uses webpack to build and bundle the MDC into a bundle. It includes Go code to serve the webpack.
-* Sample code to submit a form.
+This is a web application where its content is rendered on the server side using the `html/template` package. The app leverages the Material Design Components (MDC) to implement a spiffy UI. The MDC components are bundled as a custom webpack in the web page.
 
 ![Website screenshot](images/website-screenshot.png)
 

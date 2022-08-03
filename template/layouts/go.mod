@@ -1,4 +1,3 @@
-module github.com/cybersamx/go-recipes/layouts
+module github.com/cybersamx/go-recipes/template/layouts
 
-go 1.15
-
+go 1.18

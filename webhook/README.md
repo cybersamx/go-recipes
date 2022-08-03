@@ -1,8 +1,6 @@
 # Webhook Example in Go
 
-An example of a simple webhook system written in Go.
-
-The client will push a random event message to the webhook on the sever every 5 seconds.
+The client will push a random event message to a webhook endpoint on the sever every 5 seconds.
 
 ## Setup
 
@@ -18,11 +16,17 @@ The client will push a random event message to the webhook on the sever every 5 
    $ go run model.go client.go
    ```
 
-   alternatively, you can also run:
+   Or use curl to call the webhook.
 
    ```bash
    $ curl -X POST \
        http://localhost:8000/webhook \
        -H 'Content-Type: application/json; charset=UTF-8' \
        -d '{"event": "create"}'
+   ```
+
+1. Alternatively, you can run everything with just 1 command.
+
+   ```bash
+   $ make run
    ```

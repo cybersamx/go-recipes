@@ -1,3 +1,3 @@
-module github.com/cybersamx/go-recipes/html
+module github.com/cybersamx/go-recipes/template/html
 
-go 1.15
+go 1.18

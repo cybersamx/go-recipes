@@ -35,7 +35,7 @@ func foo[T int | int32 | int64](t T) {
 }
 ```
 
-Use type approximation by prefixing the base type with ~, so that `MyInteger` and `MyEnum` will be accepted by the generic function.
+Use type approximation by prefixing the base type with ~ to allow `MyInteger` and `MyEnum` to be accepted by the generic function.
 
 ```go
 func foo[T ~int | ~int32 | ~int64](t T) {

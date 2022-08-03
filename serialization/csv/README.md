@@ -1,8 +1,11 @@
 # Basic CSV Parsing
 
-A simple recipe for reading and parsing a CSV file.
+This example covers:
 
-The `encoding/csv` package in the standard Go library provides the parser you need to parse CSV. Use the function `Read()` to read and parse a record from an instance of `Reader`. Make sure you handle the returned error for `io.EOF`, which in my opinon isn't really an error but a state condition.
+* Reading from a csv file.
+* Writing to a csv file.
+
+The `encoding/csv` package in the standard Go library provides the parser you need to parse CSV. Use the function `Read()` to read and parse a record from an instance of `Reader`. Make sure you handle the returned state for `io.EOF`.
 
 ## Setup
 

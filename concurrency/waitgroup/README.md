@@ -1,6 +1,8 @@
 # WaitGroup
 
-Go's `sync` package provides some primitives for synchronizing concurrency, including WaitGroup. This recipe shows how we use WaitGroup to synchronize across multiple concurrent goroutines.
+Go's `sync` package provides some primitives for synchronizing concurrency, including WaitGroup. This example shows how we use WaitGroup to synchronize across multiple concurrent goroutines.
+
+Use WaitGroup to block execution of goroutine, including main.
 
 ## Setup
 

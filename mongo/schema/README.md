@@ -1,18 +1,12 @@
 # Connecting to MongoDB
 
-An example of how you would connect to MongoDB and perform basic CRUD operations. This recipe relies on the bson flag construct is used to define a MongoDB schema that helps the mapping of mongoDB documents to Go data structures.
+An example of how you would connect to MongoDB and perform basic CRUD operations. In this example, we use a pre-defined schema that facilitates the mapping of MongoDB documents to Go data structures
 
-There's another recipe that performs the same task but without a pre-defined schema is found [here](../basic).
+There's [another example](../simple) that performs the same operation but without using a pre-defined schema.
 
 ## Setup
 
-1. To run everything in 1 command ie. spin up the mongo container, run the go program, and finally tear down the mongo container, just run the following:
-
-   ```bash
-   $ make
-   ```
-
-To do everything step-by-step.
+Here's a sequence of steps to run this project.
 
 1. Launch a shell session and start MongoDB (server) via Docker:
 
@@ -20,23 +14,22 @@ To do everything step-by-step.
    $ docker-compose up
    ```
 
-1. You can connect to Mongo via the console:
+1. You can connect to Mongo via docker interactive tty interface.
 
    ```bash
    $ docker exec -it mongo mongo -u nobody -p secrets go-recipes
-   ```
-
-1. You can press CTRL-C and CTRL-D on the `mongo-server` and `mongo-cli` respectively to stop the containers. Don't forget to remove the containers as well.
-
-   ```bash
-   $ # This should remove both mongo-server and mongo-cli
-   $ docker-compose down
    ```
 
 1. Run Go program.
 
    ```bash
    $ go run ./main.go
+   ```
+
+1. When you are done, just shut mongo down.
+
+   ```bash
+   $ docker-compose down
    ```
 
 1. Alternatively, you can run everything with just 2 commands.

@@ -1,12 +1,13 @@
 package main
 
 import (
-	"github.com/cybersamx/go-recipes/long-poll/pkg"
 	"log"
 	"os"
 	"os/signal"
 	"strconv"
 	"syscall"
+
+	"github.com/cybersamx/go-recipes/long-poll/pkg"
 )
 
 func main() {
@@ -20,9 +21,10 @@ func main() {
 
 	// Execute the server and client concurrently concurrently.
 	enableClient, _ := strconv.ParseBool(os.Getenv("ENABLE_CLIENT"))
-	go pkg.ListenForMessages()
 	if enableClient {
 		go pkg.SendMessages()
+	} else {
+		go pkg.ListenForMessages()
 	}
 
 	sig := <-sigChan

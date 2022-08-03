@@ -1,6 +1,6 @@
-# Simple Random Data in Go
+# Simple Random Number Generator in Go
 
-A simple recipe for generating random data in Go.
+A simple example for generating random data in Go.
 
 ## Setup
 

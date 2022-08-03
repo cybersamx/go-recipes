@@ -1,6 +1,6 @@
 # Simple Web Form Submission and JWT Auth
 
-This recipe implements web form submission Go. This is a login application where the user enters the username and password for authentication. Once a user has been authenticated, the application will persist the session using JWT.
+This example implements web form submission Go. This is a login application where the user signs in with his/her username and password. Once a user is authenticated, the application will persist the session using JWT.
 
  This application has the following functions:
 

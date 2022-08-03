@@ -1,11 +1,11 @@
 # GraphQL Client in Go
 
-A recipe that implements a simple GraphQL client in Go, which queries against a public GraphQL service <https://countries.trevorblades.com/>. The client makes 2 calls:
+An example of implementing a simple GraphQL client in Go to query against a public GraphQL service <https://countries.trevorblades.com/>. The client makes 2 calls:
 
-* GraphQL call without any filter
-* GraphQL call with a passed argument as filter
+* GraphQL request without any filter.
+* GraphQL request with a filter passed as a parameter.
 
-We can always pass a GraphQL query as plain text when calling the API. But for the construction of more complex queries, including support for passed arguments, we may want to use a GraphQL package, like the [machinebox/graphql](https://github.com/machinebox/graphql) package that is used in the recipe.
+We can construct a GraphQL query as a string and pass it as plain text when making the API call. But for the construction of more complex queries, including support for passed arguments, we may want to use a GraphQL package, like the [machinebox/graphql](https://github.com/machinebox/graphql) package.
 
 ## Setup
 

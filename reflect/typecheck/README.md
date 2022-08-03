@@ -1,6 +1,6 @@
 # Type Checking
 
-This recipe explores ways to check the type of value at runtime using the following techniques:
+This example shows the different ways of checking the datatype of a value at runtime:
 
 * type switch
 * type cast

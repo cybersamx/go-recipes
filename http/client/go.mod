@@ -1,3 +1,3 @@
 module github.com/cybersamx/go-recipes/http/client
 
-go 1.15
+go 1.18

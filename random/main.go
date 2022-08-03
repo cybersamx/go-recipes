@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/cybersamx/go-recipes/random/rand"
 	"time"
+
+	"github.com/cybersamx/go-recipes/random/rand"
 )
 
 func main() {

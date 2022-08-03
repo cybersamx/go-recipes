@@ -1,15 +1,15 @@
 # Go HTML Templating
 
-This recipe shows server-side web content rendering using Go's `html/template` package.
+This example shows server-side web content rendering using Go's `html/template` package.
 
 Some highlights about `html/template` package:
 
-* There's some context-aware safety. The package automatically escape all HTML template and inputs/content before the rendered content is sent to the browser.
-* You apply a `struct` encapsulating the content to a template to produce the content output.
+* There's some context-aware safety. The package automatically escape all HTML template and inputs/content before they are rendered.
+* You apply a `struct` that encapsulates the content to a template to produce the desired content output.
 
 ## Actions
 
-Actions are control structures in the templates denoted by `{{` and `}}` and they are used to evaluate data  or to control execution flow. Here are some of the actions
+Actions are control structures in the templates denoted by `{{` and `}}` and they are used to evaluate data or to control execution flow. Here are some of the actions
 
 | Action                                             | Description                                                       |
 |----------------------------------------------------|-------------------------------------------------------------------|
@@ -32,11 +32,9 @@ Actions are control structures in the templates denoted by `{{` and `}}` and the
 > * `and`, `call`, `html`, `index`, `slice`, `js`, `len`, `not`, `or`, `print`, `printf`, `println`, `urlquery`.
 > * There are also a set of functions that mimic binary comparison operators: `eq`, `ne`, `lt`, `le`, `gt`, `ge`.
 
-See code for details.
-
 ## Setup
 
-1. Run the server
+1. Run the server.
 
    ```bash
    $ make run

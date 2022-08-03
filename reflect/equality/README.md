@@ -1,6 +1,6 @@
 # Reflection-Based Equality
 
-This recipe on Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
+An example of equality operation using the `reflect.DeepEqual` function to compare 2 values.
 
 ## Setup
 

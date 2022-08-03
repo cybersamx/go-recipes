@@ -20,6 +20,6 @@ func Execute() {
 }
 
 func root(cmd *cobra.Command, _ []string) {
-	// If no subcomand is entered, we default to the running the help subcommand.
+	// If no subcommand is entered, we default to the running the help subcommand.
 	cobra.CheckErr(cmd.Help())
 }

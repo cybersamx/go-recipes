@@ -1,10 +1,8 @@
 # Form Submission
 
-This recipe shows how we parse and process, including object binding and validation, a form submission. The recipe uses a third party package `gin-gonic/gin`.
+This example shows how we handle a form submission, including parsing, object binding, and validation, using a third-party package `gin-gonic/gin`.
 
 ## Setup
-
-To run the recipe:
 
 1. Run the server
 

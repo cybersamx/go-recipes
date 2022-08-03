@@ -2,6 +2,7 @@ package pkg
 
 import (
 	"database/sql"
+
 	_ "github.com/mattn/go-sqlite3"
 	"syreclabs.com/go/faker"
 )

@@ -1,6 +1,6 @@
 # gRPC Hello World
 
-An example of gRPC client and server. It is a modification of [the official gRPC example](google.golang.org/grpc/examples/helloworld/helloworld).
+An example of a gRPC client and a server. It is a modification of [the official gRPC example](google.golang.org/grpc/examples/helloworld/helloworld).
 
 ## Setup
 
@@ -8,7 +8,7 @@ An example of gRPC client and server. It is a modification of [the official gRPC
 
    ```bash
    $ brew install protobuf
-   $ go get github.com/golang/protobuf/protoc-gen-go
+   $ go install github.com/golang/protobuf/protoc-gen-go@latest
    $ # Run the following if you haven't done so already.
    $ export PATH="$PATH:$(go env GOPATH)/bin"
    ```
@@ -27,10 +27,9 @@ An example of gRPC client and server. It is a modification of [the official gRPC
    $ go run main.go
    ```
 
-   You can also run the following command that combines steps 2 and 3.
+   You can also run the following command that combines previous steps.
 
    ```bash
-   $ make install  # Optional: run this if you haven't installed protoc-gen-go
    $ make run
    ```
 

@@ -1,6 +1,6 @@
 # Validation
 
-The [validator package](https://github.com/go-playground/validator) provides validation against a variable value or against the values of the fields in a struct by declaring a "tag" that instruct the engine how we want to validate the value using some of the built-in rules. This recipe shows how we can use this package to perform value validation.
+The [validator package](https://github.com/go-playground/validator) provides validation against a variable value or against the values of the fields in a struct by declaring a "tag" that instruct the engine how we want to validate the value using some built-in rules. This recipe shows how we can use this package to perform value validation.
 
 There are 2 parts in this recipe.
 

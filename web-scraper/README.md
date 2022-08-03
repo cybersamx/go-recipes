@@ -1,6 +1,8 @@
 # Web Scrapping
 
-A recipe that extracts a list of historical events that happened "on this day" from Wikipedia using the `gocolly/colly` package.
+**Note: There seems to be a bug in this example. The program is no longer scraping the content correctly. This will be fixed.**
+
+This example shows how to scrap a website using the `gocolly/colly` package. Specifically, the code extracts a list of historical events that happened "on this day" from Wikipedia
 
 ## Setup
 

@@ -1,29 +1,75 @@
 # GraphQL Server in Go
 
-A recipe that implements a simple GraphQL server using Go and the [99 Designs GraphQL](https://gqlgen.com/) package and code generator.
+An example of implementomg a simple GraphQL server using the [99 Designs GraphQL](https://gqlgen.com/) package.
 
 ## Setup
 
 Here are the steps describing how we would build this project from scratch using `gqlqen`. For details, please read [gqlgen tutorial](https://gqlgen.com/getting-started/). Here's a summary of the tutorial:
 
+Here's a sequence of steps to run the example:
+
 1. Download the codegen tool.
 
    ```bash
-   $ go get github.com/99designs/gqlgen
-   ```
-
-1. Create and initialize the project directory.
-
-   ```bash
-   $ mkdir server
-   $ cd server
-   $ go mod init github.com/cybersamx/go-recipes/graphql/server
+   $ go install github.com/99designs/gqlgen@latest
    ```
 
 1. Build the skeletal code using `gqlgen`. Note: this should generate some boilerplate, and a graphql server with a playground UI for experimenting with  graphql queries.
 
    ```bash
+   $ cd <project_root_dir>
    $ gqlgen init   # Create skeletal code
+   ```
+
+Or we can build everything up to this point by running the following command:
+
+```bash
+$ make      # Build the project
+```
+
+1. Insert code to the skeletal code. In `graph/resolver.go`:
+
+   ```go
+   import (
+     "github.com/cybersamx/go-recipes/graphql/server/graph/model"
+   )
+
+   // This file will not be regenerated automatically.
+   //
+   // It serves as dependency injection for your app, add any dependencies you require here.
+
+   type Resolver struct {
+     todos []*model.Todo
+   }
+   ```
+
+   In `graph/schema.resolvers.go`:
+
+   ```go
+   import (
+     "context"
+     "fmt"
+     "math/rand"
+
+     "github.com/cybersamx/go-recipes/graphql/server/graph/generated"
+     "github.com/cybersamx/go-recipes/graphql/server/graph/model"
+   )
+
+   // CreateTodo is the resolver for the createTodo field.
+   func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
+     todo := &model.Todo{
+       Text: input.Text,
+       ID:   fmt.Sprintf("T%d", rand.Int()),
+       User: &model.User{ID: input.UserID, Name: "user " + input.UserID},
+     }
+     r.todos = append(r.todos, todo)
+     return todo, nil
+   }
+
+   // Todos is the resolver for the todos field.
+   func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+     return r.todos, nil
+   }
    ```
 
 1. Run the server.
@@ -32,9 +78,9 @@ Here are the steps describing how we would build this project from scratch using
    $ go run server.go
    ```
 
-   Launch a web browser and go to http://localhost:8080. You should see the following page. Run the query on the browser:
+   Launch a web browser and go to <http://localhost:8080>. You should see the following page. Copy and paste the following query on the browser:
 
-   ```
+   ```json
    query {
      todos {
        id
@@ -44,18 +90,9 @@ Here are the steps describing how we would build this project from scratch using
 
    ![gqlgen playground](images/gqlgen-playground.png)
 
-   Since we haven't implemented code to return the dataset, we get an error from the server.
+   We should now get this response:
 
-1. Implement code to track state of the TODOs. Change the following files:
-
-   * [resolver.go](graph/resolver.go)
-   * [schema.resolvers.go](graph/schema.resolvers.go)
-
-   See [here](https://gqlgen.com/getting-started/) for details.
-
-1. Restart the server and rerun the previous graphql query. You should now get this response:
-
-   ```
+   ```json
    {
      "data": {
        "todos": []
@@ -63,7 +100,7 @@ Here are the steps describing how we would build this project from scratch using
    }
    ```
 
-   Mutate the state (ie. add a TODO) to the server using this:
+   It's empty, so mutate the state (ie. add a TODO) to the server using this. Create another tab, copy and paste the following content, and run the graphql.
 
    ```
    mutation {
@@ -86,13 +123,13 @@ Here are the steps describing how we would build this project from scratch using
    This line instructs the go compiler what to do when we run it with the generate command recursively over the directory.
 
    ```bash
-   $ generate ./...
+   $ go generate ./...
    ```
 
-All of this is captured in the [Makefile](Makefile). So simply run this command to build and run the project.
+Once all the skeletal code is properly generated and set up, we can subsequently run the following to run the program.
 
-```bash
-$ make
+```go
+$ make run
 ```
 
 # Reference

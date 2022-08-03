@@ -1,15 +1,15 @@
 # Parse Time
 
-This recipe that parses a date string to a Go struct value.
+This examples parses different date strings to their corresponding time values.
 
 Read [Intro to go time format](../../docs/time-format.md) for details.
 
 ## Setup
 
-1. Run the program
+1. Run the program.
 
    ```bash
-   $ make
+   $ make run
    ```
 
 ## Reference

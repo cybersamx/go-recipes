@@ -65,7 +65,7 @@ func main() {
 	})
 
 	c.OnHTML("div.mw-parser-output", func(e *colly.HTMLElement) {
-		// Under div.mw-parser-output for for a h2 that is entitled Events.
+		// Under div.mw-parser-output for a h2 that is entitled Events.
 		// Once found, extract the listing from the sibling ul element.
 		ch := e.DOM.Children()
 		for i := 0; i < ch.Size(); i++ {

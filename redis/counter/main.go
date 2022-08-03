@@ -1,8 +1,9 @@
 package main
 
 import (
-	"github.com/mediocregopher/radix/v3"
 	"log"
+
+	"github.com/mediocregopher/radix/v3"
 )
 
 const (

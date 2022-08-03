@@ -1,10 +1,11 @@
 package api
 
 import (
-	"github.com/cybersamx/go-recipes/fake-mock/model"
 	"math/rand"
 	"strings"
 	"time"
+
+	"github.com/cybersamx/go-recipes/fake-mock/model"
 )
 
 // AccountService represents a service that provides functions for managing user accounts

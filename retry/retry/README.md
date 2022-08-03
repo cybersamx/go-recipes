@@ -1,8 +1,8 @@
-# Retries on MongoDB
+# Retry Using Retry
 
-An example of how you would keep retrying to connect to MongoDB using the [flowchartsman/retry](https://github.com/flowchartsman/retry) package.
+An example of using the [flowchartsman/retry](https://github.com/flowchartsman/retry) package to retry connecting to MongoDB after failed attempts. The package implements an [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm that multiplicatively decreases the retry rate, allowing for a more suited use in network retransmission.
 
-It has a neat interface and implements an [exponential backoff](https://en.wikipedia.org/wiki/Exponential_backoff) algorithm that multiplicatively decrease the retry rate for more suited for network retransmission.
+We deliberately don't want to connect to the database to test retry.
 
 ## Setup
 
@@ -12,16 +12,10 @@ It has a neat interface and implements an [exponential backoff](https://en.wikip
    $ make run
    ```
 
-1. On a separate shell, starts mongo.
+1. If you want to start mongo so that the retry works, run the following.
 
    ```bash
    $ docker-compose up
-   ```
-
-1. Go back to the original shell and run the application again. Now the program should connect to the datastore.
-
-   ```bash
-   $ make run
    ```
 
 ## Reference and Credits

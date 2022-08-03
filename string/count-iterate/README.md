@@ -1,22 +1,22 @@
 # Count and Iterate Over a Go String
 
-A simple recipe that explores how we count and iterate over a string by rune and byte.
+A simple example that shows how we count and iterate over a string by rune and byte.
 
 Unicode can be complex, but it isn't rocket science. Here's a short [primer](../../docs/unicode.md) to understand the basics of Unicode and text encoding. Also, read the [blog on strings, bytes, and runes, and characters](https://blog.golang.org/strings) on the official Go website.
 
 ## Definitions
 
-| Term           | Description  |
-|----------------|--------------|
-| String         | String is a read-only slice of arbitrary bytes encoded in UTF-8 (absent of byte-level escapes. |
-| Code point     | A numerical value that is mapped to a character. It's dependent on the character encoding eg. ASCII or Unicode. |
-| Rune           | Go speak for code point. |
-| Byte           | 8-bit or 1-byte of a unit of digital information. |
-| Character      | An abstract representation of a symbol. The term character is often ambiguous and it really depends on the context given a character can be represented in different ways. |
+| Term       | Description                                                                                                                                                                |
+|------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| String     | String is a read-only slice of arbitrary bytes encoded in UTF-8 (absent of byte-level escapes.                                                                             |
+| Code point | A numerical value that is mapped to a character. It's dependent on the character encoding eg. ASCII or Unicode.                                                            |
+| Rune       | Go speak for code point.                                                                                                                                                   |
+| Byte       | 8-bit or 1-byte of a unit of digital information.                                                                                                                          |
+| Character  | An abstract representation of a symbol. The term character is often ambiguous and it really depends on the context given a character can be represented in different ways. |
 
 ## Byte Count vs Rune Count
 
-Let's use this string as an example: 你好世界. In Go, we can represent it in the following ways:
+Let's use this string "你好世界" as an example. In Go, we can represent it in the following ways:
 
 ```go
 // Both strings are equivalent.
@@ -24,7 +24,7 @@ str := "你好世界"   // As UTF-8 string.
 str := "\xe4\xbd\xa0\xe5\xa5\xbd\xe4\xb8\x96\xe7\x95\x8c"   // As bytes using byte-level escapes.
 ```
 
-How big is a string? You can count the size by number of bytes or by number of runes.
+How big is a string? It depends. You can count the size by number of bytes or by number of runes.
 
 ```go
 fmt.Println(len(str))                       // Prints 12
@@ -33,9 +33,9 @@ fmt.Println(utf8.RuneCountInString(str))    // Prints 4
 
 See [source code](main.go) for details.
 
-## Iterate by Byte vs Iterate by Byte
+## Iterate by Byte vs Iterate by Rune
 
-To iterate over a string by byte, here are the general techniques:
+To iterate over a string by byte:
 
 ```go
 for i := 0; i < len(str); i++ {
@@ -47,7 +47,7 @@ for _, b := range []byte(str) {
 }
 ```
 
-To iterate over a string by rune, here are the general techniques:
+To iterate over a string by rune:
 
 ```go
 for i, b := range str {
@@ -61,10 +61,10 @@ See [source code](main.go) for details.
 
 ## Setup
 
-1. Run the program
+1. Run the program.
 
    ```bash
-   $ make
+   $ make run
    ```
 
 ## Credits and Reference

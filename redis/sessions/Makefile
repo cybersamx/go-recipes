@@ -4,7 +4,6 @@ PROJECT_BIN := ./bin
 SRC := .
 GO_ENV := CGO_ENABLED=0
 ROOT_DIR := $(shell git rev-parse --show-toplevel)
-LINTER_CONFIG := $(ROOT_DIR)/.golangci.yaml
 
 # Colorized print
 BOLD := $(shell tput bold)
@@ -13,7 +12,7 @@ BLUE := $(shell tput setaf 4)
 RESET := $(shell tput sgr0)
 
 # Redis Settings
-CONTAINER := 'Redis'
+CONTAINER := 'redis'
 PORT := 6379
 RETRIES := 5
 SLEEP := 2
@@ -21,15 +20,20 @@ SLEEP := 2
 # Set up the default target all and set up phony targets.
 
 .PHONY: all
+all: build
 
-all: run-full
+##@ mod: Install modules
 
-##@ run-full: Run the Redis container and the Go program.
+.PHONY: mod
+mod:
+	@-echo "$(BOLD)$(BLUE)Installing modules for $(PROJECT)...$(RESET)"
+	$(GO_ENV) go mod tidy
 
-.PHONY: run-full
+##@ run: Run program and redis container
 
-run-full:
-	@echo "Running $(PROJECT) in full..."
+.PHONY: run
+run: mod
+	@-echo "$(BOLD)$(BLUE)Running $(PROJECT)...$(RESET)"
 	@-docker-compose down > /dev/null 2>&1
 	@docker-compose up > /dev/null 2>&1 &
 	@printf 'Launching $(CONTAINER)'
@@ -37,54 +41,35 @@ run-full:
 		do nc -v -w 1 localhost $(PORT) > /dev/null 2>&1 && s=0 && break || s=${?} && printf '.' && sleep $(SLEEP); \
 		done; \
 	echo && (exit ${s}) || echo '$(CONTAINER) failed to launch' && echo '$(CONTAINER) up'; \
-	go run $(SRC)
+	sleep 2; \
+	$(GO_ENV) go run $(SRC)
 	@docker-compose down
 
-##@ teardown: Teardown Redis container
+##@ teardown: Teardown redis container
 
 .PHONY: teardown
-
 teardown:
-	@-echo "$(BOLD)$(RED)Tearing down Redis...$(RESET)"
+	@-echo "$(BOLD)$(RED)Tearing down $(CONTAINER)...$(RESET)"
 	@docker-compose down
 
 ##@ build: Build binary
 
 .PHONY: build
-
-build:
+build: mod
 	@-echo "$(BOLD)$(BLUE)Building $(PROJECT)...$(RESET)"
 	$(GO_ENV) go build -o $(PROJECT_BIN)/$(PROJECT) $(SRC)
-
-##@ lint: Run linter
-
-.PHONY: lint
-
-lint:
-	@-echo "$(BOLD)$(BLUE)Linting $(PROJECT)...$(RESET)"
-	golangci-lint run -v -c $(LINTER_CONFIG)
-
-##@ format: Run gofmt
-
-.PHONY: format
-
-format:
-	@-echo "$(BOLD)$(BLUE)Formatting $(PROJECT)...$(RESET)"
-	gofmt -e -s -w $(SRC)
 
 ##@ clean: Clean output files and build cache
 
 .PHONY: clean
-
 clean:
-	@-echo "$(BOLD)$(RED)Removing build cache and bin in $(PROJECT)...$(RESET)"
+	@-echo "$(BOLD)$(RED)Removing build cache and bin from $(PROJECT)...$(RESET)"
 	@-rm -rf $(PROJECT_BIN)
 	go clean
 
 ##@ help: Help
 
 .PHONY: help
-
 help: Makefile
 	@-echo " Usage:\n  make $(BLUE)<target>$(RESET)"
 	@-echo

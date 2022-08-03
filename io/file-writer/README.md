@@ -1,16 +1,12 @@
 # File Reader
 
-An example of writing a text file.
+An example of writing to a text file.
 
 ## Best Practices
 
 ### Pass by io.Reader and io.Writer
 
-Go provides the `io.Reader` and `io.Writer` interfaces to represent I/O operations. As a best practice, pass the I/O streams using `io.Reader` or `io.Writer` instead of `string`, `[]bytes`, etc. As interfaces, you can pass the concrete object representing the actual stream - it makes the code cleaner and more extensible.
-
-### Writing in chunks
-
-The function `ioutil.ReadAll` reads the content from the stream into memory until an error or EOF. For big files, it makes more sense to break the read operations into smaller chunks.
+Go provides the `io.Reader` and `io.Writer` interfaces for I/O operations. As a best practice, pass any I/O stream as `io.Reader` or `io.Writer` instead of `string`, `[]bytes`, etc. This makes the code cleaner and more extensible.
 
 ## Setup
 

@@ -1,9 +1,10 @@
 package main
 
 import (
-	"github.com/mediocregopher/radix/v3"
 	"log"
 	"time"
+
+	"github.com/mediocregopher/radix/v3"
 )
 
 const (
