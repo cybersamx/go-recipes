@@ -13,12 +13,12 @@ func main() {
 	wg.Add(1)
 	go func(ch chan<- int) {
 		defer wg.Done()
+		defer close(ch)
 		for i := 0; i < 6; i++ {
 			ch <- i
 			time.Sleep(1 * time.Second)
 			fmt.Printf("Send %d\n", i)
 		}
-		close(ch)
 	}(stream)
 
 	wg.Add(1)

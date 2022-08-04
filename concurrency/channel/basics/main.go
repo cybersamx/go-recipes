@@ -7,27 +7,32 @@ import (
 func main() {
 	num := make(chan int, 5)
 
-	go func() {
-		num <- 99
-	}()
-
-	// The receiving channel will block until it receives a message.
-	msg := <-num
-	fmt.Println(msg)
-
 	// Channel capacity and length
 	num <- 1
-	fmt.Printf("cap: %d, len: %d\n", cap(num), len(num))
-	<-num // Channel queue (len) is back to 0
 
-	num <- 1
-	num <- 2
-	num <- 3
+	// Read the channel and bring the cap bac to 0.
+	// <-num returns a second value indicating whether the channel is closed.
+	n, ok := <-num
+	fmt.Println("When the channel isn't closed, ok =", ok)
+	fmt.Println("Channel returns", n) // Closed channel will yield zero value
+
+	// Write to the channel (within cap limit).
+	for i := 0; i < 3; i++ {
+		num <- i
+	}
+
+	// Read from the channel.
+	for i := 0; i < 3; i++ {
+		<-num
+	}
+
 	fmt.Printf("cap: %d, len: %d\n", cap(num), len(num))
 
 	// Close a channel
 	close(num)
-	fmt.Println(<-num) // Closed channel will yield zero value
+	n, ok = <-num
+	fmt.Println("When the channel is now closed, ok =", ok)
+	fmt.Println("Channel returns", n) // Closed channel will yield zero value
 
 	// Writing a value in closed channel will cause a panic.
 	fmt.Println("Panic is expected.")

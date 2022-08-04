@@ -30,6 +30,7 @@ Here is a collection of recipes:
 * [Concurrency](concurrency) - Go concurrency.
   * [Channel](concurrency/channel)
     * [Basics](concurrency/channel/basics) - Basic channel examples.
+    * [Buffered vs unbuffered channel](concurrency/channel/buffered-unbuffered) - Differences between buffered and unbuffered channels.
     * [Channel passing](concurrency/channel/channel-passing) - Message passing between 2 goroutines using a channel.
   * [WaitGroup](concurrency/waitgroup) - Using `sync.WaitGroup` to synchronize multiple concurrent goroutines.
 * [Cookie](cookie) - Introduction to cookies in Go.

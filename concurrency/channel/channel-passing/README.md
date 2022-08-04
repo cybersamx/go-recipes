@@ -2,71 +2,11 @@
 
 This is a simple example of declaring and sending/receiving messages between 2 goroutines over a buffered channel.
 
-## Buffered vs Unbuffered
+In this example, we set up a channel to send and receive values between 2 goroutines.
 
-There are 2 types of channels:
+## Range over Channel
 
-* Unbuffered channel - Synchronous channel. Only one operation can be performed at a time. It has the length and capacity of 0 ie. `make(chan int)` is the same as `make(chan int, 0)`.
-  * When a value is sent to a sending channel, the control on the sender will be blocked until we read from the channel.
-  * When a value is received from a receiving channel, the control on the reader will be blocked until we write to the channel.
-* Buffered channel - Asynchronous channel. This means `make(chan int, n)` where `n` >= 1.
-  * When there's a buffer in the sending, the sender won't be blocked until the buffer is fully filled.
-
-In [main.go](main.go), we can change the statement to declare either a buffered or unbuffered channel.
-
-```go
-// When we declare the channel as unbuffered.
-stream := make(chan int)
-```
-
-The program will produce the following output:
-
-```
-Send 0
-Received 0
-Send 1
-Received 1
-Send 2
-Received 2
-Send 3
-Received 3
-Send 4
-Received 4
-Send 5
-Received 5
-Done
-```
-
-As you can see the messages are synchronized as send and receive operations are synchronous.
-
-Let's now declare the channel as buffered (with cap of 3) and see what happens.
-
-```go
-// When we declare the channel as unbuffered.
-stream := make(chan int, 3)
-```
-
-And here's the output:
-
-```
-Send 0
-Received 0
-Send 1
-Send 2
-Send 3
-Received 1
-Send 4
-Received 2
-Send 5
-Received 3
-Received 4
-Received 5
-Done
-```
-
-## Deadlock
-
-In [main.go](main.go), we have a goroutine that sends out messages to the channel and a goroutine that receives messages from that channel. In the receiving goroutine, we use the following code to read from the channel.
+In [main.go](main.go), if the goroutines are waiting for an empty channel to be written and nothing will be written to the sending channel, we get a deadlock.
 
 ```go
 go func(ch <-chan int) {
