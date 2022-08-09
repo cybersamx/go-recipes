@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/graphql/client
 
-go 1.18
+go 1.19
 
 require github.com/machinebox/graphql v0.2.2
 

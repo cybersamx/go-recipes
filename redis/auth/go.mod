@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/redis/auth
 
-go 1.18
+go 1.19
 
 require github.com/mediocregopher/radix/v3 v3.8.0
 

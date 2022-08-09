@@ -16,7 +16,7 @@ func FunctionName[T1 TypeConstraint, T2 TypeContraint, ...](arg1 T, arg2 T,...) 
 
 ## Type Parameters in Types
 
-With Go 1.18, types can now be declared with type parameters.
+With go 1.19, types can now be declared with type parameters.
 
 ```go
 type StructName[T TypeConstraint, ...] struct {

@@ -1,3 +1,3 @@
 module github.com/cybersamx/go-recipes/time/parse
 
-go 1.18
+go 1.19

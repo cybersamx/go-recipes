@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/web-scraper
 
-go 1.18
+go 1.19
 
 require github.com/gocolly/colly v1.2.0
 

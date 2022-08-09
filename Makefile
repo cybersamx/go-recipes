@@ -35,28 +35,6 @@ build:
   	make -C $$subdir $@; \
   done
 
-##@ lint: Run linter on all recipes
-
-.PHONY: lint
-
-lint:
-	@-echo "$(BOLD)$(CYAN)Linting all recipes...$(RESET)"
-	@for subdir in $(SUBDIRS); do \
-    echo "Linting $$(basename $$subdir)"; \
-    make -C $$subdir $@; \
-  done
-
-##@ format: Run gofmt on all recipes
-
-.PHONY: format
-
-format:
-	@-echo "$(BOLD)$(CYAN)Formatting all recipes...$(RESET)"
-	@for subdir in $(SUBDIRS); do \
-    echo "Formatting $$(basename $$subdir)"; \
-    make -C $$subdir $@; \
-  done
-
 ##@ clean: Clean output files and build cache
 
 .PHONY: clean

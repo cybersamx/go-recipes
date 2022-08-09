@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/microservice
 
-go 1.18
+go 1.19
 
 require (
 	github.com/cybersamx/go-recipes/microservice/simple v0.0.0-20220714070703-63ea78d9e12a

@@ -1,6 +1,6 @@
 module github.com/cybersamx/go-recipes/cli/viper-pflags
 
-go 1.18
+go 1.19
 
 require (
 	github.com/spf13/pflag v1.0.5
