@@ -27,6 +27,7 @@ Here is a collection of recipes:
   * [Array passing](collection/array-slice-passing) - An array is passed as a value to a function.
   * [Map](collection/map-basics) - Basic map operations.
   * [Slice](collection/slice-basics) - Basic slice operations.
+  * [Sort](collection/sort) - Sort a slice of custom type elements.
 * [Concurrency](concurrency) - Go concurrency.
   * [Channel](concurrency/channel)
     * [Basics](concurrency/channel/basics) - Basic channel examples.
