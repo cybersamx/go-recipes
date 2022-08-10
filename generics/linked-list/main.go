@@ -1,5 +1,9 @@
 package main
 
+import (
+	"fmt"
+)
+
 type LinkedList[T any] struct {
 	Val  T
 	Next *LinkedList[T]
@@ -34,4 +38,34 @@ func (ll *LinkedList[T]) Add(val T) *LinkedList[T] {
 	ll.Next = ll.Next.Add(val)
 
 	return ll
+}
+
+func (ll *LinkedList[T]) String() string {
+	var str string
+	for elem := ll; elem != nil; elem = elem.Next {
+		if elem == ll {
+			str = fmt.Sprintf("%v", elem.Val)
+			continue
+		}
+		str = fmt.Sprintf("%s %v", str, elem.Val)
+	}
+
+	return str
+}
+
+func main() {
+	numlist := LinkedList[int]{
+		Val: 1,
+		Next: &LinkedList[int]{
+			Val:  3,
+			Next: nil,
+		},
+	}
+
+	fmt.Println(numlist)
+
+	numlist.Insert(1, 2)
+	numlist.Add(4)
+
+	fmt.Println(numlist)
 }
