@@ -45,6 +45,7 @@ Here is a collection of recipes:
   * [Writer](io/file-writer) - Writing to a file.
 * [Generics](generics) - Go Generics.
   * [Custom type](generics/custom-type) - Using a custom type as a type parameter.
+  * [Linked list](generics/linked-list) - Generic-based linked list.
   * [Type constraints](generics/type-constraints) -Type constraint basics.
   * [Type parameters](generics/type-parameters) - Type parameter basics.
 * [GraphQL](graphql) - GraphQL in Go.
