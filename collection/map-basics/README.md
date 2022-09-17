@@ -1,10 +1,6 @@
 # Go Map
 
-<<<<<<< Updated upstream:collection/map-basics/README.md
-An example that highlights common operations, including relevant tips and pitfalls, on Go map.
-=======
 This example highlights common operations and some relevant tips on using maps in Go.
->>>>>>> Stashed changes:collection/map/README.md
 
 ## Tips and Gotchas
 
