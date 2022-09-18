@@ -10,34 +10,48 @@ Go provides the `io.Reader` and `io.Writer` interfaces for I/O operations. As a 
 
 ### ReadCloser
 
-In Go, `io.Reader` is a stream. So once the reader has finishing reading a stream, you can't reread the stream again. For example:
+In Go, `io.Reader` is a stream. So once the reader has finished reading a stream, you can't reread the stream again. For example:
 
 ```go
-file, err := os.Open("testdata.txt")
-file.Close()
-data, err := ioutil.ReadAll(file)
-fmt.Println(data)   // Prints the content of testdata.txt
+fileReader, err := os.Open("testdata.txt")
+if err != nil {
+	panic(err)
+}
+defer fileReader.Close()
 
-data2, err := ioutil.ReadAll(file)
-fmt.Println(data2)   // Prints nothing
+data, err := io.ReadAll(fileReader)
+fmt.Println(string(data)) // Prints the content of testdata.txt as string.
+
+data, err = io.ReadAll(fileReader)
+fmt.Println(string(data)) // Prints nothing.
 ```
 
-To print the file the second time, you have to create a new stream called `io.ReadCloser` from the content that is loaded from reading the `io.Reader` stream.
+To reread a stream is simply to instantiate a new instance of `io.Reader` to read the content from the stream again.
 
 ```go
-file, err := os.Open("testdata.txt")
-file.Close()
-data, err := ioutil.ReadAll(file)
-fmt.Println(data)   // Prints the content of testdata.txt
+func printFile(filename string) {
+	file, err := os.Open(filename)
+	if err != nil {
+		panic(err)
+	}
+	defer file.Close()
 
-file2 := ioutil.NopCloser(bytes.NewReader(data))
-data2, err := ioutil.ReadAll(file2)
-fmt.Println(data2)   // Prints the content of testdata.txt
+	data, err := io.ReadAll(file)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(string(data))
+}
+
+func main() {
+	printFile("testdata.txt")
+	printFile("testdata.txt")
+}
 ```
 
 ### Reading in chunks
 
-The function `ioutil.ReadAll` reads the content from the stream into memory until an error or EOF. For big files, it makes more sense to break the read operations into smaller chunks.
+The function `io.ReadAll` reads the content from the stream into memory until an error or EOF. For bigger files, it makes more sense to break the read operations into smaller chunks.
 
 ## Setup
 
@@ -50,4 +64,3 @@ The function `ioutil.ReadAll` reads the content from the stream into memory unti
 ## Reference and Credits
 
 * [Go Package io](https://golang.org/pkg/io/)
-* [Go Package ioutil](https://golang.org/pkg/io/ioutil/)
