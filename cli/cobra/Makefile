@@ -4,7 +4,6 @@ SRC := .
 GO_ENV := CGO_ENABLED=0
 
 .PHONY: mod run build
-
 all: build
 
 # Run program

@@ -1,10 +1,6 @@
 # Go Slice
 
-<<<<<<< Updated upstream
 This example highlights common operations, including tips and pitfalls, on Go slice.
-=======
-This example highlights common operations and some relevant tips on using slices in Go.
->>>>>>> Stashed changes
 
 ## Tips and Gotchas
 

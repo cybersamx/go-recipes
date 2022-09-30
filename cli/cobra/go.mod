@@ -1,4 +1,4 @@
-module github.com/cybersamx/go-recipes/cli/cobra-cmd
+module github.com/cybersamx/go-recipes/cli/cobra
 
 go 1.19
 

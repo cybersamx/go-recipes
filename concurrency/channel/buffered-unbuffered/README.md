@@ -23,10 +23,6 @@ There are 2 types of channels:
   * A goroutine reading a value from a receiving channel will be blocked until a value is placed into the channel.
 * Unbuffered channel - Synchronous channel. It has the length and capacity of 0 ie. `make(chan int)` is the same as `make(chan int, 0)`. This means that channel always full and the associated goroutine will be blocked after writing to the channel unless the receiving channel reads the value.
 
-## Notes on Concurrency
-
-See more notes written about Concurrency [here](../../../docs/concurrency.md).
-
 ## Setup
 
 1. Run the program.

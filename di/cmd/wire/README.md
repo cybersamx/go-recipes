@@ -10,4 +10,4 @@ differences.
 ## Setup
 
 > **NOTE:**
-> If you run this the first time, you may not see a response from the program for a few seconds. The program is performing a static analysis of your code to generate the source code.
+> If you run this the first time, you may not see a response from the program for a few seconds. This is because the compiler is performing a static analysis of your code to generate the source code.

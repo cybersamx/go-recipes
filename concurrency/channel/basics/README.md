@@ -14,10 +14,6 @@ Here are the basic operations that can be performed on channels.
   * The value read from a closed channel will be a zero value.
   * Close the sending channel, not the receiving channel as this ensures proper control of channel to prevent race condition and panics (as writing to a closed channel cause a panic and a reading from a closed channel returns zero value).
 
-## Notes on Concurrency
-
-See more notes written about Concurrency [here](../../../docs/concurrency.md).
-
 ## Setup
 
 1. Run the program.

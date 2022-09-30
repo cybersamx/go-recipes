@@ -22,5 +22,5 @@ func (me MyEnum) String() string {
 }
 
 func main() {
-	fmt.Println(MyEnumVal1, MyEnumVal2)
+	fmt.Println(MyEnumVal1, MyEnumVal2, MyEnumVal3)
 }

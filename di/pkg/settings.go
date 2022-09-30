@@ -1,7 +1,6 @@
 package pkg
 
 import (
-	"io/ioutil"
 	"os"
 
 	"gopkg.in/yaml.v2"
@@ -24,7 +23,7 @@ func NewSettings() *Settings {
 		return &defaultSettings
 	}
 
-	content, err := ioutil.ReadFile(filename)
+	content, err := os.ReadFile(filename)
 	if err != nil {
 		return &defaultSettings
 	}

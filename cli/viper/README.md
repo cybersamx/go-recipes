@@ -1,14 +1,8 @@
 # Configurations Loading using Viper and PFlag
 
-An example of implementing configurations in an aaplication using the `viper` and `pflag` packages.
+An example of implementing configurations in an application using the `viper` and `pflag` packages.
 
-<<<<<<< Updated upstream
 * CLI arguments (top precedence)
-=======
-Configurations can be loaded into the application in the following ways with configurations set by cli arguments taking highest precedence.
-
-* CLI arguments
->>>>>>> Stashed changes
 * environment variables
 * configuration file
 * default values
@@ -27,13 +21,8 @@ The `pflag` package can be configured to allow POSIX/GNU style `--` flags or the
 2. Run the program
 
    ```bash
-   $ bin/viper-pflags
-=======
-1. Run the program.
-
-   ```bash
-   $ make run
->>>>>>> Stashed changes
+   $ CYBER_DIRECTORY=env bin/viper --postgres-url=arg
+   Dump of config: {true 5000 arg env default}
    ```
 
 ## Reference and Credits

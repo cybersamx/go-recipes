@@ -11,10 +11,6 @@ var describeCmd = cobra.Command{
 	RunE:  describe,
 }
 
-func init() {
-	rootCmd.AddCommand(&describeCmd)
-}
-
 func describe(cmd *cobra.Command, args []string) error {
 	printArgs(cmd, args)
 

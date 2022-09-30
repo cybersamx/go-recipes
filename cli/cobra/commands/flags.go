@@ -2,6 +2,7 @@ package commands
 
 import (
 	"fmt"
+	"os"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -16,8 +17,13 @@ func initConfig() {
 	viper.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
 }
 
-func init() {
-	cobra.OnInitialize(initConfig)
+func Start() {
+	v := viper.New()
+	v.AutomaticEnv()
+	v.SetEnvPrefix("CYBER")
+	v.SetEnvKeyReplacer(strings.NewReplacer("-", "_"))
+
+	// Root command.
 
 	// Global flags - using both short and long posix flags
 	rootCmd.PersistentFlags().StringP("format", "f", "yaml", "format of the output")
@@ -30,6 +36,17 @@ func init() {
 	viper.SetDefault("format", "yaml")
 	viper.SetDefault("debug", false)
 	viper.SetDefault("key", "")
+
+	// Describe command.
+	rootCmd.AddCommand(&describeCmd)
+
+	// Run command.
+	rootCmd.AddCommand(&runCmd)
+
+	// When everything is properly set up, run it.
+	if err := rootCmd.Execute(); err != nil {
+		os.Exit(1)
+	}
 }
 
 func printArgs(cmd *cobra.Command, args []string) {

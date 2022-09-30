@@ -11,10 +11,6 @@ var runCmd = cobra.Command{
 	RunE:  run,
 }
 
-func init() {
-	rootCmd.AddCommand(&runCmd)
-}
-
 func run(cmd *cobra.Command, args []string) error {
 	printArgs(cmd, args)
 

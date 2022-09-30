@@ -34,10 +34,6 @@ go func(ch chan<- int) {
 }
 ```
 
-## Notes on Concurrency
-
-See more notes written about Concurrency [here](../../../docs/concurrency.md).
-
 ## Setup
 
 1. Run the program

@@ -21,8 +21,8 @@ Go-related guides and docs:
 Here is a collection of recipes:
 
 * [CLI](cli) - Setting commands, arguments, and flags when building a CLI program in Go.
-  * [cobra-cmd](cli/cobra-cmd) - Implement a cli program using the cobra package.
-  * [viper-pflags](cli/viper-pflags) - Passing configurations to a cli program using cli arguments, environment variables, and text file.
+  * [cobra](cli/cobra) - Implement a cli program using the cobra package.
+  * [viper](cli/viper) - Passing configurations to a cli program using cli arguments, environment variables, and text file.
 * [Collection](collection) - Go map, array, and slice.
   * [Array passing](collection/array-slice-passing) - An array is passed as a value to a function.
   * [Map](collection/map-basics) - Basic map operations.
@@ -34,10 +34,10 @@ Here is a collection of recipes:
     * [Buffered vs unbuffered channel](concurrency/channel/buffered-unbuffered) - Differences between buffered and unbuffered channels.
     * [Channel passing](concurrency/channel/channel-passing) - Message passing between 2 goroutines using a channel.
   * [WaitGroup](concurrency/waitgroup) - Using `sync.WaitGroup` to synchronize multiple concurrent goroutines.
-* [Cookie](cookie) - Introduction to cookies in Go.
+
 * [Context](context) - The `context` package.
   * [Deadline](context/deadline) - Timeout using `context.WithDeadline` function.
-  * [Timeout](context/timeout) - Timeout using `context.WithTimeout` function.
+* [Cookie](cookie) - Introduction to cookies in Go.
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
 * [Enum](enum) - Implement enum in Go.
 * [Fake vs mock in unit testing](fake-mock) - The use of fake and mock in Go unit testing.

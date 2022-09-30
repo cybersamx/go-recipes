@@ -7,11 +7,11 @@ import (
 )
 
 func main() {
-	stream := make(chan int, 3)
+	ch := make(chan int, 3)
 	var wg sync.WaitGroup
 
 	wg.Add(1)
-	go func(ch chan<- int) {
+	go func() {
 		defer wg.Done()
 		defer close(ch)
 		for i := 0; i < 6; i++ {
@@ -19,10 +19,10 @@ func main() {
 			time.Sleep(1 * time.Second)
 			fmt.Printf("Send %d\n", i)
 		}
-	}(stream)
+	}()
 
 	wg.Add(1)
-	go func(ch <-chan int) {
+	go func() {
 		defer wg.Done()
 		// A range on the channel will read continuously from the channel until it is closed.
 		for i := range ch {
@@ -30,7 +30,7 @@ func main() {
 			time.Sleep(2 * time.Second)
 			fmt.Printf("Received %d\n", i)
 		}
-	}(stream)
+	}()
 
 	wg.Wait()
 	fmt.Println("Done")

@@ -1,7 +1,7 @@
 package main
 
 import (
-	"log"
+	"fmt"
 )
 
 type App struct {
@@ -9,12 +9,11 @@ type App struct {
 }
 
 func (a *App) Run() {
-	log.Println("Running...")
-	log.Println("viper", a.config)
+	fmt.Println("Dump of config:", a.config)
 }
 
 func NewApp() *App {
-	app := &App{}
+	app := new(App)
 
 	return app
 }
