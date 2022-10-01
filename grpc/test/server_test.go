@@ -10,6 +10,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	pb "github.com/cybersamx/go-recipes/grpc/test/genproto"
 )
@@ -22,7 +23,7 @@ func newGRPCServer(t *testing.T, service *service) *grpc.Server {
 }
 
 func newGRPCClient(t *testing.T, addr string) (pb.NoteServiceClient, func()) {
-	conn, err := grpc.Dial(addr, grpc.WithInsecure())
+	conn, err := grpc.Dial(addr, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	require.NoError(t, err)
 
 	client := pb.NewNoteServiceClient(conn)

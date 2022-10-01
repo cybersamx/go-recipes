@@ -12,6 +12,7 @@ import (
 	"time"
 
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 	"syreclabs.com/go/faker"
 
 	hello "github.com/cybersamx/go-recipes/grpc/hello-world/genproto"
@@ -20,7 +21,7 @@ import (
 const (
 	port     = ":50051"
 	address  = "localhost:50051"
-	duration = 5 * time.Second
+	duration = 2 * time.Second
 )
 
 type server struct{}
@@ -45,7 +46,7 @@ func runServer(port string) {
 
 func runClient(ctx context.Context, address, name string) {
 	// Set up a connection to the server.
-	conn, err := grpc.Dial(address, grpc.WithInsecure())
+	conn, err := grpc.Dial(address, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	if err != nil {
 		log.Fatalf("did not connect: %v", err)
 	}
@@ -56,9 +57,9 @@ func runClient(ctx context.Context, address, name string) {
 	if len(os.Args) > 1 {
 		name = os.Args[1]
 	}
-	cctx, cancel := context.WithTimeout(ctx, time.Second)
+	ctx, cancel := context.WithTimeout(ctx, time.Second)
 	defer cancel()
-	r, err := c.SayHello(cctx, &hello.HelloRequest{Name: name})
+	r, err := c.SayHello(ctx, &hello.HelloRequest{Name: name})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
@@ -83,13 +84,11 @@ func main() {
 
 	// Goroutine: client.
 	go func() {
-		for {
-			select {
-			case <-ctx.Done():
-				return
-			case <-time.After(duration):
-				runClient(ctx, address, faker.Name().Name())
-			}
+		select {
+		case <-ctx.Done():
+			return
+		case <-time.After(duration):
+			runClient(ctx, address, faker.Name().Name())
 		}
 	}()
 

@@ -35,5 +35,5 @@ One pattern that we can use to address this behavior is long-polling.
    Alternatively, you can also run the above.
 
    ```bash
-   $ make
+   $ make run
    ```

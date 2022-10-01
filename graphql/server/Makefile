@@ -21,7 +21,7 @@ build: codegen mod
 	$(GO_ENV) go build -o $(BIN)/$(PROJECT) $(SRC)
 
 codegen: install
-	test -s $(GQL_FILE) || gqlgen init	# Generate code if gql file doesn't exist
+	test -s $(GQL_FILE) || gqlgen init	# Generate code only if gql file doesn't exist
 
 clean:
 	@-rm -rf $(BIN)

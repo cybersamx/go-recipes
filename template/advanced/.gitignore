@@ -1,6 +1,0 @@
-# Ignore the files and directories that webpack generates.
-**/dist
-public/bundle.*
-
-# NPM dependencies.
-node_modules

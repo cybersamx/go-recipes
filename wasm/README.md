@@ -10,7 +10,7 @@ An example of developing a WebAssembly that prints "hello world" in the browser 
    $ make run
    ```
 
-1. Test the wasm by launching a web browser and navigate to <http://localhost:8080>. See the console for the output of "hello world".
+1. Test the wasm by launching a web browser and navigate to <http://localhost:8000>. See the console for the output of "hello world".
 
 ## Notes
 

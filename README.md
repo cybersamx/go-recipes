@@ -4,21 +4,9 @@
 
 I started this project as I was learning Go. Over time, it evolved into a handy reference for anyone to look up Go recipes and design patterns.
 
-## Guides
+## Examples
 
-* [Guide](docs/guide.md) - Handy guide to Go, common knowledge, tips, gotchas, etc.
-* [Go Module](docs/module.md) - Go module.
-* [Go Concurrency](docs/concurrency.md) - Go concurrency - still a work-in-progress.
-
-Go-related guides and docs:
-
-* [Goenv](docs/goenv.md) - Guide to using goenv, a version manager for Go.
-* [Unicode](docs/unicode.md) - A primer on Unicode.
-* [Go time format](docs/time-format.md) - Intro to go time format.
-
-## Recipes
-
-Here is a collection of recipes:
+Here is a collection of examples:
 
 * [CLI](cli) - Setting commands, arguments, and flags when building a CLI program in Go.
   * [cobra](cli/cobra) - Implement a cli program using the cobra package.
@@ -62,7 +50,6 @@ Here is a collection of recipes:
     * [JWT](http/server/jwt) - Handles a simple web form submission and a simple authentication using JWT using the `dgrijalva/jwt-go` package.
     * [Static web server](http/server/static) - Implements a simple http server serving static content.
 * [Long polling](long-poll) - A simple long-polling implementation.
-* [Microservice](microservice) - A simple microservice implementation using the `go-kit/kit` package.
 * [MongoDB](mongo) - Working with MongoDB using the official Go driver.
   * [Basic](mongo/simple) - Basic operations with Mongo.
   * [Expiring data](mongo/expiring-data) - Remove expired data using MongoDB TTL indexing.
@@ -95,7 +82,6 @@ Here is a collection of recipes:
   * [Regular expression](string/regexp) - Regular expression basics.
   * [Unicode](string/unicode) - Unicode basics.
 * [Template](template) - Go template.
-  * [Advanced template](template/advanced) - A web application using Go templating and Material Design Components,
   * [HTML template](template/html) - Server-side web content rendering using the `html/template` package.
   * [Layouts](template/layouts) - Create reusable templates (aka layouts).
 * [Time](time) - Datetime in Go.
@@ -103,12 +89,7 @@ Here is a collection of recipes:
   * [Print](time/print) - Prints a date value to different formats.
 * [Validation](validation) - Sample code for the `go-playground/validator` package.
 * [WebAssembly](wasm) - A simple web assembly that prints "hello world" in the browser console.
-* [Web scraper](web-scraper) - Web scrapping using the `gocolly/colly` package.
 * [Webhook](webhook) - The client will push a random event message to a webhook endpoint on the sever every 5 seconds.
-
-Other somewhat Go-related recipes:
-
-* [Go Docker images](long-poll) - the long-poll recipe also contain an extensive example of building Go application Docker images using various base Docker images ubuntu, alpine, scratch, and distroless.
 
 ## Setup
 
