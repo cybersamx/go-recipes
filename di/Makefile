@@ -1,6 +1,6 @@
 PROJECT := $(shell basename $(shell pwd))
-BIN := ./bin
 SRC := .
+BIN := $(SRC)/bin
 
 NO_FRWK_BIN := no-framework
 DIG_BIN := dig
@@ -10,7 +10,7 @@ DIG_SRC := $(wildcard cmd/dig/*.go)
 WIRE_SRC := cmd/wire/wire_gen.go cmd/wire/main.go
 WIRE_SRC_DIR := cmd/wire
 
-.PHONY: install run-no-framework run-dig run-wire build-no-framework build-dig build-wire
+.PHONY: install run-no-framework run-dig run-wire build-no-framework build-dig build-wire clean
 
 all: build-no-framework
 
@@ -36,3 +36,7 @@ build-dig:
 build-wire: install
 	cd $(WIRE_SRC_DIR)
 	go build -o $(BIN)/$(WIRE_BIN) $(WIRE_SRC)
+
+clean:
+	rm -rf $(BIN)
+	go clean

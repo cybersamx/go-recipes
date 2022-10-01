@@ -57,15 +57,18 @@ func main() {
 	numlist := LinkedList[int]{
 		Val: 1,
 		Next: &LinkedList[int]{
-			Val:  3,
-			Next: nil,
+			Val: 2,
+			Next: &LinkedList[int]{
+				Val:  4,
+				Next: nil,
+			},
 		},
 	}
 
 	fmt.Println(numlist)
 
-	numlist.Insert(1, 2)
-	numlist.Add(4)
+	numlist.Insert(2, 3)
+	numlist.Add(5)
 
 	fmt.Println(numlist)
 }

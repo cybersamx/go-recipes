@@ -51,9 +51,14 @@ func doubleOrdered[T constraints.Ordered](t []T) {
 	}
 }
 
+// Nothing happens at runtime because the functions below aren't called. It's here to
+// illustrate what types of operators that are supported for a given type constraint. We
+// can determine this at compile time. If you uncomment the one of the comments with an
+// operator statement, this program won't build.
+
 func testAny[T any](a, b T) {
 	// These operators are not defined for T.
-	// _ = a == b
+	//_ = a == b
 	// _ = a != b
 	// _ = a >= b
 	// _ = a > b

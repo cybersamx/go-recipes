@@ -8,7 +8,8 @@ type Vector[T any] struct {
 	elems []T
 }
 
-// There's no type parameter for a method. Its type parameter is defined at the struct.
+// The method doesn't use a type parameter, instead the type parameter needs to be defined
+// at the struct level.
 
 func (v *Vector[T]) Push(e T) {
 	v.elems = append(v.elems, e)

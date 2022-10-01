@@ -4,6 +4,12 @@ import (
 	"fmt"
 )
 
+var (
+	// This ensures that Cat and Dog conform to the behaviors of Animal.
+	_ Animal = (*Cat)(nil)
+	_ Animal = (*Dog)(nil)
+)
+
 type Animal interface {
 	Species() string
 	Talk() string

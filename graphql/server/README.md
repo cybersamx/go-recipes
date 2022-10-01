@@ -1,35 +1,35 @@
 # GraphQL Server in Go
 
-An example of implementomg a simple GraphQL server using the [99 Designs GraphQL](https://gqlgen.com/) package.
+An example of a simple GraphQL server using the [99 Designs GraphQL](https://gqlgen.com/) package. It's basically a regurgitation of the original [gqlgen tutorial](https://gqlgen.com/getting-started/).
 
 ## Setup
 
-Here are the steps describing how we would build this project from scratch using `gqlqen`. For details, please read [gqlgen tutorial](https://gqlgen.com/getting-started/). Here's a summary of the tutorial:
+For this example, we need to follow the steps described here in order to generate code, embed our logic into the generated code, and perform a final build before running the program.
 
-Here's a sequence of steps to run the example:
-
-1. Download the codegen tool.
+1. To start from scratch, make sure we remove all the generated code.
 
    ```bash
-   $ go install github.com/99designs/gqlgen@latest
+   $ make clean
    ```
 
-1. Build the skeletal code using `gqlgen`. Note: this should generate some boilerplate, and a graphql server with a playground UI for experimenting with  graphql queries.
+1. Build the skeletal code.
 
    ```bash
-   $ cd <project_root_dir>
-   $ gqlgen init   # Create skeletal code
+   $ make
    ```
 
-Or we can build everything up to this point by running the following command:
+1. The above step generates some boilerplate code and a graphql server with a UI that serves as a playground for our graphql queries.
 
-```bash
-$ make      # Build the project
-```
+   ```bash
+   $ make run
+   $ # Launch a web browser and navigate to http://localhost:8080
+   ```
 
-1. Insert code to the skeletal code. In `graph/resolver.go`:
+1. Insert following code to `graph/resolver.go`:
 
    ```go
+   package graph
+
    import (
      "github.com/cybersamx/go-recipes/graphql/server/graph/model"
    )
@@ -43,9 +43,14 @@ $ make      # Build the project
    }
    ```
 
-   In `graph/schema.resolvers.go`:
+   And for `graph/schema.resolvers.go`, insert the following code:
 
    ```go
+   package graph
+
+   // This file will be automatically regenerated based on the schema, any resolver implementations
+   // will be copied through when generating and any unknown code will be moved to the end.
+
    import (
      "context"
      "fmt"
@@ -70,17 +75,26 @@ $ make      # Build the project
    func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
      return r.todos, nil
    }
+
+   // Mutation returns generated.MutationResolver implementation.
+   func (r *Resolver) Mutation() generated.MutationResolver { return &mutationResolver{r} }
+
+   // Query returns generated.QueryResolver implementation.
+   func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
+
+   type mutationResolver struct{ *Resolver }
+   type queryResolver struct{ *Resolver }
    ```
 
 1. Run the server.
 
    ```bash
-   $ go run server.go
+   $ make run
    ```
 
-   Launch a web browser and go to <http://localhost:8080>. You should see the following page. Copy and paste the following query on the browser:
+   Launch a web browser and navigate to <http://localhost:8080>. You should see the following page. Copy and paste the following query on the browser:
 
-   ```json
+   ```graphql
    query {
      todos {
        id
@@ -102,7 +116,7 @@ $ make      # Build the project
 
    It's empty, so mutate the state (ie. add a TODO) to the server using this. Create another tab, copy and paste the following content, and run the graphql.
 
-   ```
+   ```graphql
    mutation {
      createTodo(input: {
        text: "hello world",
@@ -120,17 +134,11 @@ $ make      # Build the project
    //go:generate go run github.com/99designs/gqlgen
    ```
 
-   This line instructs the go compiler what to do when we run it with the generate command recursively over the directory.
+   Next time, we can just run the following command, which instructs the go compiler to run `gqlgen` recursively over the current directory.
 
    ```bash
    $ go generate ./...
    ```
-
-Once all the skeletal code is properly generated and set up, we can subsequently run the following to run the program.
-
-```go
-$ make run
-```
 
 # Reference
 
