@@ -19,4 +19,3 @@ Go provides the `io.Reader` and `io.Writer` interfaces for I/O operations. As a 
 ## Reference and Credits
 
 * [Go Package io](https://golang.org/pkg/io/)
-* [Go Package ioutil](https://golang.org/pkg/io/ioutil/)

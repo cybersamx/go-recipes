@@ -3,9 +3,9 @@ package main
 import (
 	"context"
 	"encoding/json"
-	"io/ioutil"
 	"log"
 	"net"
+	"os"
 
 	"github.com/google/uuid"
 	"google.golang.org/grpc"
@@ -36,7 +36,7 @@ type service struct {
 }
 
 func (s *service) readCatalogFile() error {
-	catalogJSON, err := ioutil.ReadFile("notes.json")
+	catalogJSON, err := os.ReadFile("notes.json")
 	if err != nil {
 		return err
 	}

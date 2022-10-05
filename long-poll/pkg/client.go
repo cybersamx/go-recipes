@@ -3,10 +3,11 @@ package pkg
 import (
 	"errors"
 	"fmt"
-	log "github.com/sirupsen/logrus"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -31,7 +32,7 @@ func callServer() (retEvent string, retErr error) {
 		return "", errClientError
 	}
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		log.Fatal(err)
 		return "", errClientError

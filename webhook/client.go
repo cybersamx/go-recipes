@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
-	"io/ioutil"
+	"io"
 	"log"
 	"math/rand"
 	"net/http"
@@ -46,7 +46,7 @@ func callServer(ticker *time.Ticker) {
 			log.Fatal(err)
 			continue
 		}
-		req.Body = ioutil.NopCloser(bytes.NewBuffer(jsonData))
+		req.Body = io.NopCloser(bytes.NewBuffer(jsonData))
 
 		res, err := client.Do(req)
 		if err != nil {
@@ -54,7 +54,7 @@ func callServer(ticker *time.Ticker) {
 			continue
 		}
 
-		body, err := ioutil.ReadAll(res.Body)
+		body, err := io.ReadAll(res.Body)
 		defer res.Body.Close()
 		if err != nil {
 			log.Fatal(err)

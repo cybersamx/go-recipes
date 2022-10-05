@@ -4,11 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	log "github.com/sirupsen/logrus"
 	"math/rand"
 	"net/http"
 	"os"
 	"time"
+
+	log "github.com/sirupsen/logrus"
 )
 
 // Deliberately import a third-party package so that we can build our Docker image
@@ -54,7 +55,7 @@ func respondWithEvent(w http.ResponseWriter) {
 	}
 }
 
-// An event will surface anytime between 1 to 10 seconds and is then sent to the client.
+// An event will surface anytime between 1 and 10 seconds and is then sent to the client.
 // If time for event to surface > 5 seconds, timeout and return a response with no content.
 
 func rootHandler(w http.ResponseWriter, r *http.Request) {
