@@ -9,15 +9,15 @@ import (
 	"os"
 	"time"
 
-	"github.com/dgrijalva/jwt-go"
+	"github.com/golang-jwt/jwt/v4"
 )
 
 // --- Global Variables ---
 
 // JWTClaims represents a JWT claim that is embedded in a user request.
 type JWTClaims struct {
-	Username string `json: "username"`
-	jwt.StandardClaims
+	Username string `json:"username"`
+	jwt.RegisteredClaims
 }
 
 // In Go, if a string is used as a key eg. context.WithValue(), it has to be
@@ -70,11 +70,12 @@ func outputHTML(w http.ResponseWriter, r *http.Request, filepath string) {
 }
 
 func newJWT(username string) (string, error) {
+	expiry := time.Now().Add(expireDuration)
 	claims := JWTClaims{
 		Username: username,
-		StandardClaims: jwt.StandardClaims{
+		RegisteredClaims: jwt.RegisteredClaims{
 			// JWT time format is in epoch.
-			ExpiresAt: time.Now().Add(expireDuration).Unix(),
+			ExpiresAt: jwt.NewNumericDate(expiry),
 		},
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS512, claims)
