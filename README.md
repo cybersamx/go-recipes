@@ -65,6 +65,7 @@ Here is a collection of examples:
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep equal](reflect/equality) - Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
   * [Print fields](reflect/print-fields) - Print out the fields of a custom struct type.
+  * [Merge map to struct](reflect/merge-fields) - Merge Matching Fields from Map to Struct.
 * [Regular expression](regexp) - Regular expression basics.
 * [Retry](retry) - Ways to implement retry in Go.
   * [Standard](retry/standard) - Simple retry implemented using Go, no third-party package.
@@ -91,20 +92,3 @@ Here is a collection of examples:
 * [WebAssembly](wasm) - A simple web assembly that prints "hello world" in the browser console.
 * [Webhook](webhook) - The client will push a random event message to a webhook endpoint on the sever every 5 seconds.
 
-## Setup
-
-The [Makefile](Makefile) in the project root directory calls the Makefile each recipe. To build all recipes run:
-
-```bash
-$ make
-```
-
-To remove the built binaries and build cache, run:
-
-```bash
-$ make clean
-```
-
-## Credits and Reference
-
-* [Azer Makefile](https://github.com/azer/go-makefile-example/blob/master/Makefile)

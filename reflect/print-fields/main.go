@@ -25,7 +25,7 @@ type Location struct {
 	Coordinate Coordinate
 }
 
-// objToValues Return the values of obj and return the field names as a flatten string slice-custom-type.
+// objToNames Return the values of obj and return the field names as a flatten string slice-custom-type.
 func objToNames(obj interface{}, names []string, tag string) []string {
 	var typ reflect.Type
 
@@ -46,7 +46,8 @@ func objToNames(obj interface{}, names []string, tag string) []string {
 			continue
 		}
 
-		// If tag is passed to the function, we only append if the field is tagged and that it matches tag.
+		// Append the field name if no tag is passed to the function. But if a tag is
+		// passed, we only append if there's a non-empty value found for that tag.
 		if tag == "" || field.Tag.Get(tag) != "" {
 			names = append(names, field.Name)
 		}
