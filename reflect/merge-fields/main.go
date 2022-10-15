@@ -24,25 +24,26 @@ func merge(dict map[string]any, user *User) *User {
 
 	for k, v := range dict {
 		for i := 0; i < typ.NumField(); i++ {
-			field := typ.Field(i)
-			field.Tag.Get(k)
+			fieldTyp := typ.Field(i)
+			fieldVal := val.Elem().FieldByName(fieldTyp.Name)
 
-			tagVal := field.Tag.Get("json")
+			tagVal := fieldTyp.Tag.Get("json")
 			if strings.Contains(tagVal, k) {
-				fieldVal := val.Elem().FieldByName(field.Name)
 				switch fieldVal.Kind() {
-				case reflect.Int:
-					mapVal, ok := v.(int)
-					if !ok {
-						log.Panicf("map[%s] with value %v is not of type int", k, v)
-					}
-					fieldVal.SetInt(int64(mapVal))
 				case reflect.String:
 					mapVal, ok := v.(string)
 					if !ok {
-						log.Panicf("map[%s] with value %v is not of type string", k, v)
+						log.Panicf("map[%s] with value %v must be of type string", k, v)
 					}
 					fieldVal.SetString(mapVal)
+				case reflect.Int:
+					mapVal, ok := v.(int)
+					if !ok {
+						log.Panicf("map[%s] with value %v must be of type int", k, v)
+					}
+					fieldVal.SetInt(int64(mapVal))
+				default:
+					log.Panicf("struct field tagged as %s has a unsupported type %v", k, fieldTyp)
 				}
 			}
 		}
@@ -64,6 +65,7 @@ func main() {
 		ZipCode:   "90405",
 	}
 
+	fmt.Println(user)
 	merged := merge(userMap, &user)
 	fmt.Println(merged)
 }

@@ -64,8 +64,9 @@ Here is a collection of examples:
   * [Authentication](redis/auth) - Handling Redis authentication.
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep equal](reflect/equality) - Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
-  * [Print fields](reflect/print-fields) - Print out the fields of a custom struct type.
   * [Merge map to struct](reflect/merge-fields) - Merge Matching Fields from Map to Struct.
+  * [Merge map to struct recursively](reflect/merge-fields-recursive) - Same as the above merge map to struct but supports nested fields.
+  * [Print fields](reflect/print-fields) - Print out the fields of a custom struct type.
 * [Regular expression](regexp) - Regular expression basics.
 * [Retry](retry) - Ways to implement retry in Go.
   * [Standard](retry/standard) - Simple retry implemented using Go, no third-party package.

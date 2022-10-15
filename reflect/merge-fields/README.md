@@ -1,6 +1,8 @@
 # Merge Matching Fields from Map to Struct
 
-Suppose we have a map[string]any. We want to copy the content of that map to a struct if a key in the map matches a tag in the struct.
+Suppose we have a map[string]any. We want to copy the content of that map to a struct if the keys in the map matches the tags in the struct.
+
+This just a simple example of mapping to a pre-defined struct value and doesn't support mapping the nested fields. Look at [merge fields recursive](../merge-fields-recursive) for nested mapping on any struct type.
 
 ## Notes
 
