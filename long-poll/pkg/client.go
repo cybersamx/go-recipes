@@ -16,7 +16,7 @@ var (
 	errClientError   = errors.New("client error")
 )
 
-func callServer() (retEvent string, retErr error) {
+func callServer() (string, error) {
 	client := http.Client{}
 	url := fmt.Sprintf("http://localhost:%d", port)
 	req, err := http.NewRequest("GET", url, nil)
@@ -37,13 +37,7 @@ func callServer() (retEvent string, retErr error) {
 		log.Fatal(err)
 		return "", errClientError
 	}
-	defer func() {
-		err := resp.Body.Close()
-		if err != nil {
-			retEvent = ""
-			retErr = err
-		}
-	}()
+	defer resp.Body.Close()
 
 	switch resp.StatusCode {
 	case http.StatusOK:

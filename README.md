@@ -65,7 +65,7 @@ Here is a collection of examples:
 * [Reflection](reflect) - Go runtime reflection.
   * [Deep equal](reflect/equality) - Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
   * [Print fields](reflect/print-fields) - Print out the fields of a custom struct type.
-  * [Type check](reflect/typecheck) - Type checking at runtime.
+* [Regular expression](regexp) - Regular expression basics.
 * [Retry](retry) - Ways to implement retry in Go.
   * [Standard](retry/standard) - Simple retry implemented using Go, no third-party package.
   * [Retry package](retry/retry) - Retry using the `flowchartsman/retry` package.
@@ -79,7 +79,6 @@ Here is a collection of examples:
   * [SQLite](sql/sqlite) - Connect to a SQLite database.
 * [String](string) - Strings and characters in Go.
   * [Count iterate](string/count-iterate) - Count and iterate over a string by rune and byte.
-  * [Regular expression](string/regexp) - Regular expression basics.
   * [Unicode](string/unicode) - Unicode basics.
 * [Template](template) - Go template.
   * [HTML template](template/html) - Server-side web content rendering using the `html/template` package.
@@ -87,6 +86,7 @@ Here is a collection of examples:
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
+* [Type check](typecheck) - Type checking at runtime.
 * [Validation](validation) - Sample code for the `go-playground/validator` package.
 * [WebAssembly](wasm) - A simple web assembly that prints "hello world" in the browser console.
 * [Webhook](webhook) - The client will push a random event message to a webhook endpoint on the sever every 5 seconds.

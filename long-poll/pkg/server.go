@@ -68,15 +68,15 @@ func rootHandler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	waitChan := time.Tick(wait) // Wait this long to pick an event
-	tctx, tcancel := context.WithTimeout(context.Background(), timeout)
-	defer tcancel()
+	ctx, cancel := context.WithTimeout(context.Background(), timeout)
+	defer cancel()
 
 	log.Printf("server received request and waits %.1fs to emit an event back to the sender", wait.Seconds())
 	select {
 	case <-r.Context().Done():
 		log.Print("server request canceled")
 		http.Error(w, "request canceled", http.StatusNotModified)
-	case <-tctx.Done():
+	case <-ctx.Done():
 		log.Printf("server timed out after %.1f", timeout.Seconds())
 		http.Error(w, fmt.Sprintf("server timed out after %.1f", timeout.Seconds()), http.StatusNotModified)
 	case <-waitChan:
