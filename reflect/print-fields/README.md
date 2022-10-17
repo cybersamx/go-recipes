@@ -1,9 +1,6 @@
-# Print Fields
+# Reflection Basics
 
-This example covers the following:
-
-* Given a value of a custom `struct` type, print out the names and values of all its fields.
-* Given a value of a custom `struct` type, print out the names and values of its fields that are tagged.
+An example that shows the behaviors of reflection objects on different underlying values.
 
 ## Setup
 

@@ -63,6 +63,7 @@ Here is a collection of examples:
   * [Sessions](redis/sessions) - Ephemeral sessions in Redis by setting up Redis to remove expired content using the [Go-Redis](https://redis.uptrace.dev/) and [Radix](https://github.com/mediocregopher/radix).
   * [Authentication](redis/auth) - Handling Redis authentication.
 * [Reflection](reflect) - Go runtime reflection.
+  * [Basics](reflect/basics) - Behaviors of reflection objects on different underlying values.
   * [Deep equal](reflect/equality) - Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
   * [Merge map to struct](reflect/merge-fields) - Merge Matching Fields from Map to Struct.
   * [Merge map to struct recursively](reflect/merge-fields-recursive) - Same as the above merge map to struct with

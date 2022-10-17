@@ -28,20 +28,20 @@ type Location struct {
 
 // objToNames Return the values of obj and return the field names as a flatten string slice-custom-type.
 func objToNames(obj any, names []string, tag string) []string {
-	rtype := reflect.TypeOf(obj)
-	if rtype.Kind() == reflect.Ptr {
-		rtype = rtype.Elem()
+	rtyp := reflect.TypeOf(obj)
+	if rtyp.Kind() == reflect.Ptr {
+		rtyp = rtyp.Elem()
 	}
 
-	return rtypeToNames(rtype, names, tag)
+	return rtypToNames(rtyp, names, tag)
 }
 
-func rtypeToNames(rtype reflect.Type, names []string, tag string) []string {
-	for i := 0; i < rtype.NumField(); i++ {
-		field := rtype.Field(i)
+func rtypToNames(rtyp reflect.Type, names []string, tag string) []string {
+	for i := 0; i < rtyp.NumField(); i++ {
+		field := rtyp.Field(i)
 
 		if field.Type.Kind() == reflect.Struct {
-			names = rtypeToNames(field.Type, names, tag)
+			names = rtypToNames(field.Type, names, tag)
 			continue
 		}
 
