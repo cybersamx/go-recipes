@@ -22,27 +22,26 @@ type Location struct {
 	City       string
 	State      string
 	Zip        string
+	Enable     bool
 	Coordinate Coordinate
 }
 
 // objToNames Return the values of obj and return the field names as a flatten string slice-custom-type.
-func objToNames(obj interface{}, names []string, tag string) []string {
-	var typ reflect.Type
-
-	if sf, ok := obj.(reflect.StructField); ok {
-		typ = sf.Type
-	} else {
-		typ = reflect.TypeOf(obj)
-		if typ.Kind() == reflect.Ptr {
-			typ = typ.Elem()
-		}
+func objToNames(obj any, names []string, tag string) []string {
+	rtype := reflect.TypeOf(obj)
+	if rtype.Kind() == reflect.Ptr {
+		rtype = rtype.Elem()
 	}
 
-	for i := 0; i < typ.NumField(); i++ {
-		field := typ.Field(i)
+	return rtypeToNames(rtype, names, tag)
+}
+
+func rtypeToNames(rtype reflect.Type, names []string, tag string) []string {
+	for i := 0; i < rtype.NumField(); i++ {
+		field := rtype.Field(i)
 
 		if field.Type.Kind() == reflect.Struct {
-			names = objToNames(field, names, tag)
+			names = rtypeToNames(field.Type, names, tag)
 			continue
 		}
 
@@ -57,25 +56,23 @@ func objToNames(obj interface{}, names []string, tag string) []string {
 }
 
 // objToValues Return the values of obj and return the field values as a flatten string slice-custom-type.
-func objToValues(obj interface{}, vals []string) []string {
-	var val reflect.Value
-
-	if rval, ok := obj.(reflect.Value); ok {
-		val = rval
-	} else {
-		val = reflect.ValueOf(obj)
-		if val.Kind() == reflect.Ptr {
-			val = val.Elem()
-		}
+func objToValues(obj any, vals []string) []string {
+	rval := reflect.ValueOf(obj)
+	if rval.Kind() == reflect.Ptr {
+		rval = rval.Elem()
 	}
 
-	for i := 0; i < val.NumField(); i++ {
-		field := val.Field(i)
+	return rvalToValues(rval, vals)
+}
+
+func rvalToValues(rval reflect.Value, vals []string) []string {
+	for i := 0; i < rval.NumField(); i++ {
+		field := rval.Field(i)
 
 		switch field.Kind() {
 		case reflect.Struct:
-			vals = objToValues(field, vals)
-		case reflect.Int, reflect.Int8, reflect.Int16, reflect.Int32, reflect.Int64:
+			vals = rvalToValues(field, vals)
+		case reflect.Int:
 			vals = append(vals, strconv.FormatInt(field.Int(), 10))
 		case reflect.Float32, reflect.Float64:
 			vals = append(vals, strconv.FormatFloat(field.Float(), 'f', 3, 32))
@@ -84,7 +81,7 @@ func objToValues(obj interface{}, vals []string) []string {
 		default:
 			// This is sample code, so this is fine.
 			// As a best practice, we should really have an exhaustive list of cases to extract the field value.
-			vals = append(vals, "<Field type not supported>")
+			vals = append(vals, fmt.Sprintf("<unsupported-type: %v>", field.Kind()))
 		}
 	}
 
@@ -107,15 +104,15 @@ func main() {
 		},
 	}
 
-	names := objToNames(loc, make([]string, 0), "")
+	names := objToNames(loc, []string{}, "")
 	fmt.Println("Flatten names")
 	fmt.Println(names)
 
-	taggedNames := objToNames(loc, make([]string, 0), "sam")
+	taggedNames := objToNames(loc, []string{}, "sam")
 	fmt.Println("Flatten names that are tagged")
 	fmt.Println(taggedNames)
 
-	values := objToValues(loc, make([]string, 0))
+	values := objToValues(loc, []string{})
 	fmt.Println("Flatten values")
 	fmt.Println(values)
 }
