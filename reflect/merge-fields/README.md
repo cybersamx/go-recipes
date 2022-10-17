@@ -17,3 +17,7 @@ This just a simple example of mapping to a pre-defined struct value and doesn't 
    ```bash
    $ make run
    ```
+
+## Reference
+
+* [The Laws of Reflection](https://go.dev/blog/laws-of-reflection)

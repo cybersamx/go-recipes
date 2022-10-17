@@ -58,3 +58,7 @@ to the struct. Second, on the field itself, since we called `Addr()`.
    ```bash
    $ make run
    ```
+
+## Reference
+
+* [The Laws of Reflection](https://go.dev/blog/laws-of-reflection)

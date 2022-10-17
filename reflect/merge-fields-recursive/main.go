@@ -28,11 +28,13 @@ type User struct {
 // We can probably combine mergeReflect and merge functions together. Maybe refactor this
 // later. Keep those functions separate to make it more readable.
 
-func mergeReflect(dict map[string]any, typ reflect.Type, val reflect.Value) {
+func mergeReflect(dict map[string]any, val reflect.Value) {
+	typ := val.Type()
+
 	for k, v := range dict {
-		for i := 0; i < typ.NumField(); i++ {
+		for i := 0; i < val.NumField(); i++ {
+			fieldVal := val.Field(i)
 			fieldTyp := typ.Field(i)
-			fieldVal := val.FieldByName(fieldTyp.Name)
 
 			tagVal := fieldTyp.Tag.Get("json")
 			if strings.Contains(tagVal, k) {
@@ -42,7 +44,7 @@ func mergeReflect(dict map[string]any, typ reflect.Type, val reflect.Value) {
 					if !ok {
 						log.Panicf("map[%s] with value %v must be of type map[string]any", k, v)
 					}
-					mergeReflect(nestedDict, fieldTyp.Type, fieldVal)
+					mergeReflect(nestedDict, fieldVal)
 				case reflect.String:
 					mapVal, ok := v.(string)
 					if !ok {
@@ -70,27 +72,12 @@ func mergeReflect(dict map[string]any, typ reflect.Type, val reflect.Value) {
 }
 
 func merge(dict map[string]any, obj any) {
-	var typ reflect.Type
-	if sf, ok := obj.(reflect.StructField); ok {
-		typ = sf.Type
-	} else {
-		typ = reflect.TypeOf(obj)
-		if typ.Kind() == reflect.Ptr {
-			typ = typ.Elem()
-		}
+	val := reflect.ValueOf(obj)
+	if val.Kind() == reflect.Ptr {
+		val = val.Elem()
 	}
 
-	var val reflect.Value
-	if rval, ok := obj.(reflect.Value); ok {
-		val = rval
-	} else {
-		val = reflect.ValueOf(obj)
-		if val.Kind() == reflect.Ptr {
-			val = val.Elem()
-		}
-	}
-
-	mergeReflect(dict, typ, val)
+	mergeReflect(dict, val)
 }
 
 func main() {

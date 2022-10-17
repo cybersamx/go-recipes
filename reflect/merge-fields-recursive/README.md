@@ -11,3 +11,7 @@ This example is an extension of the [simpler example](../merge-fields) of just m
    ```bash
    $ make run
    ```
+
+## Reference
+
+* [The Laws of Reflection](https://go.dev/blog/laws-of-reflection)

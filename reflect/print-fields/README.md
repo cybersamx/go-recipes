@@ -12,3 +12,7 @@ This example covers the following:
    ```bash
    $ make run
    ```
+
+## Reference
+
+* [The Laws of Reflection](https://go.dev/blog/laws-of-reflection)
