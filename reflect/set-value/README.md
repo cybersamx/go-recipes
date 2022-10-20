@@ -3,6 +3,10 @@
 Let's suppose we have a slice or a struct with a field of type slice, and we want to assign to the slice with
 another slice or append with an item. This example shows how we can do that with Go's `reflect` package.
 
+> **Note**
+>
+> Reflection is tricky business as we attempt to find out the type metadata of an object at runtime. So we can't fully rely on static types and the compiler to do the checking for us. There are many edge cases that are not captured in this example as we want to focus on the pertinent code on reflection. Please don't just copy the example without understanding what the code and include additional checks and logic for handling edge cases.
+
 ## Setting a Variable
 
 When we are setting a `reflect.Value` object (or rval) with a value, the rval must be addressable. This means

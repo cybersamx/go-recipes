@@ -4,6 +4,10 @@ Suppose we have a map[string]any. We want to copy the content of that map to a s
 
 This just a simple example of mapping to a pre-defined struct value and doesn't support mapping the nested fields. Look at [merge fields recursive](../merge-fields-recursive) for nested mapping on any struct type.
 
+> **Note**
+>
+> Reflection is tricky business as we attempt to find out the type metadata of an object at runtime. So we can't fully rely on static types and the compiler to do the checking for us. There are many edge cases that are not captured in this example as we want to focus on the pertinent code on reflection. Please don't just copy the example without understanding what the code and include additional checks and logic for handling edge cases.
+
 ## Notes
 
 * To get the type of a struct value, we must pass the struct as a value to `reflect.TypeOf` function.

@@ -22,7 +22,6 @@ Here is a collection of examples:
     * [Buffered vs unbuffered channel](concurrency/channel/buffered-unbuffered) - Differences between buffered and unbuffered channels.
     * [Channel passing](concurrency/channel/channel-passing) - Message passing between 2 goroutines using a channel.
   * [WaitGroup](concurrency/waitgroup) - Using `sync.WaitGroup` to synchronize multiple concurrent goroutines.
-
 * [Context](context) - The `context` package.
   * [Deadline](context/deadline) - Timeout using `context.WithDeadline` function.
 * [Cookie](cookie) - Introduction to cookies in Go.

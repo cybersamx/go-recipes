@@ -10,11 +10,11 @@ type Class struct {
 	Students []string
 }
 
-// setToSlice mutates the reflect.Value `sliceVal` depending on the underlying type of the parameter `itemVal`.
-// If `itemVal` is a slice, we assign `itemVal` completely to `sliceVal`. If `itemVal` matches the type of the
-// underlying item types in `sliceVal`, we append `itemVal` to `sliceVal`.
+// setToSlice mutates the reflect.Value `sliceRVal` depending on the underlying type of the parameter `itemRVal`.
+// If `itemRVal` is a slice, we assign `itemVal` completely to `sliceRVal`. If `itemVal` matches the type of the
+// underlying item types in `sliceVal`, we append `itemRVal` to `sliceRVal`.
 
-func setToSlice(sliceVal, itemVal reflect.Value) (rerr error) {
+func setToSlice(sliceRVal, itemRVal reflect.Value) (rerr error) {
 	// We can pass anything to this function, which can cause the system panic. It's a
 	// good idea to have a recovery from a panic.
 	defer func() {
@@ -24,21 +24,21 @@ func setToSlice(sliceVal, itemVal reflect.Value) (rerr error) {
 	}()
 
 	// A few key conditional checks on the parameters. The above recover handler will handle edge cases.
-	if sliceVal.Kind() != reflect.Ptr {
+	if sliceRVal.Kind() != reflect.Ptr {
 		return errors.New("values must be addressable so that we can set a value")
 	}
 
 	// What's the value the pointer is referencing.
-	sliceVal = sliceVal.Elem()
+	sliceRVal = sliceRVal.Elem()
 
-	if sliceVal.Kind() != reflect.Slice {
-		return errors.New("sliceVal must be a slice")
+	if sliceRVal.Kind() != reflect.Slice {
+		return errors.New("sliceRVal must be a slice")
 	}
 
-	if itemVal.Kind() == reflect.Slice {
-		sliceVal.Set(itemVal)
+	if itemRVal.Kind() == reflect.Slice {
+		sliceRVal.Set(itemRVal)
 	} else {
-		sliceVal.Set(reflect.Append(sliceVal, itemVal))
+		sliceRVal.Set(reflect.Append(sliceRVal, itemRVal))
 	}
 
 	return nil
@@ -46,22 +46,22 @@ func setToSlice(sliceVal, itemVal reflect.Value) (rerr error) {
 
 func main() {
 	var names []string
-	sliceVal := reflect.ValueOf(&names)
+	sliceRVal := reflect.ValueOf(&names)
 
-	if err := setToSlice(sliceVal, reflect.ValueOf("Peter")); err != nil {
+	if err := setToSlice(sliceRVal, reflect.ValueOf("Peter")); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(names)
 
-	if err := setToSlice(sliceVal, reflect.ValueOf([]string{"Stephanie", "Nancy"})); err != nil {
+	if err := setToSlice(sliceRVal, reflect.ValueOf([]string{"Stephanie", "Nancy"})); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(names)
 
 	class := Class{}
-	studentsVal := reflect.ValueOf(&class).Elem().FieldByName("Students").Addr()
+	studentsRVal := reflect.ValueOf(&class).Elem().FieldByName("Students").Addr()
 
-	if err := setToSlice(studentsVal, reflect.ValueOf("Peter")); err != nil {
+	if err := setToSlice(studentsRVal, reflect.ValueOf("Peter")); err != nil {
 		fmt.Println(err)
 	}
 	fmt.Println(class)
