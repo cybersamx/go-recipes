@@ -29,8 +29,10 @@ Here is a collection of examples:
 * [Enum](enum) - Implement enum in Go.
 * [Fake vs mock in unit testing](fake-mock) - The use of fake and mock in Go unit testing.
 * [File I/O](io) - File input/output operations.
-  * [Reader](io/file-reader) - Different ways of reading from a file: incrementally and all-at-once.
-  * [Writer](io/file-writer) - Writing to a file.
+  * [Basic reading](io/basic-read) - Different ways to read.
+  * [File reader](io/file-reader) - Different ways of reading from a file: incrementally and all-at-once.
+  * [File writer](io/file-writer) - Writing to a file.
+  * [Mutli-reading](io/multi-read) - Reading from a source multiple times.
 * [Generics](generics) - Go Generics.
   * [Custom type](generics/custom-type) - Using a custom type as a type parameter.
   * [Linked list](generics/linked-list) - Generic-based linked list.
