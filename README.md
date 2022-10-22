@@ -28,11 +28,6 @@ Here is a collection of examples:
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
 * [Enum](enum) - Implement enum in Go.
 * [Fake vs mock in unit testing](fake-mock) - The use of fake and mock in Go unit testing.
-* [File I/O](io) - File input/output operations.
-  * [Basic reading](io/basic-read) - Different ways to read.
-  * [File reader](io/file-reader) - Different ways of reading from a file: incrementally and all-at-once.
-  * [File writer](io/file-writer) - Writing to a file.
-  * [Mutli-reading](io/multi-read) - Reading from a source multiple times.
 * [Generics](generics) - Go Generics.
   * [Custom type](generics/custom-type) - Using a custom type as a type parameter.
   * [Linked list](generics/linked-list) - Generic-based linked list.
@@ -50,6 +45,12 @@ Here is a collection of examples:
     * [Form](http/server/form) - Handles a form submission (object binding and validation) using the gin framework.
     * [JWT](http/server/jwt) - Handles a simple web form submission and a simple authentication using JWT using the `dgrijalva/jwt-go` package.
     * [Static web server](http/server/static) - Implements a simple http server serving static content.
+* [I/O](io) - Input/output operations.
+  * [Basic read](io/basic-read) - Different ways to read.
+  * [File reader](io/file-reader) - Different ways of reading from a file: incrementally and all-at-once.
+  * [File writer](io/file-writer) - Writing to a file.
+  * [Mutli-read](io/multi-read) - Reading from a source multiple times.
+  * [Pipe](io/pipe) - Establish a pipeline for writing content on one end of the pipeline to reading on the end.
 * [Long polling](long-poll) - A simple long-polling implementation.
 * [MongoDB](mongo) - Working with MongoDB using the official Go driver.
   * [Basic](mongo/simple) - Basic operations with Mongo.
@@ -65,7 +66,7 @@ Here is a collection of examples:
   * [Authentication](redis/auth) - Handling Redis authentication.
 * [Reflection](reflect) - Go runtime reflection.
   * [Basics](reflect/basics) - Behaviors of reflection objects on different underlying values.
-  * [Deep equal](reflect/equality) - Go (deep) equality operation using the `reflect.DeepEqual` to compare 2 values.
+  * [Deep equal](reflect/equality) - Go (deep) equality operation using `reflect.DeepEqual` to compare 2 values.
   * [Merge map to struct](reflect/merge-fields) - Merge Matching Fields from Map to Struct.
   * [Merge map to struct recursively](reflect/merge-fields-recursive) - Same as the above merge map to struct with
     support for nested fields.
