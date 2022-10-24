@@ -1,4 +1,4 @@
-package pkg
+package main
 
 import (
 	"context"
@@ -11,9 +11,6 @@ import (
 
 	log "github.com/sirupsen/logrus"
 )
-
-// Deliberately import a third-party package so that we can build our Docker image
-// with dependencies.
 
 const (
 	port = 8000
@@ -61,7 +58,7 @@ func respondWithEvent(w http.ResponseWriter) {
 func rootHandler(w http.ResponseWriter, r *http.Request) {
 	rand.Seed(time.Now().UnixNano())
 	timeout := time.Duration(5) * time.Second
-	wait := time.Duration(rand.Intn(20)-10) * time.Second
+	wait := time.Duration(rand.Intn(9)+1) * time.Second
 	if wait < 0 {
 		log.Print("server received request and return an event back to the sender immediately")
 		respondWithEvent(w)

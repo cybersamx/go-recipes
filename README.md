@@ -80,6 +80,8 @@ Here is a collection of examples:
 * [Serialization](serialization) - Go serialization.
   * [CSV](serialization/csv) - Write and read csv files.
   * [JSON](serialization/json) - Basic json serialization using `json.MarshalJSON()` and `json.UnmarshalJSON()` functions.
+* [System](system) - System.
+  * [Interrupt via channel](system/interrupt) - Get notify of a system interrupt via channels.
 * [SQL](sql) - Connecting to a relational database.
   * [Ephemeral SQL data model](sql/ephemeral-sql-data) - SQL garbage collector that removes expired records in sql database.
   * [SQL](sql/sql) - Connect to Postgres using the `database/sql` package.
