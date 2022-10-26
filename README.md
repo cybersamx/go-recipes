@@ -23,6 +23,7 @@ Here is a collection of examples:
     * [Channel passing](concurrency/channel/channel-passing) - Message passing between 2 goroutines using a channel.
   * [WaitGroup](concurrency/waitgroup) - Using `sync.WaitGroup` to synchronize multiple concurrent goroutines.
 * [Context](context) - The `context` package.
+  * [Cancel](context/cancel) - Cancel contexts.
   * [Deadline](context/deadline) - Timeout using `context.WithDeadline` function.
 * [Cookie](cookie) - Introduction to cookies in Go.
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
