@@ -93,6 +93,8 @@ Here is a collection of examples:
 * [Template](template) - Go template.
   * [HTML template](template/html) - Server-side web content rendering using the `html/template` package.
   * [Layouts](template/layouts) - Create reusable templates (aka layouts).
+* [Testing](testing) - Go testing.
+  * [T.Helper](testing/helper) - What is T.Helper() and what it does.
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
