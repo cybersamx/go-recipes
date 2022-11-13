@@ -60,6 +60,8 @@ Here is a collection of examples:
   * [Pre-defined schema](mongo/schema) - An example similar to the [basic mongo recipe](mongo/simple), but implemented using a pre-defined schema.
 * [Pubsub](pubsub) - Pubsub examples.
   * [Kafka](pubsub/kafka) - A simple pubsub application using kafka.
+* [QRCode](qrcode) - QRCode examples.
+  * [QRCode Reader](qrcode/reader) - QRCode reader.
 * [Random](random) - Generating random data in Go.
 * [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` and `go-redis/redis` drivers.
   * [Counter](redis/counter) - Global atomic counter that showcases basic operations in Redis.
