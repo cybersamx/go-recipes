@@ -100,6 +100,8 @@ Here is a collection of examples:
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
+* [URL](url) - URL in Go.
+  * [Query parameters](url/query-params) - Construct query parameters with an URL object.
 * [Type check](typecheck) - Type checking at runtime.
 * [Validation](validation) - Sample code for the `go-playground/validator` package.
 * [WebAssembly](wasm) - A simple web assembly that prints "hello world" in the browser console.
