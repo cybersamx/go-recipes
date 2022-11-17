@@ -23,7 +23,7 @@ When the `HttpOnly` field of a Cookie instance is set to `true`, the cookie beco
 
 ### Secure Field
 
-When the `Secure` field of a Cookie instance is set to `true`, we are tellomg the web browser that the cookie must be sent to the server over HTTPS.
+When the `Secure` field of a Cookie instance is set to `true`, we are telling the web browser that the cookie must be sent to the server over HTTPS.
 
 ### Domain Field
 
@@ -73,6 +73,26 @@ The `Value` attribute of a cookie accepts only string value. Nonetheless, you ca
 ### Security
 
 The [securecookie package](https://github.com/gorilla/securecookie), as part of the Gorilla Toolkit for writing robust  web apps in Go, has good support for writing secure cookie.
+
+### HTTP Header
+
+We can write a cookie directly to the http header. For a http response, here's the format:
+
+```text
+Set-Cookie: name1=value1 <;name2=value2> <;domain=domain_value> <; path=path_value>...
+```
+
+For example:
+
+```text
+Set-Cookie: session_id=XERweurwe734; user_id=3248234823 domain=example.com; path=/images; HttpOnly
+```
+
+For request, use http header name `Cookie`.
+
+```text
+Cookie: session_id=XERweurwe734; user_id=3248234823
+```
 
 ## Setup
 

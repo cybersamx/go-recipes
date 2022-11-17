@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"testing"
 
 	"github.com/cybersamx/go-recipes/fake-mock/api/mocks"
@@ -35,7 +36,20 @@ func TestAPIUsingMock(t *testing.T) {
 	email := "sam@example.com"
 	mam := mocks.NewTestifyMockAccountModel()
 	service := NewAccountService(mam)
-	mam.On("UpdateAccount", email, mock.Anything).Return(nil)
+	mam.On("UpdateAccount", mock.AnythingOfType("string"), mock.AnythingOfType("string")).Return(nil)
+	mam.On("AddAccount", mock.Anything, mock.Anything).Return(func(e, pwd string) error {
+		// The following is strictly for demo. It doesn't make logic sense.
+		if e == email {
+			return nil
+		}
+
+		return errors.New("mismatched password")
+	})
+
+	// We can call the mocks directly. For this, instead of passing a literal value to
+	// Return(), we can pass a function. To do so, we need to change the mocked AddAccount.
+	assert.NoError(t, mam.AddAccount(email, "my-password"))
+	assert.Error(t, mam.AddAccount("wrong-email", "my-password"))
 
 	// Run
 	// Note: service.ForgotPassword is the actual code that we are unit testing.

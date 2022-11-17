@@ -23,23 +23,35 @@ func NewTestifyMockAccountModel() *TestifyMockAccountModel {
 // AddAccount sets up the function to be stubbed with actual outputs to mimic
 // adding a new account to the database.
 func (mam *TestifyMockAccountModel) AddAccount(email, password string) error {
-	args := mam.Called(email, password)
+	ret := mam.Called(email, password)
 
-	return args.Error(0)
+	var r error
+	arg := ret.Get(0)
+	if rf, ok := arg.(func(string, string) error); ok {
+		r = rf(email, password)
+	} else {
+		if arg == nil {
+			return nil
+		}
+
+		r = arg.(error) // We can also use ret.Error(0)
+	}
+
+	return r
 }
 
 // UpdateAccount sets up the function to be stubbed with actual outputs to mimic
 // updating an account in the database with passed email and password.
 func (mam *TestifyMockAccountModel) UpdateAccount(email, password string) error {
-	args := mam.Called(email, password)
+	ret := mam.Called(email, password)
 
-	return args.Error(0)
+	return ret.Error(0)
 }
 
 // GetAccount sets up the function to be stubbed with actual outputs to mimic
 // retrieving an account associated with the passed email.
 func (mam *TestifyMockAccountModel) GetAccount(email string) (*model.Account, error) {
-	args := mam.Called(email)
+	ret := mam.Called(email)
 
-	return args.Get(0).(*model.Account), args.Error(1)
+	return ret.Get(0).(*model.Account), ret.Error(1)
 }
