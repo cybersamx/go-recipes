@@ -28,6 +28,7 @@ Here is a collection of examples:
 * [Cookie](cookie) - Introduction to cookies in Go.
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
 * [Enum](enum) - Implement enum in Go.
+* [Error wrapping](error) - Go error wrapping.
 * [Fake vs mock in unit testing](fake-mock) - The use of fake and mock in Go unit testing.
 * [Generics](generics) - Go Generics.
   * [Custom type](generics/custom-type) - Using a custom type as a type parameter.
