@@ -29,7 +29,7 @@ type Location struct {
 // objToNames Return the values of obj and return the field names as a flatten string slice-custom-type.
 func objToNames(obj any, names []string, tag string) []string {
 	rtyp := reflect.TypeOf(obj)
-	if rtyp.Kind() == reflect.Ptr {
+	for rtyp.Kind() == reflect.Ptr {
 		rtyp = rtyp.Elem()
 	}
 
@@ -58,7 +58,7 @@ func rtypToNames(rtyp reflect.Type, names []string, tag string) []string {
 // objToValues Return the values of obj and return the field values as a flatten string slice-custom-type.
 func objToValues(obj any, vals []string) []string {
 	rval := reflect.ValueOf(obj)
-	if rval.Kind() == reflect.Ptr {
+	for rval.Kind() == reflect.Ptr && !rval.IsNil() {
 		rval = rval.Elem()
 	}
 
