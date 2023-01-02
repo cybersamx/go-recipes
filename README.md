@@ -25,6 +25,7 @@ Here is a collection of examples:
 * [Context](context) - The `context` package.
   * [Cancel](context/cancel) - Cancel contexts.
   * [Deadline](context/deadline) - Timeout using `context.WithDeadline` function.
+  * [Timeout](context/timeout) - An example of how `context.WithTimeout()` works and be used for handling long-running operations.
 * [Cookie](cookie) - Introduction to cookies in Go.
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
 * [Enum](enum) - Implement enum in Go.
