@@ -14,26 +14,26 @@ The program takes in environment variables, command, command arguments, and pfla
    $ make
    ```
 
-2. Run the program
+1. Run the program
 
    ```bash
    $ bin/cobra
    $ # Run the program with help subcommand, we get a help screen with the short descriptor of all commands and pflags.
    $ bin/cobra help
    ```
+1. Try out different arguments.
 
-## Outputs
-
-| Command Execution                                | Output                                                                                           |
-|--------------------------------------------------|--------------------------------------------------------------------------------------------------|
-| `./cobra`                                        | Output from the root command, which calls the help command.                                      |
-| `./cobra help`                                   | Help with short descriptors of all commands and flags.                                           |
-| `./cobra run --help`                             | Help for the run subcommand. The long description will be used.                                  |
-| `./cobra run arg`                                | Output from the run command.                                                                     |
-| `./cobra run arg --format json`                  | Output from the run command, which shows flag-name `format` with a value of `json`.              |
-| `./cobra run arg -f json`                        | Output from the run command, which shows (short) flag-name `format` with a value of `json`.      |
-| `CYBER_FORMAT=csv ./cobra run arg`               | Output from the run command, which shows (env var) flag-name `format` with a value of `csv`.     |
-| `CYBER_FORMAT=csv ./cobra run arg --format json` | Output from the run command, which shows flag-name `format` with a value of `json`. pflags > env |
+   ```bash
+   $ bin/cobra -a localhost:7000 list -lr bucket/folder
+   list args: bucket/folder
+   Config: &{localhost:7000 admin password false true true}
+   $ CY_ADDR=example.com:1234 bin/cobra list -lr bucket/folder
+   list args: bucket/folder
+   Config: &{example.com:1234 admin password false true true}
+   $ CY_ADDR=example.com:1234 bin/cobra -a localhost:7000 list -lr bucket/folder
+   list args: bucket/folder
+   Config: &{localhost:7000 admin password false true true}
+   ```
 
 ## Reference and Credits
 
