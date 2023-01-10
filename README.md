@@ -102,6 +102,8 @@ Here is a collection of examples:
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
+* [TLS](tls) - TLS support in Go.
+  * [Client-MySQL](tls/client-mysql) - Connect to MySQL using TLS.
 * [URL](url) - URL in Go.
   * [Query parameters](url/query-params) - Construct query parameters with an URL object.
 * [Type check](typecheck) - Type checking at runtime.

@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  mysql:
+    build: .
+    container_name: mysql
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_USER: mysql
+      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: db
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - ./tls:/var/lib/mysql-tls
+
