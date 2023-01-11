@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .
+    container_name: postgres
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: db
+    command:
+      - postgres
+      - -c
+      - 'config_file=/etc/postgresql/postgresql.conf'
+      - -c
+      - 'hba_file=/etc/postgresql/pg_hba.conf'
+      - -c
+      - 'ident_file=/etc/postgresql/pg_ident.conf'

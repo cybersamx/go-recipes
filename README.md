@@ -103,7 +103,8 @@ Here is a collection of examples:
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
 * [TLS](tls) - TLS support in Go.
-  * [Client-MySQL](tls/client-mysql) - Connect to MySQL using TLS.
+  * [Client-MySQL](tls/client-mysql) - Connect to MySQL using TLS and generate self-signed ca/server/client certs/tls using mysql tls gen script.
+  * [Client-Postgres](tls/client-postgres) - Connect to Postgres using TLS and generate self-signed ca/server/client certs/tls using openssl.
 * [URL](url) - URL in Go.
   * [Query parameters](url/query-params) - Construct query parameters with an URL object.
 * [Type check](typecheck) - Type checking at runtime.
