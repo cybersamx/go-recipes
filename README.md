@@ -45,6 +45,7 @@ Here is a collection of examples:
 * [HTTP](http) - HTTP server.
   * [Client](http/client) - A simple HTTP client.
   * Server
+    * [CORS](http/server/cors) - How to implement cors on a web server using the gin and gorilla frameworks.
     * [Form](http/server/form) - Handles a form submission (object binding and validation) using the gin framework.
     * [JWT](http/server/jwt) - Handles a simple web form submission and a simple authentication using JWT using the `dgrijalva/jwt-go` package.
     * [Static web server](http/server/static) - Implements a simple http server serving static content.

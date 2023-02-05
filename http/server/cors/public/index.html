@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Go-Recipes</title>
+  <script type="application/javascript">
+    function fetchImage() {
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', 'http://localhost:9000/image');
+      xhr.responseType = 'document';
+      xhr.send();
+
+      xhr.onload = function() {
+        if (xhr.status === 200) {
+          document.getElementById("image").appendChild(xhr.responseXML.documentElement)
+        }
+      }
+    }
+  </script>
+</head>
+<body onload="fetchImage()">
+  <div id="image">
+  </div>
+</body>
+</html>
