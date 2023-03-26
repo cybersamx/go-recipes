@@ -11,6 +11,8 @@ Here is a collection of examples:
 * [CLI](cli) - Setting commands, arguments, and flags when building a CLI program in Go.
   * [cobra](cli/cobra) - Implement a cli program using the cobra package.
   * [viper](cli/viper) - Passing configurations to a cli program using cli arguments, environment variables, and text file.
+* [Cloud](cloud) - Connecting to public Cloud API
+  * [S3](cloud/s3) - List a S3 bucket using aws-sdk-go package.
 * [Collection](collection) - Go map, array, and slice.
   * [Array passing](collection/array-slice-passing) - An array is passed as a value to a function.
   * [Map](collection/map-basics) - Basic map operations.
