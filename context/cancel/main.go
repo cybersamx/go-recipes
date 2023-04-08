@@ -23,6 +23,7 @@ func main() {
 		cancel()
 	}()
 
+	// Spawn a few long-running goroutines.
 	for i := 0; i < 4; i++ {
 		wg.Add(1)
 		go func(ctx context.Context, n int) {

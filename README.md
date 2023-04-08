@@ -106,6 +106,7 @@ Here is a collection of examples:
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
+* [Timer](timer) - Implement a context-aware timer using goroutine/channel.
 * [TLS](tls) - TLS support in Go.
   * [Client-MySQL](tls/client-mysql) - Connect to MySQL using TLS and generate self-signed ca/server/client certs/tls using mysql tls gen script.
   * [Client-Postgres](tls/client-postgres) - Connect to Postgres using TLS and generate self-signed ca/server/client certs/tls using openssl.
