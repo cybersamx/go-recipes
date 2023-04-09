@@ -2,57 +2,45 @@ package main
 
 import (
 	"context"
-	"log"
+	"fmt"
 	"time"
 )
 
-func runTask(ctx context.Context, d time.Duration) {
-	start := time.Now()
+const (
+	ctxTimeout   = 3 * time.Second
+	taskATimeout = 2 * time.Second
+	taskBTimeout = 5 * time.Second
+)
 
-	// Timer to manage how long to simulate run the task.
-	timer := time.NewTimer(d)
-	defer timer.Stop()
+func runTask(ctx context.Context, task string, d time.Duration) {
+	now := time.Now()
+	fmt.Println("Current time:   ", now)
 
-	// This needs to be asynchronous so that we can receive the signals from the timer
-	// and context Done() concurrently.
-	go func() {
-		// Simulate a long-running operation here.
-
-		log.Printf("Task will run for %v\n", d)
-	}()
-
-	// We block and capture the first signal received. If we receive the timer signal,
-	// the simulated run finishes before the context deadline. If we receive the Done()
-	// signal, the simulated run ran over the deadline.
 	select {
-	case <-timer.C:
-		log.Printf("Task ran for %v\n", time.Since(start))
-		return
+	case <-time.After(d):
+		fmt.Println(task, "done at:   ", time.Now())
 	case <-ctx.Done():
-		log.Printf("Task ran longer than deadline or task has been canceled after %v\n", time.Since(start))
-		log.Printf("Context error is %v\n", ctx.Err())
-		return
+		fmt.Println(task, "timeout at:", time.Now())
 	}
 }
 
-func run(d time.Duration) {
-	const timeout = 2 * time.Second
-	log.Printf("Task should not run more than %v\n", timeout)
-
-	start := time.Now()
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer func() {
-		log.Printf("Cancel called after %v\n", time.Since(start))
-		cancel()
-	}()
-
-	runTask(ctx, d)
-}
-
 func main() {
-	run(time.Second)
+	fmt.Println("Context timeout in", ctxTimeout)
 
-	log.Println()
+	// Wait for the task A to finish.
+	ctxA, cancel := context.WithTimeout(context.Background(), ctxTimeout)
+	defer cancel()
 
-	run(3 * time.Second)
+	fmt.Println("Task A to run for ", taskATimeout, " - this task will complete as the task time < context timeout")
+	go runTask(ctxA, "Task A", taskATimeout)
+
+	// Wait for the task B to finish.
+	ctxB, cancel := context.WithTimeout(context.Background(), ctxTimeout)
+	defer cancel()
+
+	fmt.Println("Task B to run for ", taskBTimeout, " - this task will not complete as the task time > context timeout")
+	go runTask(ctxB, "Task B", taskBTimeout)
+
+	<-ctxA.Done()
+	<-ctxB.Done()
 }

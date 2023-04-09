@@ -27,7 +27,6 @@ Here is a collection of examples:
   * [Limit number of goroutines](concurrency/limited-goroutines) - Limit the number of concurrent goroutines that can be executed using buffered channel.
 * [Context](context) - The `context` package.
   * [Cancel](context/cancel) - Cancel contexts.
-  * [Deadline](context/deadline) - Timeout using `context.WithDeadline` function.
   * [Timeout](context/timeout) - An example of how `context.WithTimeout()` works and be used for handling long-running operations.
 * [Cookie](cookie) - Introduction to cookies in Go.
 * [Dependency injection](di) - Different ways of implementing dependency injection using the `dig` and `wire` frameworks, and without a third-party framework.
@@ -106,7 +105,8 @@ Here is a collection of examples:
 * [Time](time) - Datetime in Go.
   * [Parse](time/parse) - Parses a date string to a Go struct value.
   * [Print](time/print) - Prints a date value to different formats.
-* [Timer](timer) - Implement a context-aware timer using goroutine/channel.
+* [Timer](timer) - Go timer patterns.
+  * [Timed repetition](timer/timed-repetition) - Messages are printed every few seconds.
 * [TLS](tls) - TLS support in Go.
   * [Client-MySQL](tls/client-mysql) - Connect to MySQL using TLS and generate self-signed ca/server/client certs/tls using mysql tls gen script.
   * [Client-Postgres](tls/client-postgres) - Connect to Postgres using TLS and generate self-signed ca/server/client certs/tls using openssl.
