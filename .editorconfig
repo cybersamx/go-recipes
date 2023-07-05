@@ -1,13 +1,10 @@
 # EditorConfig helps developers define and maintain consistent
 # coding styles between different editors and IDEs
 
-# Top-most editor viper file
+# Top-most editor config file
 root = true
 
-# --- All files ---
-
-# Includes json, yaml, yml, sh.
-
+### Global ###
 [*]
 end_of_line = lf
 insert_final_newline = true
@@ -15,20 +12,24 @@ charset = utf-8
 trim_trailing_whitespace = true
 indent_style = space
 indent_size = 2
+max_line_length = 120
 
-# --- Go files ---
+### Go ###
 [*.go]
 indent_style = tab
 indent_size = 4
 
-# --- JavaScript and TypeScript files ---
-[*.{js,jsx,ts,tsx}]
-indent_size = 2
+### Python ###
+[*.py]
+indent_size = 4
 
-# --- HTML ---
-[*.{html,htm}]
-indent_size = 2
+### Markdown ###
+[*.md]
+# This prevents annoying hard-wrapping in some IDES eg. IntelliJ
+max_line_length = 0
+trim_trailing_whitespace = false
 
-# --- Others ---
+### Others ###
 [Makefile]
+tab_width = 2
 indent_style = tab
