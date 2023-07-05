@@ -51,6 +51,7 @@ Here is a collection of examples:
     * [Form](http/server/form) - Handles a form submission (object binding and validation) using the gin framework.
     * [JWT](http/server/jwt) - Handles a simple web form submission and a simple authentication using JWT using the `dgrijalva/jwt-go` package.
     * [Static web server](http/server/static) - Implements a simple http server serving static content.
+    * [Nexjs](http/server/nextjs) - Serve next.js client-side application from a Go server.
 * [I/O](io) - Input/output operations.
   * [Basic read](io/basic-read) - Different ways to read.
   * [File reader](io/file-reader) - Different ways of reading from a file: incrementally and all-at-once.
