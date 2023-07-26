@@ -94,6 +94,7 @@ Here is a collection of examples:
 * [SQL](sql) - Connecting to a relational database.
   * [Ephemeral SQL data model](sql/ephemeral-sql-data) - SQL garbage collector that removes expired records in sql database.
   * [SQL](sql/sql) - Connect to Postgres using the `database/sql` package.
+  * [SQLX and Squirrel](sql/squirrel) - Connect to postgres using sqlx and squirrel packages.
   * [SQLite](sql/sqlite) - Connect to a SQLite database.
 * [String](string) - Strings and characters in Go.
   * [Count iterate](string/count-iterate) - Count and iterate over a string by rune and byte.
