@@ -12,6 +12,9 @@ const (
 	taskBTimeout = 5 * time.Second
 )
 
+// runTask runs a "task" with 2 timers, one is timer.After() based and the other is context.WithTimeout based.
+// The function waits and listens for the signal in the select statement. Whichever timer finishes will complete
+// the function.
 func runTask(ctx context.Context, task string, d time.Duration) {
 	now := time.Now()
 	fmt.Println("Current time:   ", now)
