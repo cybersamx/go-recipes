@@ -3,14 +3,20 @@ SRC := .
 BIN := $(SRC)/bin
 GO_ENV := CGO_ENABLED=0
 
-.PHONY: run build clean
+.PHONY: install generate run build clean
 
 all: build
 
 run:
 	$(GO_ENV) go run $(SRC)
 
-build:
+install:
+	go install golang.org/x/tools/cmd/stringer@latest
+
+generate: install
+	go generate
+
+build: generate
 	$(GO_ENV) go build -o $(BIN)/$(PROJECT) $(SRC)
 
 clean:
