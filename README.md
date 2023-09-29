@@ -68,6 +68,8 @@ Here is a collection of examples:
   * [Kafka](pubsub/kafka) - A simple pubsub application using kafka.
 * [QRCode](qrcode) - QRCode examples.
   * [QRCode Reader](qrcode/reader) - QRCode reader.
+* [Patterns](patterns) - Common design patterns in Go.
+  * [Functional programming](patterns/functional) - Functional programming.
 * [Random](random) - Generating random data in Go.
 * [Redis](redis) - recipes for working with Redis using the `mediocregopher/radix` and `go-redis/redis` drivers.
   * [Counter](redis/counter) - Global atomic counter that showcases basic operations in Redis.
