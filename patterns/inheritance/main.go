@@ -2,68 +2,49 @@ package main
 
 import "fmt"
 
-type TransporterCommon struct {
-	NumWheels int
-	Mileage   int
-	TankVol   int
+type PetCommon struct {
+	Age int
 }
 
-// Transporter is a type interface. Note that in Go, interface names typically ends with 'er'.
-type Transporter interface {
-	Travel() int
+// Pet is a type interface. Note that in Go, interface names typically ends with 'er'.
+type Pet interface {
+	Say() string
 }
 
-// TransporterConstraint is a type constraint interface using as a
-// (Generic) constraint parameter.
-type TransporterConstraint interface {
-	Car | Motorcycle
+// PeterConstraint is a type constraint interface using as a (Generic) constraint parameter.
+// For future use.
+type PeterConstraint interface {
+	Dog | Cat
 }
 
-type Car struct {
-	TransporterCommon
+type Dog struct {
+	PetCommon
 }
 
-type Motorcycle struct {
-	TransporterCommon
+type Cat struct {
+	PetCommon
 }
 
-type Bicycle struct {
-	TransporterCommon
+func (tc PetCommon) Say() string {
+	return "Tsk"
 }
 
-func (tc TransporterCommon) Travel() int {
-	return tc.Mileage * tc.TankVol
+// Say method in a Dog object should override the Say method in PetCommon.
+func (d Dog) Say() string {
+	return "Bark"
 }
-
-// Travel in "subclass" Bicycle doesn't override the base class Travel method.
-
-func (b Bicycle) Travel() int {
-	return b.Mileage
-}
-
-//func TravelInTerrain[T TransporterConstraint](terrain string) int {
-//
-//}
 
 func main() {
-	vehicles := []Transporter{
-		Car{TransporterCommon{
-			Mileage:   25,
-			TankVol:   12,
-			NumWheels: 4,
+	pets := []Pet{
+		Dog{PetCommon{
+			Age: 5,
 		}},
-		Motorcycle{TransporterCommon{
-			Mileage:   40,
-			TankVol:   3,
-			NumWheels: 2,
-		}},
-		Motorcycle{TransporterCommon{
-			Mileage:   100,
-			NumWheels: 2,
+		Cat{PetCommon{
+			Age: 6,
 		}},
 	}
 
-	for _, v := range vehicles {
-		fmt.Println(v.Travel())
+	for _, v := range pets {
+		fmt.Println(v.Say())
 	}
 }
