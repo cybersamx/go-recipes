@@ -24,6 +24,8 @@ We will be using Docker to spin up a Postgres instance.
    psql (12.11)
    Type "help" for help.
 
+   db=# \l
+   db=# \dt *.*
    db=# SELECT * FROM locations;
                      id                  |         updated_at         | latitude  | longitude
    --------------------------------------+----------------------------+-----------+------------
